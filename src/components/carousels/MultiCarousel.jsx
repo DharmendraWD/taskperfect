@@ -1,0 +1,120 @@
+import React, { useState, useEffect } from 'react';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import img2 from '../../assets/img/carousels1/2.jpg';
+import img3 from '../../assets/img/carousels1/3.jpg';
+import img4 from '../../assets/img/carousels1/4.jpg';
+import img5 from '../../assets/img/carousels1/5.jpg';
+import img6 from '../../assets/img/carousels1/6.jpg';
+import { Link } from 'react-router-dom';
+import Navbar from '../Nav/Nav';
+import HeadingL from '../utilities/HeadingL';
+import Button from '../utilities/Button';
+
+const items = [
+  { id: 1, title: 'Nabil Bank stock Exchange', description: 'Lorem ipsum dolor sit amet...', image: img6 },
+  { id: 2, title: 'Hydropower share buying and', description: 'Lorem ipsum dolor sit amet...', image: img2 },
+  { id: 3, title: 'Metrocycle stock Exchange', description: 'Lorem ipsum dolor sit amet...', image: img3 },
+  { id: 4, title: 'Demo Stock Share exchange', description: 'Lorem ipsum dolor sit amet...', image: img4 },
+  { id: 5, title: 'Global Connect Bank Shares', description: 'Lorem ipsum dolor sit amet...', image: img5 },
+  { id: 6, title: 'Another stock exchange', description: 'Lorem ipsum dolor sit amet...', image: img6 },
+  { id: 7, title: 'More share trading', description: 'Lorem ipsum dolor sit amet...', image: img4 },
+  { id: 8, title: 'Investment opportunities', description: 'Lorem ipsum dolor sit amet...', image: img6 },
+];
+
+const MultiCarousel = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [itemsToShow, setItemsToShow] = useState(5);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setItemsToShow(5);
+      } else if (window.innerWidth >= 768) {
+        setItemsToShow(3);
+      } else {
+        setItemsToShow(1);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const totalItems = items.length;
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % totalItems);
+  };
+  
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + totalItems) % totalItems);
+  };
+
+  const getVisibleItems = () => {
+    const visibleItems = [];
+    for (let i = 0; i < itemsToShow; i++) {
+      visibleItems.push(items[(currentIndex + i) % totalItems]);
+    }
+    return visibleItems;
+  };
+
+  return (
+    <section className="text-white mt-[150px]">
+      <div className="container mx-auto ">
+        <div className="text-center mb-10">
+                 <HeadingL label={"We Provide"} />
+
+          <p className="mt-2 text-lg text-gray-400">
+            Explore India's leading private growth companies
+          </p>
+        </div>
+
+        <div className="relative">
+          {/* Navigation Arrows */}
+          <button
+            onClick={handlePrev}
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 p-2 rounded-full z-10  text-black hover:bg-gray-300 bg-gray-200 transition-colors duration-300"
+            aria-label="Previous slide"
+          >
+            <FaChevronLeft size={20} />
+          </button>
+
+          <button
+            onClick={handleNext}
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 p-2 rounded-full z-10  text-black hover:bg-gray-300 bg-gray-200 transition-colors duration-300"
+            aria-label="Next slide"
+          >
+            <FaChevronRight size={20} />
+          </button>
+
+          {/* Carousel Content */}
+          <div className="flex justify-center md:justify-start">
+            {getVisibleItems().map((item, index) => (
+              <div
+                key={item.id}
+                className="flex-shrink-0 p-2"
+                style={{ width: `${100 / itemsToShow}%` }}
+              >
+                <div className=" rounded-[20px] overflow-hidden ">
+                  <img src={item.image} alt={item.title} className="w-full h-40 object-cover" />
+                </div>
+                <div>
+                    <h3 className="text-base font-semibold text-gray-50">{item.title}</h3>
+                    <p className="= text-xs text-gray-400 leading-tight line-clamp-2">
+                      {item.description}
+                    </p>
+                </div>
+              </div>
+            ))}
+          </div>
+       
+      </div>
+       </div>
+<Button link="/" label="View More"></Button>
+    </section>
+
+  );
+};
+
+export default MultiCarousel;
