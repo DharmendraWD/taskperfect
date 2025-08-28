@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
-import googleIcon from '../../assets/img/Logo-google-icon-PNG.png';
+import googleIcon from '../../../assets/img/Logo-google-icon-PNG.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../../redux/slices/auth/LoginSlice';
+import { loginUser } from '../../../redux/slices/auth/LoginSlice';
 import { toast } from 'react-toastify';
-import Loading from '../utilities/loading/Loading';
+import Loading from '../../utilities/loading/Loading';
 
 const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const navigate = useNavigate();
-  const [user, setUser] = useState({ email: 'john@mail.com', password: 'changeme' });
+  const [user, setUser] = useState({ userName: '', password: '' });
 
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.login.loading);
@@ -73,15 +73,15 @@ const Login = () => {
         </div>
         <div className="mb-4">
           <label htmlFor="email" className="block text-white text-sm mb-2">
-            Email
+            Username
           </label>
           <input
-            type="email"
-            id="email"
+            type="text"
+            id="userName"
             className="w-full bg-[#1C1D1D] text-white py-3 px-4 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="eg. johnfrans@gmail.com"
-            value={user.email}
-            onChange={(e) => setUser({ ...user, email: e.target.value })}
+            value={user.userName}
+            name='userName'
+            onChange={(e) => setUser({ ...user, userName: e.target.value })}
           />
         </div>
         <div className="mb-4">
@@ -95,6 +95,7 @@ const Login = () => {
               className="w-full bg-[#1C1D1D] text-white py-3 px-4 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
               placeholder="Enter your password"
               value={user.password}
+              name='password'
               onChange={(e) => setUser({ ...user, password: e.target.value })}
             />
             <button

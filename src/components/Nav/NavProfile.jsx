@@ -49,8 +49,8 @@ function NavProfile() {
       src="https://randomuser.me/api/portraits/women/82.jpg"
       alt=""
     />
-    <button className="text-[black] lg:text-[white] md:flex hidden text-[14px] hover:text-indigo-600 items-center gap-1">
-      Dharmendra
+    <button className="text-[white]  md:flex hidden text-[14px] hover:text-indigo-600 items-center gap-1">
+     Hi, Dharmendra
       <FaChevronDown size={9} />
     </button>
   </div>
@@ -58,9 +58,9 @@ function NavProfile() {
   {/* Dropdown menu */}
   <div className="absolute top-full md:left-0 left-[-91px] width-auto  bg-[white] border border-grey-200 rounded shadow-lg opacity-0 scale-95 pointer-events-none group-hover:opacity-100 group-hover:scale-100 group-hover:pointer-events-auto transition-all duration-200 origin-top z-50">
     <p
-      className="block md:hidden text-sf14 pl-4 py-1 text-[white] hover:bg-grey-100"
+      className="block md:hidden text-[14px] px-2 py-1 text-[black] hover:bg-grey-100"
     >
-     Hi, Dharmendra
+      Dharmendra
     </p>
     
 

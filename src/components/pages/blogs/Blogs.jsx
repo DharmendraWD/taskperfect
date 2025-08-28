@@ -1,5 +1,5 @@
 import React from 'react'
-import BlogPosts from '../Hero/Homepage/BlogPosts'
+import BlogPosts from '../../Hero/Homepage/BlogPosts'
 import AllBlogPosts from './AllBlogPosts'
 
 function Blogs() {

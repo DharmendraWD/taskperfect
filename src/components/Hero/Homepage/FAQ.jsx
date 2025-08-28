@@ -53,40 +53,41 @@ const FAQ = () => {
         </p>
         <div className="space-y-4 relative">
        <img src={faqBg} alt="" className='absolute z-[-1] top-0 left-0 w-full h-full'/>
-          {faqs.map((faq) => (
-            <div
-              key={faq.id}
-              className="bg_transparent  rounded-lg cursor-pointer overflow-hidden"
-            >
-              <div
-                className="flex justify-between items-center p-4"
-                onClick={() => toggleFAQ(faq.id)}
-              >
-                <h3 className="text-lg font-medium">{faq.question}</h3>
-                <motion.span
-                  animate={openFAQ === faq.id ? { rotate: 180 } : { rotate: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {openFAQ === faq.id ? <FaChevronUp /> : <FaChevronDown />}
-                </motion.span>
-              </div>
-              <AnimatePresence>
-                {openFAQ === faq.id && (
-                  <motion.div
-                    initial="closed"
-                    animate="open"
-                    exit="closed"
-                    variants={faqVariants}
-                    transition={{ duration: 0.1, ease: 'easeInOut' }}
-                    className="p-4"
-                  >
+         {faqs.map((faq) => (
+  <motion.div
+    layout
+    key={faq.id}
+    className="bg_transparent rounded-lg cursor-pointer overflow-hidden"
+  >
+    <div
+      className="flex justify-between items-center p-4"
+      onClick={() => toggleFAQ(faq.id)}
+    >
+      <h3 className="text-lg font-medium">{faq.question}</h3>
+      <motion.span
+        animate={openFAQ === faq.id ? { rotate: 180 } : { rotate: 0 }}
+        transition={{ duration: 0.2 }}
+      >
+        {openFAQ === faq.id ? <FaChevronUp /> : <FaChevronDown />}
+      </motion.span>
+    </div>
+    <AnimatePresence initial={false}>
+      {openFAQ === faq.id && (
+        <motion.div
+          layout
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3, ease: 'easeInOut' }}
+          className="p-4"
+        >
+          <p className="text-gray-300">{faq.answer}</p>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  </motion.div>
+))}
 
-                    <p className="text-gray-300">{faq.answer}</p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          ))}
         </div>
       </div>
     </div>

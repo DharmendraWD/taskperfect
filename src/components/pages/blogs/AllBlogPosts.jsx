@@ -1,11 +1,11 @@
 // BlogPostGrid.jsx
 import React from 'react';
 import BlogPostCard from './BlogPostCard';
-import img1 from '../../assets/img/carousels1/2.jpg';
-import img2 from '../../assets/img/carousels1/3.jpg';
-import img3 from '../../assets/img/carousels1/4.jpg';
-import img4 from '../../assets/img/carousels1/5.jpg';
-import img5 from '../../assets/img/carousels1/6.jpg';
+import img1 from '../../../assets/img/carousels1/2.jpg';
+import img2 from '../../../assets/img/carousels1/3.jpg';
+import img3 from '../../../assets/img/carousels1/4.jpg';
+import img4 from '../../../assets/img/carousels1/5.jpg';
+import img5 from '../../../assets/img/carousels1/6.jpg';
 
 
 const blogPosts = [

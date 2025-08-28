@@ -70,3 +70,48 @@ padding: 0;
  .bg_transparent{
   background: rgba(255, 255, 255, 0.06);
  }
+
+
+ .animated-div {
+  transition: all 0.5s ease;
+}
+
+/* When scroll is more than 200px */
+.animated-div.blured {
+/* background-color: rgba(128, 128, 128, 0.5); */
+backdrop-filter: blur(14px);
+}
+
+/* When scroll is less than 200px */
+.animated-div.unblur {
+
+}
+/* Applies to all scrollable elements */
+.scrollbar-thin {
+  scrollbar-width: thin;              /* Firefox */
+  scrollbar-color: #8888889e transparent;  /* Firefox */
+}
+
+/* WebKit Browsers (Chrome, Safari, Edge) */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 3px;     /* Thin width */
+  height: 3px;    /* For horizontal scroll */
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: #88888898;    /* Scroll thumb color */
+  border-radius: 10px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;   /* Track background */
+}
+
+.twoLinePara {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 2;
+           line-clamp: 2; 
+   -webkit-box-orient: vertical;
+}

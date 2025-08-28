@@ -1,11 +1,11 @@
 import React from 'react';
 import { FaTwitter, FaFacebookF, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
-import mainImage from '../../assets/img/carousels1/4.jpg'; // Adjust path to your image
-import ctaImage from '../../assets/img/carousels1/2.jpg'; // Adjust path to your image
+import mainImage from '../../../assets/img/carousels1/4.jpg'; // Adjust path to your image
+import ctaImage from '../../../assets/img/carousels1/2.jpg'; // Adjust path to your image
 import Blogs from './Blogs';
-import img1 from '../../assets/img/carousels1/2.jpg';
-import img2 from '../../assets/img/carousels1/3.jpg';
-import img3 from '../../assets/img/carousels1/4.jpg';
+import img1 from '../../../assets/img/carousels1/2.jpg';
+import img2 from '../../../assets/img/carousels1/3.jpg';
+import img3 from '../../../assets/img/carousels1/4.jpg';
 import BlogPostCard from './BlogPostCard';
 
 const postData = {
@@ -102,7 +102,7 @@ const BlogPostDetail = () => {
   const CTABanner = () => (
      <div className="relative w-full h-auto flex flex-col md:flex-row min-h-[300px] overflow-hidden rounded-lg shadow-lg">
       {/* Left section with gradient background and text */}
-      <div className="relative z-10 w-full md:w-1/2 p-8 sm:p-12 flex flex-col justify-center items-center md:items-start text-center md:text-left
+      <div className="relative w-full md:w-1/2 p-8 sm:p-12 flex flex-col justify-center items-center md:items-start text-center md:text-left
                       bg-gradient-to-br from-blue-600 to-green-500 text-white">
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight mb-4">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.

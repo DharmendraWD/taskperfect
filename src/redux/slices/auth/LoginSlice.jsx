@@ -6,11 +6,12 @@ export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async (credentials, thunkAPI) => {
     try {
-      const res = await axios.post('https://api.escuelajs.co/api/v1/auth/login', credentials)
-      const token = res.data.access_token
-      console.log(token, "token received")
+      const res = await axios.post('http://www.taskperfect.somee.com/api/User/login', credentials)
+      const token = res.data.data.token;
+      // console.log(token, "token received")
+      // console.log(credentials)
 
-      if (token) {
+      if (token && token!==null && token!==undefined) {
         localStorage.setItem('token', token)
         toast.success('Logged in successfully!', {
           position: "top-right",
@@ -24,6 +25,15 @@ export const loginUser = createAsyncThunk(
         
       } else {
         localStorage.removeItem('token') // fallback
+           toast.warn('Invalid email or password', {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       }
 
       return res.data
@@ -77,9 +87,11 @@ const LoginSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false
-        state.token = action.payload.access_token
-        // state.user = action.payload.user
-        state.isAuthenticated = true
+        state.token = action.payload.data.token
+        if(state.token){
+          state.isAuthenticated = true
+
+        }
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false

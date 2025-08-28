@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { HiBars3, HiXMark } from 'react-icons/hi2'; // Import icons from Heroicons
 import Button2 from '../utilities/Button2';
 import Logo from '../../assets/img/Logo.png';
@@ -12,18 +12,35 @@ const Navbar = () => {
 
     // List of navigation items
     const navItems = [
-        { name: 'Promo Share', href: '#' },
+        { name: 'Promo Share', href: '/promoshare' },
         { name: 'Blog', href: '/blogs' },
-        { name: 'News', href: '#' },
+        { name: 'News', href: '/news' },
         { name: 'Download', href: '#' },
         { name: 'Nepse', href: '/nepse' },
+        { name: 'Protected', href: '/protected' },
+        
     ];
 
 
  const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
+
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const shouldShow = window.scrollY > 200;
+      setIsVisible(shouldShow);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+ 
     return (
-        <header className="sticky top-0 z-[9]">
-            <div className="mx-auto  h-20 flex items-center justify-between border-b border-[darkolivegreen] md:border-none">
+        <header className={`sticky top-0 z-[9] animated-div ${isVisible ? 'blured' : 'unblur'}` }>
+            <div  className={`mx-auto  h-20 flex items-center justify-between border-b border-[darkolivegreen] md:border-none`}>
                 
                 {/* Logo Section */}
                 <div className="flex-shrink-0">

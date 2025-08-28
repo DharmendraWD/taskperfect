@@ -1,28 +1,36 @@
-import './index.css'
-import { Routes, Route} from "react-router-dom";
-import HeroSection from './components/Hero/Homepage/Hero'
-import MultiCarousel from './components/carousels/MultiCarousel'
-import MultiCarousel2 from './components/carousels/MultiCarousel2'
-import FAQ from './components/Hero/Homepage/FAQ'
-import Navbar from './components/Nav/Nav'
-import BlogPosts from './components/Hero/Homepage/BlogPosts'
-import HeroImage from './components/utilities/HeroImage'
-import Login from './components/Login/Login';
-import Signup from './components/signup/Signup';
-import Footer from './components/footer/Footer';
-import Homepage from './components/Hero/Homepage/Homepage';
+import React, { Suspense, lazy } from 'react';
+const Login = lazy(() => import('./components/pages/Login/Login'));
+const HeroSection = lazy(() => import('./components/Hero/Homepage/Hero'))
+const MultiCarousel = lazy(() => import('./components/carousels/MultiCarousel'))
+const MultiCarousel2 = lazy(() => import('./components/carousels/MultiCarousel2'))
+const FAQ = lazy(() => import('./components/Hero/Homepage/FAQ'))
+const Navbar = lazy(() => import('./components/Nav/Nav'))
+const BlogPosts = lazy(() => import('./components/Hero/Homepage/BlogPosts'))
+const HeroImage = lazy(() => import('./components/utilities/HeroImage'))
+const Signup = lazy(() => import('./components/pages/signup/Signup'));
+const Footer = lazy(() => import('./components/footer/Footer'));
+const Homepage = lazy(() => import('./components/Hero/Homepage/Homepage'));
+const Card1 = lazy(() => import('./components/utilities/cards/Card1'));
+const HomepageCard = lazy(() => import('./components/Hero/Homepage/HomepageCard'));
+const TeamSupportSection = lazy(() => import('./components/Hero/Homepage/TeamSupportSection'));
+const Blogs = lazy(() => import('./components/pages/blogs/Blogs'));
+const HeadingL = lazy(() => import('./components/utilities/HeadingL'));
+const Button2 = lazy(() => import('./components/utilities/Button2'));
+const Button = lazy(() => import('./components/utilities/Button'));
+const BlogPostDetail = lazy(() => import('./components/pages/blogs/BlogPostDetail'));
+const Nepse = lazy(() => import('./components/pages/nepse/Nepse'));
+const News = lazy(() => import('./components/pages/News/News'));
+const NewsDetails = lazy(() => import('./components/pages/News/NewsDetails'));
+const PromoShare = lazy(() => import('./components/pages/promoShare/PromoShare'));
+const PromoshareDets = lazy(() => import('./components/pages/promoShare/PromoshareDets'));
+const PrivateRoutes = lazy(() => import('./redux/slices/auth/PrivateRoutes'));
+const ProctectedRoutesTest = lazy(() => import('./components/ProctectedRoutesTest'));
+
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { useSelector } from 'react-redux';
-import Card1 from './components/utilities/cards/Card1';
-import HomepageCard from './components/Hero/Homepage/HomepageCard';
-import TeamSupportSection from './components/Hero/Homepage/TeamSupportSection';
-import Blogs from './components/blogs/Blogs';
-import HeadingL from './components/utilities/HeadingL';
-import Button2 from './components/utilities/Button2';
-import Button from './components/utilities/Button';
-import BlogPostDetail from './components/blogs/BlogPostDetail';
-import Nepse from './components/nepse/Nepse';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import './index.css'
 
 function App() {
 
@@ -33,7 +41,7 @@ function App() {
       <div className='w-full relative max-w-[1440px]  mx-auto'>
          <Navbar/>
 
-
+ <Suspense fallback={<div>Loading...</div>}>
 <Routes>
  <Route path='/' element={        
     <>
@@ -70,10 +78,31 @@ function App() {
   <Route path='/login' element={<Login></Login>}></Route>
   <Route path='/signup' element={<Signup></Signup>}></Route>
   <Route path='/blogs' element={<Blogs></Blogs>}></Route>
+
+      {/* BLOG ROUTES*/}
       <Route path="/blog/:id" element={<BlogPostDetail />} />
       <Route path="/nepse" element={<Nepse />} />
-  {/*   <Route path='/about' element={<About></About>}></Route> */}
+
+      {/* NEWS  ROUTES*/}
+      <Route path="/news" element={<News />} />
+      <Route path="/news/:id" element={<NewsDetails />} />
+
+      {/* PROMO SHARE ROUTES */}
+      <Route path="/promoShare" element={<PromoShare />} />
+      <Route path="/promoShare/:name" element={<PromoshareDets />} />
+
+
+
+
+
+
+  {/* protected routes  */}
+    <Route element={<PrivateRoutes />}>
+    <Route path="/protected" element={<ProctectedRoutesTest />} />
+    {/* <Route path="/profile" element={<Profile />} />*/} 
+  </Route>
 </Routes>
+        </Suspense>
 <Footer></Footer>
       <ToastContainer />
 </div>
