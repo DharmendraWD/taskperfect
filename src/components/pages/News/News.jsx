@@ -6,7 +6,6 @@ import Para from '../../utilities/Para';
 
 function News() {
 
-// console.log(totalNewss.data)
   return (
     <div>
         <HeadingL label="Latest Lorem Lorem Lorem " />

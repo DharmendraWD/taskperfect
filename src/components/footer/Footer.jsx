@@ -5,8 +5,8 @@ import footerImg from '../../assets/img/footerbg.png';
 
 const Footer = () => {
   return (
-    <footer className="text-white mt-16 border-t-2 border-white/10 relative px-4 pb-16">
-               <img src={footerImg} alt="" className='absolute z-[-1] top-0 left-0 w-[80%] opacity-[50%] h-full'/>
+    <footer className="text-white max-w-[1440px] mt-16 border-t-2 border-white/10 px-4 pb-16  left-0 right-0 bottom-0">
+               <img src={footerImg} alt="" className='absolute z-[-1] top-0 left-0 w-[100%] opacity-[30%] h-full'/>
 
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 pl-[20px] lg:pl-[0px]">
         {/* Left Section: Logo, Text, and Social Icons */}

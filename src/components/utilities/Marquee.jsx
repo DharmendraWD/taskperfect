@@ -45,7 +45,7 @@ const MarqueeItem = ({ type, value, change, percentage, extraInfo, isUp }) => (
   </div>
 
   {/* --------- */}
-  <div className="flex-shrink-0 rounded-[20px] border border-[rgba(67,67,67,0.29)] bg-[rgba(91,94,105,0.2)] px-4 py-2 mx-2 text-white text-sm flex items-center justify-center h-16 sm:h-20 w-48 sm:w-60 md:w-64">
+  {/* <div className="flex-shrink-0 rounded-[20px] border border-[rgba(67,67,67,0.29)] bg-[rgba(91,94,105,0.2)] px-4 py-2 mx-2 text-white text-sm flex items-center justify-center h-16 sm:h-20 w-48 sm:w-60 md:w-64">
     <div className="flex flex-col items-start">
       <span className="font-bold text-base sm:text-lg mb-1">{type}</span>
       <div className="flex items-center text-xs sm:text-sm">
@@ -64,7 +64,7 @@ const MarqueeItem = ({ type, value, change, percentage, extraInfo, isUp }) => (
       </div>
       <span className="text-xs text-gray-400 mt-1">{extraInfo}</span>
     </div>
-  </div>
+  </div> */}
   </div>
   
   </>

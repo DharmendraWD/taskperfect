@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../../redux/slices/auth/LoginSlice';
 import { toast } from 'react-toastify';
 import Loading from '../../utilities/loading/Loading';
+import Card1 from '../../utilities/cards/Card1';
+import lineImage from '../../../assets/img/Line.png';
+
 
 const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -41,36 +44,17 @@ const Login = () => {
 </div>
   </>
 }
-
+    <div className='loginParentBox relative grid-cols-1 grid lg:grid-cols-2'>
       <form
-        className="mx-auto rounded-2xl border border-white/10 bg-[#0E0F0F] p-6 md:p-10 w-full max-w-md"
+        className="mx-auto rounded-2xl  p-6 md:p-10 w-full max-w-md"
         onSubmit={handleLogin}
       >
-        <h2 className="text-white text-2xl md:text-3xl font-semibold text-center mb-2">
+ <h2 className="text-white text-2xl md:text-3xl font-semibold text-center mb-2">
           Sign In Your Account
         </h2>
         <p className="text-white/60 text-sm text-center mb-6">
           Enter your login details
         </p>
-        <div className="flex space-x-3 mb-4">
-          <button className="flex items-center justify-center w-1/2 bg-[#1C1D1D] text-white py-3 rounded-lg text-sm font-medium hover:bg-gray-700 transition duration-200">
-            <img src={googleIcon} alt="Google" className="w-5 rounded-full h-5 mr-2" />
-            Google
-          </button>
-          <button className="flex items-center justify-center w-1/2 bg-[#1C1D1D] text-white py-3 rounded-lg text-sm font-medium hover:bg-gray-700 transition duration-200">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png"
-              alt="Facebook"
-              className="w-5 h-5 mr-2"
-            />
-            Facebook
-          </button>
-        </div>
-        <div className="relative flex justify-center items-center mb-4">
-          <div className="absolute left-0 w-1/2 h-[1px] bg-white/20"></div>
-          <span className="text-white/60 text-sm mx-2">Or</span>
-          <div className="absolute right-0 w-1/2 h-[1px] bg-white/20"></div>
-        </div>
         <div className="mb-4">
           <label htmlFor="email" className="block text-white text-sm mb-2">
             Username
@@ -78,9 +62,10 @@ const Login = () => {
           <input
             type="text"
             id="userName"
-            className="w-full bg-[#1C1D1D] text-white py-3 px-4 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full bg-[#222121]  text-white py-3 px-4 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={user.userName}
             name='userName'
+            placeholder='Enter your username'
             onChange={(e) => setUser({ ...user, userName: e.target.value })}
           />
         </div>
@@ -92,7 +77,7 @@ const Login = () => {
             <input
               type={passwordVisible ? 'text' : 'password'}
               id="password"
-              className="w-full bg-[#1C1D1D] text-white py-3 px-4 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
+              className="w-full bg-[#222121] text-white py-3 px-4 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
               placeholder="Enter your password"
               value={user.password}
               name='password'
@@ -120,6 +105,18 @@ const Login = () => {
           Don't have an account? <Link to="/signup" className="text-white font-medium hover:underline">Sign up</Link>
         </p>
       </form>
+
+<img src={lineImage} className='absolute left-1/2 hidden lg:block h-[600px] -translate-x-1/2 opacity-50' alt="" />
+      {/* right side part  */}
+      <div>
+<div className='grid sm:grid-cols-2  grid-cols-1 gap-4 p-10'>
+  <Card1></Card1>
+  <Card1></Card1>
+  <Card1></Card1>
+  <Card1></Card1>
+</div>
+      </div>
+    </div>
     </div>
   );
 };

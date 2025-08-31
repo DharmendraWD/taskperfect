@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from 'react';
 const Login = lazy(() => import('./components/pages/Login/Login'));
 const HeroSection = lazy(() => import('./components/Hero/Homepage/Hero'))
 const MultiCarousel = lazy(() => import('./components/carousels/MultiCarousel'))
-const MultiCarousel2 = lazy(() => import('./components/carousels/MultiCarousel2'))
+// const MultiCarousel2 = lazy(() => import('./components/carousels/MultiCarousel2'))
 const FAQ = lazy(() => import('./components/Hero/Homepage/FAQ'))
 const Navbar = lazy(() => import('./components/Nav/Nav'))
 const BlogPosts = lazy(() => import('./components/Hero/Homepage/BlogPosts'))
@@ -10,7 +10,7 @@ const HeroImage = lazy(() => import('./components/utilities/HeroImage'))
 const Signup = lazy(() => import('./components/pages/signup/Signup'));
 const Footer = lazy(() => import('./components/footer/Footer'));
 const Homepage = lazy(() => import('./components/Hero/Homepage/Homepage'));
-const Card1 = lazy(() => import('./components/utilities/cards/Card1'));
+// const Card1 = lazy(() => import('./components/utilities/cards/Card1'));
 const HomepageCard = lazy(() => import('./components/Hero/Homepage/HomepageCard'));
 const TeamSupportSection = lazy(() => import('./components/Hero/Homepage/TeamSupportSection'));
 const Blogs = lazy(() => import('./components/pages/blogs/Blogs'));
@@ -36,9 +36,14 @@ function App() {
 
   const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
 
+
+// const handBg = "linear-gradient(2deg, rgb(46 49 54) 17.55%, rgb(129 0 0 / 0%) 88.6%)";
+const handBg = "linear-gradient(2deg, #2c3139 17.55%, rgb(129 0 0 / 0%) 88.6%)";
+
+
   return (
     <>
-      <div className='w-full relative max-w-[1440px]  mx-auto'>
+      <div className='w-full relative max-w-[1440px]  mx-auto min-h-[100vh]'>
          <Navbar/>
 
  <Suspense fallback={<div>Loading...</div>}>
@@ -55,7 +60,7 @@ function App() {
         <>
           <HeroSection></HeroSection>
         <MultiCarousel></MultiCarousel>
-        <MultiCarousel2></MultiCarousel2>
+        {/* <MultiCarousel2></MultiCarousel2> */}
         <HomepageCard></HomepageCard>
         <TeamSupportSection></TeamSupportSection>
         <FAQ></FAQ>
@@ -67,7 +72,7 @@ function App() {
     <HeadingL label="Your gateway to growth" />
                  <Button2 label="Lorem ipsum"  link="/"></Button2>
 </div>
-      <HeroImage my0={"100px"}></HeroImage>
+      <HeroImage my0={"100px"} handBg={handBg}></HeroImage>
         </>
     )
   }

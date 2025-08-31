@@ -40,13 +40,13 @@ const BlogPosts = () => {
       <div className=" text-white flex-col min-h-screen  font-sans flex items-start justify-center px-[10px] lg:px-[0px]">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 w-full">
         {/* Large Card */}
-        <div className="relative group overflow-hidden rounded-lg shadow-lg md:col-span-1 lg:col-span-1">
+        <div className="relative group overflow-hidden  md:col-span-1 lg:col-span-1">
           <img
             src={blogPosts[0].image}
             alt={blogPosts[0].title}
             className="w-full h-[50%] object-cover transform transition-transform duration-500 ease-in-out group-hover:scale-105"
           />
-          <div className=" inset-0 bg-black bg-opacity-50 flex flex-col justify-end ">
+          <div className=" inset-0 flex flex-col justify-end ">
             <div className="text-gray-400 mt-2 text-lg flex justify-between mb-1">{blogPosts[0].date} <MdArrowOutward /></div>
             <h2 className="text-2xl md:text-3xl font-bold mb-2 leading-tight">{blogPosts[0].title}</h2>
             <p className="text-gray-300 text-sm md:text-base leading-relaxed">{blogPosts[0].description}</p>

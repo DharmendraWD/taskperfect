@@ -15,7 +15,7 @@ const Navbar = () => {
         { name: 'Promo Share', href: '/promoshare' },
         { name: 'Blog', href: '/blogs' },
         { name: 'News', href: '/news' },
-        { name: 'Download', href: '#' },
+        { name: 'Download', href: '/download' },
         { name: 'Nepse', href: '/nepse' },
         { name: 'Protected', href: '/protected' },
         
@@ -51,14 +51,17 @@ const Navbar = () => {
                 {/* Desktop Navigation Links (Hidden on small screens) */}
                 <nav className="hidden lg:flex space-x-8">
                     {navItems.map((item) => (
-                        <NavLink
-                            key={item.name}
-                            to={item.href}
-                            // Beautiful hover effect
-                            className="text-white text-base font-medium py-2 px-3 transition duration-300 ease-in-out hover:text-green-300 hover:scale-105 hover:underline decoration-green-300 underline-offset-4"
-                        >
-                            {item.name}
-                        </NavLink>
+                       <NavLink
+  key={item.name}
+  to={item.href}
+  className={({ isActive }) =>
+    `text-base font-medium py-2 px-3 transition duration-300 ease-in-out hover:text-green-300 hover:scale-105 hover:underline decoration-green-300 underline-offset-4 ${
+      isActive ? 'text-green-700' : 'text-white'
+    }`
+  }
+>
+  {item.name}
+</NavLink>
                     ))}
                 </nav>
 
@@ -82,7 +85,7 @@ const Navbar = () => {
 
                     {/* Mobile Menu Button (Visible on small screens) */}
                     <button
-                        className="lg:hidden text-white p-2 rounded-md hover:bg-green-800 transition"
+                        className="lg:hidden text-white p-2 rounded-md hover:bg-[#002336] transition"
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                         aria-label="Toggle navigation menu"
                     >
@@ -98,19 +101,21 @@ const Navbar = () => {
             <div
                 className={`lg:hidden transition-all duration-300 ease-in-out ${
                     isMenuOpen ? 'max-h-96 opacity-100 py-2' : 'max-h-0 opacity-0 overflow-hidden'
-                } bg-green-800`}
+                } bg-[#002366]`}
             >
                 <div className="flex flex-col space-y-1 px-2 pt-2 pb-3 sm:px-3">
                     {navItems.map((item) => (
-                        <NavLink
-                            key={item.name}
-                            to={item.href}
-                            // Mobile hover effect and full-width touch area
-                            className="text-white hover:bg-green-700 block px-3 py-2 rounded-md text-base font-medium transition duration-200"
-                            onClick={() => setIsMenuOpen(false)} // Close menu on click
-                        >
-                            {item.name}
-                        </NavLink>
+                    <NavLink
+  key={item.name}
+  to={item.href}
+  className={({ isActive }) =>
+    `text-base font-medium py-2 px-3 transition duration-300 ease-in-out hover:text-green-300 hover:scale-105 hover:underline decoration-green-300 underline-offset-4 ${
+      isActive ? 'text-green-700' : 'text-white'
+    }`
+  }
+>
+  {item.name}
+</NavLink>
                     ))}
                     {/* Mobile Login Button */}
                     {/* <Link to={'/login'}

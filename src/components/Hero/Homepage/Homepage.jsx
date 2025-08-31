@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux'
 
 function Homepage() {
   const token = localStorage.getItem('token')
-  const token2 = useSelector((state) => state);
+  // const token2 = useSelector((state) => state);
 
-  console.log(token2, "loc")
+  // console.log(token2, "loc")
   // console.log(token2, "pay")
 
   return (

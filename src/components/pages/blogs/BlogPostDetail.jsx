@@ -133,14 +133,15 @@ const BlogPostDetail = () => {
       <ContentSection />
       <CTABanner />
    
-    <div className="container mx-auto px-4 py-8 text-white">
+   {/* REKLATED BLOG  */}
+    {/* <div className="container mx-auto px-4 py-8 text-white">
       <h1 className="text-3xl font-bold mb-8">Related blog posts</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {blogPosts.map(post => (
           <BlogPostCard key={post.id} post={post} />
         ))}
       </div>
-    </div>
+    </div> */}
     </div>
   );
 };

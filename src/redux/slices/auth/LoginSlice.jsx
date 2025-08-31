@@ -8,8 +8,9 @@ export const loginUser = createAsyncThunk(
     try {
       const res = await axios.post('http://www.taskperfect.somee.com/api/User/login', credentials)
       const token = res.data.data.token;
+      const userId = res.data.data.userId;
       // console.log(token, "token received")
-      // console.log(credentials)
+      console.log(userId)
 
       if (token && token!==null && token!==undefined) {
         localStorage.setItem('token', token)

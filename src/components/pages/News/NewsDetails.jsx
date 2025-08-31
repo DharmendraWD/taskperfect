@@ -16,7 +16,7 @@ const NewsDetails = () => {
     const dispatch = useDispatch();
 const {id} = useParams();
 const newsDetail = useSelector((state)=>state.allNews.singleNews)
-const relatedNews = useSelector((state)=>state.allNews)
+// const relatedNews = useSelector((state)=>state.allNews)
 
 
 
@@ -26,11 +26,10 @@ useEffect(() => {
 dispatch(getNewsById(id))
 }, [dispatch])
 
-console.log(newsDetail)
 // showing related news 
-useEffect(() => {
-  dispatch(totalNews());
-}, [dispatch]);
+// useEffect(() => {
+//   dispatch(totalNews());
+// }, [dispatch]);
 
   return (
     <div className="text-white min-h-screen">
@@ -205,7 +204,7 @@ useEffect(() => {
           </div>
         </div>
       </div>
-      <RelatedNews totalNews={relatedNews}></RelatedNews>
+      {/* <RelatedNews totalNews={relatedNews}></RelatedNews> */}
     </div>
   );
 };

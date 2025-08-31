@@ -6,6 +6,7 @@ import Navbar from '../../Nav/Nav';
 import Para from '../../utilities/Para';
 import HeroImage from '../../utilities/HeroImage';
 const HeroSection = () => {
+  const handBg = "linear-gradient(0deg, #0a265c 17.55%, rgba(0, 0, 0, 0.00) 88.6%)";
     return (
         
         <div className='hero-section  '>
@@ -48,7 +49,7 @@ Reserve Access
 </div>
 
 {/* hand holding phonr  */}
-<HeroImage my={"10px"}></HeroImage>
+<HeroImage my={"10px"} handBg={handBg} ></HeroImage>
 </div>
     
     

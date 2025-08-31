@@ -5,7 +5,7 @@ import Para from '../Para';
  const Card1 = () => {
   return (
 
-    <div className="bg-black relative overflow-hidden rounded-xl p-6 md:p-8 lg:p-10 w-full">
+    <div className="relative rounded-[30px] border border-white/10 overflow-hidden rounded-xl p-6 md:p-8 lg:p-10 w-full">
     <img src={cardImg} alt="" className='absolute top-0 right-0 opacity-[0.84] blur-[16px]'/>
   <div className="flex items-center mb-4">
   <div className="bg-gray-800 rounded-md h-8 w-8 flex items-center justify-center">
