@@ -7,7 +7,7 @@ import { loginUser } from '../../../redux/slices/auth/LoginSlice';
 import { toast } from 'react-toastify';
 import Loading from '../../utilities/loading/Loading';
 import Card1 from '../../utilities/cards/Card1';
-import lineImage from '../../../assets/img/Line.png';
+import lineImage from '../../../assets/img/line.png';
 
 
 const Login = () => {
