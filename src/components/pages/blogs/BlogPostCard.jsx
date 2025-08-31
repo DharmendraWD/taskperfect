@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const BlogPostCard = ({ post }) => {
   return (
-    <div className="bg-[#1a1a1a] rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.02]">
+    <div className=" rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.02]">
       <div className="relative h-48 sm:h-56">
         <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black opacity-40"></div>
