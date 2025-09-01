@@ -40,7 +40,7 @@ const Navbar = () => {
  
     return (
         <header className={`sticky top-0 z-[9] animated-div ${isVisible ? 'blured' : 'unblur'}` }>
-            <div  className={`mx-auto  h-20 flex items-center justify-between border-b border-[darkolivegreen] md:border-none`}>
+            <div  className={`mx-auto  h-20 flex max-w-[1440px] items-center justify-between border-b border-[darkolivegreen] md:border-none`}>
                 
                 {/* Logo Section */}
                 <div className="flex-shrink-0">

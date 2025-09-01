@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 
 const PromoShareCard = ({title, desc, img}) => {
-    console.log(title)
+    // console.log(title)
   return (
    <Link to={`/promoshare/${title}`} state={{title, desc, img}} className='w-fit'>
  <div className="flex justify-center items-center p-4">

@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaBars, FaChevronDown, FaTimes } from 'react-icons/fa';
 import { IoLogOut } from 'react-icons/io5';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { logoutUser } from '../../redux/slices/auth/LoginSlice';
 import Loading from '../utilities/loading/Loading';
+import { useDispatch, useSelector } from 'react-redux';
 
+
+import {userProfile} from '../../redux/slices/user/Userslice'
 
 
 
@@ -28,7 +30,12 @@ function NavProfile() {
       setShowLogoutModal(false);
       };
     
+// -----------get user profiele data 
+const userData = useSelector((state) => state.user);
 
+useEffect(() => {
+  dispatch(userProfile());
+}, []);
 
   return (
     <div className='relative'>
@@ -50,17 +57,17 @@ function NavProfile() {
       alt=""
     />
     <button className="text-[white]  md:flex hidden text-[14px] hover:text-indigo-600 items-center gap-1">
-     Hi, Dharmendra
+     Hi, {userData?.user?.firstName || ''}
       <FaChevronDown size={9} />
     </button>
   </div>
 
-  {/* Dropdown menu */}
-  <div className="absolute top-full md:left-0 left-[-91px] width-auto  bg-[white] border border-grey-200 rounded shadow-lg opacity-0 scale-95 pointer-events-none group-hover:opacity-100 group-hover:scale-100 group-hover:pointer-events-auto transition-all duration-200 origin-top z-50">
+  {/* Dropdown menu mobile */}
+  <div className="absolute hidden md:block top-full md:left-[-20px] left-[-20px] w-[ -webkit-fill-available ] bg-[white] border border-grey-200 rounded shadow-lg opacity-0 scale-95 pointer-events-none group-hover:opacity-100 group-hover:scale-100 group-hover:pointer-events-auto transition-all duration-200 origin-top z-50">
     <p
       className="block md:hidden text-[14px] px-2 py-1 text-[black] hover:bg-grey-100"
     >
-      Dharmendra
+     {userData?.user?.firstName || ''}
     </p>
     
 

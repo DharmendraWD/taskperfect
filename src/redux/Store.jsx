@@ -4,8 +4,8 @@ import productReducer from './slices/ProductsSlice'
 import loginReducer from './slices/auth/LoginSlice'
 
 import  totalNews from "./slices/news/NewsSlice";
-
 import promoshareReducer from './slices/promoShare/PromoshareSlice'
+import userReducer from './slices/user/Userslice'
 
 
 const store = configureStore({
@@ -14,7 +14,8 @@ const store = configureStore({
         // products: productReducer,
         login: loginReducer,
         allNews: totalNews,
-        promoshare: promoshareReducer
+        promoshare: promoshareReducer,
+        user: userReducer
     }
 })
 

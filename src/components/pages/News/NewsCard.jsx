@@ -25,7 +25,11 @@ for (let i = 1; i <= Math.ceil(totalNewss.data?.length / newsPerPage); i++) {
   pages.push(i);
 }
 
-console.log(pages)
+// console.log(pages)
+
+if(totalNewss.loading){
+  return <div className='text-white min-h-screen flex justify-center items-center text-2xl'>Loading...</div>
+}
 
   return (
     <>

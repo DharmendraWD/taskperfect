@@ -2,6 +2,7 @@ import React from 'react'
 import PromoShareCard from './PromoShareCard'
 import { useDispatch, useSelector } from 'react-redux';
 import { totalPromoshare } from '../../../redux/slices/promoShare/PromoshareSlice';
+import { all } from 'axios';
 
 function PromoShare() {
     const dispatch = useDispatch();
@@ -11,6 +12,12 @@ function PromoShare() {
         dispatch(totalPromoshare());
       }, [dispatch]);
 
+
+      console.log(allPromoshare)
+
+      if(allPromoshare.loading){
+        return <div className='text-white min-h-screen flex justify-center items-center text-2xl'>Loading...</div>
+      }
 
   return (
     <div>
@@ -23,7 +30,7 @@ function PromoShare() {
     <div className="grid grid-cols-1 justify-self-center md:grid-cols-2 lg:grid-cols-3 gap-6">
 
         {
-            allPromoshare.data.map((promoshare, index) => (
+            allPromoshare?.data.map((promoshare, index) => (
                 <PromoShareCard title = {promoshare.title} desc={promoshare.description} img={promoshare.thumbnail} key={index}/>
             ))
         }

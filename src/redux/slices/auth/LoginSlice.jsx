@@ -10,10 +10,11 @@ export const loginUser = createAsyncThunk(
       const token = res.data.data.token;
       const userId = res.data.data.userId;
       // console.log(token, "token received")
-      console.log(userId)
+      // console.log(userId)
 
       if (token && token!==null && token!==undefined) {
         localStorage.setItem('token', token)
+        localStorage.setItem('userId', userId)
         toast.success('Logged in successfully!', {
           position: "top-right",
           autoClose: 1000,
@@ -74,6 +75,7 @@ const LoginSlice = createSlice({
   name: 'auth',
   initialState: {
     // user: null,
+    userId: localStorage.getItem('userId') || null,
     token: localStorage.getItem('token') || null,
     isAuthenticated: !!localStorage.getItem('token'),
     loading: false,
@@ -91,7 +93,7 @@ const LoginSlice = createSlice({
         state.token = action.payload.data.token
         if(state.token){
           state.isAuthenticated = true
-
+          state.userId = action.payload.data.userId
         }
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -101,7 +103,7 @@ const LoginSlice = createSlice({
       })
       .addCase(logoutUser.fulfilled, (state) => {
         state.token = null
-        // state.user = null
+       state.userId = null
         state.isAuthenticated = false
       })
   }
