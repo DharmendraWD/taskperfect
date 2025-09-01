@@ -1,12 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+export const BASE_API_URL = import.meta.env.VITE_API_BASE_URL;
+
 
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async (credentials, thunkAPI) => {
     try {
-      const res = await axios.post('http://www.taskperfect.somee.com/api/User/login', credentials)
+      const res = await axios.post(`${BASE_API_URL}/User/login`, credentials)
       const token = res.data.data.token;
       const userId = res.data.data.userId;
       // console.log(token, "token received")
