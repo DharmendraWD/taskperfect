@@ -34,10 +34,10 @@ const blogPosts = [
 const BlogPosts = () => {
   return (
  <>
-    <div>
+    <div className='py-[80px]'>
       <HeadingL label="Market and Insights Concepts" />
       <Para label="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod." />
-      <div className=" text-white flex-col min-h-screen  font-sans flex items-start justify-center px-[10px] lg:px-[0px]">
+      <div className=" text-white flex-col  font-sans flex items-start justify-center px-[10px] lg:px-[0px]">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 w-full">
         {/* Large Card */}
         <div className="relative group overflow-hidden  md:col-span-1 lg:col-span-1">

@@ -5,7 +5,7 @@ import Para from '../../utilities/Para'
 
 function HomepageCard() {
   return (
-     <div className="py-10">
+     <div className="py-[120px]">
       <HeadingL label="Low ticket size" />
     <Para label="Optimize business processes and streamline operations to significantly minimize costs and maximize overall efficiency." /> 
   <div className="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
