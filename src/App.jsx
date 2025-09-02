@@ -46,7 +46,8 @@ const handBg = "linear-gradient(2deg, #2c3139 17.55%, rgb(129 0 0 / 0%) 88.6%)";
          <Navbar/>
       <div className='w-full relative max-w-[1440px]  mx-auto min-h-[100vh]'>
 
- <Suspense fallback={<div>Loading...</div>}>
+ <Suspense fallback={  <div className='text-white min-h-screen flex justify-center items-center text-2xl'>Loading...</div>
+}>
 <Routes>
  <Route path='/' element={        
     <>
