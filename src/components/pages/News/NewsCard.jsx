@@ -8,6 +8,10 @@ import noImage from '../../../assets/img/noImage.png';
 
 
 const NewsCard = () => {
+  const handleImageError = (e) => {
+  e.target.src = noImage;
+  e.target.onerror = null; // Prevent infinite loop if fallback also fails
+};
   const dispatch = useDispatch();
   const totalNewss = useSelector((state) => state.allNews);
 
@@ -52,6 +56,9 @@ const NewsCard = () => {
       }
     }
 
+
+
+
     return pageNumbers.map((number, index) =>
       number === '...' ? (
         <span key={index} className="px-2 text-gray-400">...</span>
@@ -88,8 +95,9 @@ const NewsCard = () => {
                 <div className="relative">
                   <img
                     className="max-w-[250px] sm:h-[auto] sm:w-[250px] w-[200px] h-[151px] object-contain mx-auto sm:object-cover"
-                    src={news.image1 ? `${BASE_WEB_URL}/UploadedImages/News/${news.image1}` : noImage}
+                    src={news.image1 ? `${BASE_WEB_URL}/UploadedImages/News/${news?.image1}` : noImage}
                     alt="News Image Here"
+                     onError={handleImageError}
                   />
                 </div>
                 <div className="p-4">

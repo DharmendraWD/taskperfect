@@ -1,10 +1,10 @@
 import React from 'react'
-import { getNewsById } from '../../../redux/slices/news/NewsSlice'
+import { getNewsById, news } from '../../../redux/slices/news/NewsSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import img from '../../../assets/img/Rectangle14.png'
-export const BASE_WEB_URL = import.meta.env.VITE_WEB_BASE_URL;
+export const BASE_WEB_URL = import.meta.env.VITE_WEB_BASE_URL || 'http://www.taskperfect.somee.com';
 
 
 const NewsDetails = () => {
@@ -21,6 +21,10 @@ useEffect(() => {
 dispatch(getNewsById(id))
 }, [dispatch])
 // console.log(newsDetail)
+
+if(newsDetail?.loading){
+  return <div className='text-white min-h-screen flex justify-center items-center text-2xl'>Loading...</div>
+}
 
   return (
     <div className="text-white min-h-screen">
@@ -48,7 +52,7 @@ dispatch(getNewsById(id))
               <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                 <path
                   fillRule="evenodd"
-                  d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 5a2 2 0 00-2 2v6a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2H4zm6 9a1 1 0 100-2 1 1 0 000 2z"
+                  d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 5a2 2 0 00-2 2v6a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1V5a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H4z"
                   clipRule="evenodd"
                 ></path>
               </svg>
@@ -68,6 +72,7 @@ dispatch(getNewsById(id))
 
           {/* first img and title */}
           <div className="mb-8">
+            
             <img
               src={`${BASE_WEB_URL}${newsDetail?.data?.images?.[0]?.imageUrl}`} // Placeholder for your image
               alt="first image here"
@@ -192,3 +197,4 @@ dispatch(getNewsById(id))
 };
 
 export default NewsDetails;
+

@@ -20,7 +20,7 @@ export const getBlogById = createAsyncThunk(
   "getNewsById",
   async (id, thunkAPI) => {
     try {
-      const res = await axios.get(`${BASE_API_URL}/Blog/GetBlogById/${id}`);
+      const res = await axios.get(`${BASE_API_URL}/Blog/GetBlogById/${id.toString()}`);
       console.log(res.data)
       return res.data; // return just the response data
     } catch (error) {

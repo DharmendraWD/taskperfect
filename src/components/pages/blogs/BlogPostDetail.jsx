@@ -49,24 +49,28 @@ const BlogPostDetail = () => {
   const dispatch = useDispatch();
   const {id} = useParams();
   const blog = useSelector(state => state.blog.singleBlog);
+  const blogStatus = useSelector(state => state.blog);
   React.useEffect(() => {
     dispatch(getBlogById(id));
   }, [dispatch, id]);
 
-if (!blog) {
+if (blog?.loading){  
   return  <div className='text-white min-h-screen flex justify-center items-center text-2xl'>Loading...</div>
 
 }
-console.log(blog)
+console.log(blogStatus)
 
+if(blogStatus.error){
+  return <div className='text-red-300 min-h-screen flex justify-center items-center text-2xl'>{blogStatus?.error}</div>
+}
   const HeroSection = () => (
     <div className=" pt-12 pb-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto text-center">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-6">
-          {blog.data.blogTitle}
+          {blog?.data?.blogTitle}
         </h1>
         <div className="flex flex-col sm:flex-row justify-center items-center text-gray-400 text-sm mb-8 space-y-2 sm:space-y-0 sm:space-x-8">
-          <span>{blog.data.createdDate}</span>
+          <span>{blog?.data?.createdDate}</span>
           <div className="flex space-x-4">
             <a href="#" className="hover:text-white transition-colors"><FaTwitter /></a>
             <a href="#" className="hover:text-white transition-colors"><FaFacebookF /></a>
@@ -77,7 +81,7 @@ console.log(blog)
         </div>
       </div>
       <div className="max-w-5xl mx-auto mt-8 relative h-64 sm:h-80 md:h-96 rounded-lg overflow-hidden shadow-xl">
-        <img src={blog.data.images[0] ? blog.data.image1 : noImage} alt="Blog Post Hero" className="w-full h-full object-cover" />
+        <img src={blog?.data?.images?.[0] ? blog?.data?.image1 : noImage} alt="Blog Post Hero" className="w-full h-full object-cover" />
         <div className="absolute inset-0 "></div>
       </div>
     </div>
@@ -85,9 +89,9 @@ console.log(blog)
 
   const ContentSection = () => (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h2 className="text-2xl sm:text-3xl font-bold mb-6">{blog.data.image1Titile}</h2>
+      <h2 className="text-2xl sm:text-3xl font-bold mb-6">{blog?.data?.image1Titile}</h2>
       <p className="text-gray-300 mb-6 leading-relaxed">
-        {blog.data.blogDesc}
+        {blog?.data?.blogDesc}
       </p>
  
 
@@ -95,9 +99,9 @@ console.log(blog)
         "{postData.content.quote}"
       </blockquote>
 
-      <h2 className="text-2xl sm:text-3xl font-bold mb-6">{blog.data.image2Title}</h2>
+      <h2 className="text-2xl sm:text-3xl font-bold mb-6">{blog?.data?.image2Title}</h2>
       <p className="text-gray-300 mb-6 leading-relaxed">
-        {blog.data.blogDesc}
+        {blog?.data?.blogDesc}
       </p>
     </div>
   );
