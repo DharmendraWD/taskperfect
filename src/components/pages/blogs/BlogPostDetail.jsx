@@ -7,6 +7,11 @@ import img1 from '../../../assets/img/carousels1/2.jpg';
 import img2 from '../../../assets/img/carousels1/3.jpg';
 import img3 from '../../../assets/img/carousels1/4.jpg';
 import BlogPostCard from './BlogPostCard';
+import noImage from "../../../assets/img/noImage.png"
+
+import {getBlogById} from "../../../redux/slices/blogs/BlogsSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {useParams} from "react-router-dom";
 
 const postData = {
   title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -41,26 +46,38 @@ const blogPosts = [
 ];
 
 const BlogPostDetail = () => {
+  const dispatch = useDispatch();
+  const {id} = useParams();
+  const blog = useSelector(state => state.blog.singleBlog);
+  React.useEffect(() => {
+    dispatch(getBlogById(id));
+  }, [dispatch, id]);
+
+if (!blog) {
+  return  <div className='text-white min-h-screen flex justify-center items-center text-2xl'>Loading...</div>
+
+}
+console.log(blog)
 
   const HeroSection = () => (
     <div className=" pt-12 pb-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto text-center">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-6">
-          {postData.title}
+          {blog.data.blogTitle}
         </h1>
         <div className="flex flex-col sm:flex-row justify-center items-center text-gray-400 text-sm mb-8 space-y-2 sm:space-y-0 sm:space-x-8">
-          <span>{postData.date}</span>
+          <span>{blog.data.createdDate}</span>
           <div className="flex space-x-4">
             <a href="#" className="hover:text-white transition-colors"><FaTwitter /></a>
             <a href="#" className="hover:text-white transition-colors"><FaFacebookF /></a>
             <a href="#" className="hover:text-white transition-colors"><FaLinkedinIn /></a>
             <a href="#" className="hover:text-white transition-colors"><FaInstagram /></a>
           </div>
-          <span>{postData.readTime}</span>
+          <span>{"2 mins read"}</span>
         </div>
       </div>
       <div className="max-w-5xl mx-auto mt-8 relative h-64 sm:h-80 md:h-96 rounded-lg overflow-hidden shadow-xl">
-        <img src={postData.mainImageUrl} alt="Blog Post Hero" className="w-full h-full object-cover" />
+        <img src={blog.data.images[0] ? blog.data.image1 : noImage} alt="Blog Post Hero" className="w-full h-full object-cover" />
         <div className="absolute inset-0 "></div>
       </div>
     </div>
@@ -68,33 +85,19 @@ const BlogPostDetail = () => {
 
   const ContentSection = () => (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h2 className="text-2xl sm:text-3xl font-bold mb-6">Lorem ipsum dolor sit amet, consectetur</h2>
+      <h2 className="text-2xl sm:text-3xl font-bold mb-6">{blog.data.image1Titile}</h2>
       <p className="text-gray-300 mb-6 leading-relaxed">
-        {postData.content.intro}
+        {blog.data.blogDesc}
       </p>
-      <p className="text-gray-300 mb-6 leading-relaxed">
-        {postData.content.paragraph1}
-      </p>
-      <p className="text-gray-300 mb-8 leading-relaxed">
-        {postData.content.paragraph2}
-      </p>
+ 
 
       <blockquote className="border-l-4 border-green-500 pl-4 py-2 mb-8 italic text-gray-200">
         "{postData.content.quote}"
       </blockquote>
 
-      <h2 className="text-2xl sm:text-3xl font-bold mb-6">{postData.content.subheading}</h2>
+      <h2 className="text-2xl sm:text-3xl font-bold mb-6">{blog.data.image2Title}</h2>
       <p className="text-gray-300 mb-6 leading-relaxed">
-        {postData.content.subParagraph1}
-      </p>
-      <p className="text-gray-300 mb-6 leading-relaxed">
-        {postData.content.subParagraph2}
-      </p>
-      <p className="text-gray-300 mb-6 leading-relaxed">
-        {postData.content.subParagraph3}
-      </p>
-      <p className="text-gray-300 mb-6 leading-relaxed">
-        {postData.content.subParagraph4}
+        {blog.data.blogDesc}
       </p>
     </div>
   );
