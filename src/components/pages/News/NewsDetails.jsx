@@ -4,12 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import img from '../../../assets/img/Rectangle14.png'
-import RelatedNews from './RelatedNews'
-
-import { totalNews } from '../../../redux/slices/news/NewsSlice'
-
-
-
+export const BASE_WEB_URL = import.meta.env.VITE_WEB_BASE_URL;
 
 
 const NewsDetails = () => {
@@ -25,11 +20,7 @@ const newsDetail = useSelector((state)=>state.allNews.singleNews)
 useEffect(() => {
 dispatch(getNewsById(id))
 }, [dispatch])
-
-// showing related news 
-// useEffect(() => {
-//   dispatch(totalNews());
-// }, [dispatch]);
+// console.log(newsDetail)
 
   return (
     <div className="text-white min-h-screen">
@@ -38,7 +29,7 @@ dispatch(getNewsById(id))
         <div className="flex-grow lg:w-2/3">
           {/* Article Title */}
           <h1 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">
-      {newsDetail?.title}
+      {newsDetail?.data?.title}
           </h1>
 
           {/* Article Meta */}
@@ -51,7 +42,7 @@ dispatch(getNewsById(id))
                   clipRule="evenodd"
                 ></path>
               </svg>
-              October 25, 2024
+              {newsDetail?.data?.createdDate}
             </span>
             <span className="flex items-center mr-4">
               <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
@@ -61,7 +52,7 @@ dispatch(getNewsById(id))
                   clipRule="evenodd"
                 ></path>
               </svg>
-              Reuters
+              [{newsDetail?.data?.createdBy}]
             </span>
             <span className="flex items-center">
               <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
@@ -75,37 +66,28 @@ dispatch(getNewsById(id))
             </span>
           </div>
 
-          {/* Stock Chart Image */}
+          {/* first img and title */}
           <div className="mb-8">
             <img
-              src={newsDetail?.images[0]} // Placeholder for your image
-              alt="Stock Market Chart"
+              src={`${BASE_WEB_URL}${newsDetail?.data?.images?.[0]?.imageUrl}`} // Placeholder for your image
+              alt="first image here"
               className="w-full h-auto rounded-lg"
             />
+            <p className='space-y-6 py-2 text-gray-300 text-lg leading-relaxed semibold'> {newsDetail?.data?.image1Title}</p>
           </div>
 
-          {/* Article Content */}
-          <div className="space-y-6 text-gray-300 text-lg leading-relaxed">
-            <p>
-              {newsDetail?.description}
-            </p>
 
+{/* second image and title and desc  */}
+          <div className="space-y-6 text-gray-300 text-lg leading-relaxed">
             {/* Limited-time offer banner */}
             <div className="">
-     <img src={img} alt="" />
+     <img src={`${BASE_WEB_URL}${newsDetail?.data?.images?.[1]?.imageUrl}`} alt="second image here" />
+            <p className='space-y-6 py-2 text-gray-300 text-lg leading-relaxed semibold'> {newsDetail?.data?.image2Title}</p>
+
             </div>
 
             <p>
-              विश्लेषकहरूका अनुसार, बजारमा आएको यो सुधार छोटो अवधिको उतारचढाव नभई आगामी केही दिनसम्मै लिफ्ट
-              रहने सम्भावना देखिएको छ। तर, लगानीकर्तालाई अझै पनि जोखिम व्यवस्थापन र दीर्घकालीन रणनीतित अपनाउन
-              सुझाव दिइएको छ। बजार विशेषज्ञहरूका अनुसार, मौद्रिक नीतिप्रति लगानीकर्तामा आशा र आगामी
-              निर्णयमा सूचीबद्ध कम्पनीहरूको साझा वृद्धि हुने अपेक्षाले बजारमा सकारात्मक प्रभाव पारिरहेको छ।
-              तर, उनीहरूले दीर्घकालीन लगानी रणनीति र जोखिम व्यवस्थापनमा ध्यान दिनुपर्ने सुझाव पनि दिएका छन्।
-            </p>
-            <p>
-              दैनिक कारोबार रकम ३ अर्ब रुपैयाँभन्दा माथि पुगेको छ, जसमा विशेषगरी बैंकिङ जलविद्युत र लघुवित्त
-              सेयरहरूले उल्लेखनीय योगदान दिएका छन्। लगानीकर्ताले मनोबल बढाउने बजारमा निरन्तर सुधार देखिएको छ।
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit iure, quis mollitia sed exercitationem porro eligendi totam esse provident aperiam expedita tenetur, quae odit! Quibusdam officia eos a, possimus non exercitationem doloremque facere, rem provident, sapiente perspiciatis quos enim beatae alias accusamus illum similique impedit nam aperiam hic fuga? Eius pariatur voluptatum quos perspiciatis natus necessitatibus nesciunt hic nobis quibusdam dolore. In illo reprehenderit odio enim officia quod sed natus? Amet, ea sit necessitatibus ab repellendus unde quae possimus enim soluta animi recusandae numquam exercitationem perferendis similique rerum esse odit quia quod asperiores distinctio doloremque ratione perspiciatis. Voluptates ab dignissimos dolore nobis reiciendis repellendus deleniti fuga aliquam omnis rerum? Ad vero voluptatum consequuntur quibusdam. Quod facilis amet asperiores quaerat dicta magni. Animi, itaque ut, ipsam quia necessitatibus ab impedit dolor quaerat nisi magni dolorum accusantium libero unde blanditiis, praesentium corrupti corporis molestias. Ex quis sapiente temporibus corrupti sequi modi esse minima cum ratione soluta illo facilis iste repudiandae consectetur nemo molestiae asperiores, ab eos. Maxime eius iure ea blanditiis perferendis, ipsam neque, est vero magnam laudantium eligendi impedit. Ipsum aliquid saepe maiores cupiditate alias dolor adipisci perferendis iusto eos, laudantium animi accusantium consequuntur molestias voluptas molestiae quisquam eum nobis in voluptatum sit? Doloribus veniam aperiam quisquam vitae magni nihil dicta, sunt corrupti quod neque repellendus maiores perferendis tenetur a, esse doloremque ea et molestiae praesentium! Rem vitae voluptas blanditiis iure dolores doloremque! Porro cumque esse sint tempora dignissimos, quos animi culpa deserunt quam molestiae dicta! Quam vel voluptatibus facilis nisi, eum amet a pariatur provident veniam et quis quibusdam temporibus porro dolor facere quisquam ex. Illum incidunt temporibus eaque alias sequi omnis recusandae voluptate, quibusdam enim dolore assumenda est animi vero, nam sapiente molestias qui aliquid tenetur molestiae laudantium asperiores ipsum ullam vel. Ratione exercitationem vero enim nihil explicabo iure?
+            {newsDetail?.data?.description}
             </p>
           </div>
         </div>

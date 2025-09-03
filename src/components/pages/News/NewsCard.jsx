@@ -1,135 +1,133 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux'
-import { totalNews } from '../../../redux/slices/news/NewsSlice'
+import { useDispatch, useSelector } from 'react-redux';
+import { news } from '../../../redux/slices/news/NewsSlice';
+// http://www.taskperfect.somee.com/UploadedImages/News/Screenshot__3_.png
+export const BASE_WEB_URL = import.meta.env.VITE_WEB_BASE_URL;
+import noImage from '../../../assets/img/noImage.png';
+
 
 const NewsCard = () => {
-const dispatch = useDispatch();
-const totalNewss = useSelector((state)=>state.allNews)
+  const dispatch = useDispatch();
+  const totalNewss = useSelector((state) => state.allNews);
 
-useEffect(() => {
-    dispatch(totalNews());
-}, [dispatch]);
+  const [currentPage, setCurrentPage] = useState(1);
 
+  const totalPages = totalNewss?.news?.data?.totalPages || 1;
+  const items = totalNewss?.news?.data?.items || [];
 
-const [currentPage, setcurrentPage] = useState(1);
-const [newsPerPage, setnewsPerPage] = useState(9)
-const lastPOstIndex = currentPage * newsPerPage;
-const firstPOstIndex = lastPOstIndex - newsPerPage;
-const currentNews = totalNewss.data?.slice(firstPOstIndex, lastPOstIndex);
+  useEffect(() => {
+    dispatch(news(currentPage));
+  }, [dispatch, currentPage]);
 
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+      window.scrollTo({ top: 0, behavior: 'smooth' }); // Optional scroll
+    }
+  };
 
-// pagination 
-const pages = [];
-for (let i = 1; i <= Math.ceil(totalNewss.data?.length / newsPerPage); i++) {
-  pages.push(i);
-}
+  const renderPageNumbers = () => {
+    const pageNumbers = [];
 
-// console.log(pages)
+    if (totalPages <= 5) {
+      for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push(i);
+      }
+    } else {
+      if (currentPage <= 2) {
+        pageNumbers.push(1, 2, '...', totalPages);
+      } else if (currentPage >= totalPages - 1) {
+        pageNumbers.push(1, '...', totalPages - 1, totalPages);
+      } else {
+        pageNumbers.push(
+          1,
+          '...',
+          currentPage - 1,
+          currentPage,
+          currentPage + 1,
+          '...',
+          totalPages
+        );
+      }
+    }
 
-if(totalNewss.loading){
-  return <div className='text-white min-h-screen flex justify-center items-center text-2xl'>Loading...</div>
-}
+    return pageNumbers.map((number, index) =>
+      number === '...' ? (
+        <span key={index} className="px-2 text-gray-400">...</span>
+      ) : (
+        <button
+          key={index}
+          onClick={() => handlePageChange(number)}
+          className={`w-8 h-8 mx-1 flex items-center justify-center rounded ${
+            currentPage === number
+              ? 'bg-white text-black font-bold'
+              : 'text-white hover:bg-gray-600'
+          }`}
+        >
+          {number}
+        </button>
+      )
+    );
+  };
 
+  if (totalNewss.loading) {
+    return (
+      <div className="text-white min-h-screen flex justify-center items-center text-2xl">
+        Loading...
+      </div>
+    );
+  }
   return (
     <>
-    <div className="grid grid-cols-1 justify-self-center md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {currentNews.map((news) => (
-        <Link
-        className='w-fit'
-          key={news.id}
-          to={`/news/${news.id}`}
-          state={news}
-        >
-          <div className="border border-[#374151] rounded-[30px] w-fit  px-[20px] py-[30px]">
-            <div className="max-w-[250px] sm:max-w-sm rounded-lg overflow-hidden  text-white">
-              <div className="relative">
-                <img
-                  className="max-w-[250px] sm:h-[auto] sm:w-[250px] w-[200px] h-[151px] object-contain mx-auto sm:object-cover"
-                  src={news.thumbnail}
-                  alt="Stock graph"
-                />
-              </div>
-              <div className="p-4">
-                <div className="font-bold twoLinePara text-xl mb-2 text-white">
-                  {news.title}
+      <div className="grid grid-cols-1 justify-self-center md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {items.map((news) => (
+          <Link className='w-fit' key={news.id} to={`/news/${news.id}`} state={news}>
+            <div className="border border-[#374151] rounded-[30px] w-fit  px-[20px] py-[30px]">
+              <div className="max-w-[250px] sm:max-w-sm rounded-lg overflow-hidden  text-white">
+                <div className="relative">
+                  <img
+                    className="max-w-[250px] sm:h-[auto] sm:w-[250px] w-[200px] h-[151px] object-contain mx-auto sm:object-cover"
+                    src={news.image1 ? `${BASE_WEB_URL}/UploadedImages/News/${news.image1}` : noImage}
+                    alt="News Image Here"
+                  />
                 </div>
-                <p className="text-gray-400 twoLinePara font-semibold text-base">
-                  {news.description}
-                </p>
+                <div className="p-4">
+                  <div className="font-bold twoLinePara text-xl mb-2 text-white">
+                    {news.title}
+                  </div>
+                  <p className="text-gray-400 twoLinePara font-semibold text-base">
+                    {news.description}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        </Link>
-      ))}
-
-      
-    </div>
-     <div className="flex justify-between items-center text-white p-4 font-sans text-lg">
-      <button className="flex items-center text-gray-500 hover:text-white transition-colors duration-200">
-        <svg
-          className="w-5 h-5 mr-2"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M10 19l-7-7m0 0l7-7m-7 7h18"
-          />
-        </svg>
-        Previous
-      </button>
-
-      <div className="flex items-center space-x-2">
-        {/* <div className="w-10 h-10 bg-white rounded-lg shadow-lg flex justify-center items-center transform -rotate-1 text-black font-bold">
-          1
-        </div> */}
- {
-  pages.map((page) => (
-    <Link to={`/news/page/${page}`} className="w-10 h-10 flex justify-center items-center text-gray-500 hover:text-white transition-colors duration-200">
-      {page}
-    </Link>
-  ))
- }
-        <div className="w-10 h-10 flex justify-center items-center text-gray-500">
-          ...
-        </div>
-        <div className="w-10 h-10 flex justify-center items-center text-gray-500 hover:text-white transition-colors duration-200">
-          8
-        </div>
-        <div className="w-10 h-10 flex justify-center items-center text-gray-500 hover:text-white transition-colors duration-200">
-          9
-        </div>
-        <div className="w-10 h-10 flex justify-center items-center text-gray-500 hover:text-white transition-colors duration-200">
-          10
-        </div>
+          </Link>
+        ))}
       </div>
 
-      <button className="flex items-center text-gray-500 hover:text-white transition-colors duration-200">
-        Next
-        <svg
-          className="w-5 h-5 ml-2"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
+      {/* Pagination Controls */}
+      <div className="mt-10 flex justify-center items-center space-x-1 text-white">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="px-3 py-1 text-white disabled:opacity-50"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M14 5l7 7m0 0l-7 7m7-7H3"
-          />
-        </svg>
-      </button>
-    </div>
+          Prev
+        </button>
+
+        {renderPageNumbers()}
+
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="px-3 py-1 text-white disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
     </>
   );
 };
 
 export default NewsCard;
-

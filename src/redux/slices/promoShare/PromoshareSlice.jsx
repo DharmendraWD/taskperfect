@@ -13,6 +13,20 @@ export const totalPromoshare = createAsyncThunk("totalPromoshare", async ({ limi
 })
 
 
+// get particular promoshare page detailes 
+// export const getPromoshareById = createAsyncThunk(
+//   "getPromoshareById",
+//   async (id, thunkAPI) => {
+//     try {
+//       const res = await axios.get(`${BASE_API_URL}/Blog/GetBlogById/${id}`);
+//       console.log(res.data)
+//       return res.data; // return just the response data
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error.message);
+//     }
+//   }
+// );
+
 
 // slice 
 export const promoshareStatus = createSlice({
