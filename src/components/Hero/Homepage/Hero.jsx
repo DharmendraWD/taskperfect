@@ -1,18 +1,27 @@
-import React from 'react';
-import phoneHand from '../../../assets/img/3bd5a701a18ad4156d9aba1d7faab1a05ff758c1.png'; 
-import { FaUsers } from 'react-icons/fa'; // Example user icon
+import React, { use, useEffect } from 'react';
 import HeadingXL from '../../utilities/HeadingXL';
-import Navbar from '../../Nav/Nav';
 import Para from '../../utilities/Para';
 import HeroImage from '../../utilities/HeroImage';
+import { useDispatch, useSelector } from 'react-redux';
+import { homeContents } from '../../../redux/slices/homeContent/HomepageSlice';
+
 const HeroSection = () => {
   const handBg = "linear-gradient(0deg, #0a265c 17.55%, rgba(0, 0, 0, 0.00) 88.6%)";
-    return (
-        
-        <div className='hero-section  '>
-    
-   
 
+const homepageContent = useSelector((state) => state.homeContent);
+const dispatch = useDispatch();
+
+useEffect(() => {
+dispatch(homeContents()); // Dispatch the thunk action
+}, [dispatch])
+
+if (homepageContent.loading) {
+  return <div className='text-white min-h-screen flex justify-center items-center text-2xl'>Loading...</div>
+}
+
+
+    return (
+        <div className='hero-section  '>
     <div className="relative  z-[8] mx-auto px-4 sm:px-6 lg:px-8 text-center">
 <div className=" mx-auto mt-[110px]">
  <div className=" p-4 sm:p-6 md:p-8 flex items-center justify-center rounded-xl my-8 mx-auto w-full max-w-2xl">
@@ -34,11 +43,10 @@ const HeroSection = () => {
       </div>
     </div>
 
-<HeadingXL label="Your gateway to growth"></HeadingXL>
-<HeadingXL label="Explore investments beyond the ordinary."></HeadingXL>
+<HeadingXL label={homepageContent.homeContent.data?.items[0].topic}></HeadingXL>
+{/* <HeadingXL label={homepageContent.homeContent.data.items[0].description}></HeadingXL> */}
 
-<Para label="Precise brings you a carefully curated selection of some of the most promising private growth
-companies along with exclusive global trade finance opportunities."></Para>
+<Para label={homepageContent.homeContent.data?.items[0].description}></Para>
 <div className="mt-8">
 <button
 className="bg-white text-green-800 font-semibold px-6 py-3 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-colors duration-300"

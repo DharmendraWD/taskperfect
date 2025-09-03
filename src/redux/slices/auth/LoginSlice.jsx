@@ -107,6 +107,8 @@ const LoginSlice = createSlice({
         state.token = null
        state.userId = null
         state.isAuthenticated = false
+        // localStorage.setItem('userId', null)
+
       })
   }
 })

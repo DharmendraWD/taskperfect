@@ -1,16 +1,31 @@
-import React from 'react'
-import HeroImage1 from '../../assets/img/3bd5a701a18ad4156d9aba1d7faab1a05ff758c1.png';
-import HeadingWithPara from './HeadingWithPara';
-import Button from './Button';
+import React, { useEffect } from 'react'
+import {homeContents} from '../../redux/slices/homeContent/HomepageSlice'
+import { useDispatch, useSelector } from 'react-redux';
+
 
 function HeroImage({my, handBg}) {
+const homepageContent = useSelector((state) => state.homeContent);
+const dispatch = useDispatch();
+
+useEffect(() => {
+  if (!homepageContent.homeContent.data) {
+    dispatch(homeContents());
+  }
+}, [dispatch, homepageContent.homeContent.data]);
+
+
+console.log(homepageContent)
+if (homepageContent.loading) {
+  return <div className='text-white min-h-screen flex justify-center items-center text-2xl'>Loading..k.</div>
+}
+
   return (
     <>
-  <div className={`${my}`} style={{ background: handBg }}>
+  <div className={`${my}`}>
      <div className="hreoImg relative">
     <div className="mt-12 relative max-w-lg mx-auto">
 <img
-src={HeroImage1}
+src={`http://www.taskperfect.somee.com${homepageContent.homeContent.data?.items[0].imageUrl}`}
 alt="Hand holding a phone"
 className="w-full"
 />    

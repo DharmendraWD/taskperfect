@@ -7,6 +7,7 @@ import  totalNews from "./slices/news/NewsSlice";
 import promoshareReducer from './slices/promoShare/PromoshareSlice'
 import userReducer from './slices/user/Userslice'
 import blogReducer from './slices/blogs/BlogsSlice'
+import homeContentReducer from './slices/homeContent/HomepageSlice'
 
 
 const store = configureStore({
@@ -17,7 +18,8 @@ const store = configureStore({
         allNews: totalNews,
         promoshare: promoshareReducer,
         user: userReducer,
-        blog: blogReducer
+        blog: blogReducer,
+        homeContent: homeContentReducer
     }
 })
 
