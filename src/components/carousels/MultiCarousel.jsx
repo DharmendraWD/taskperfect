@@ -63,10 +63,10 @@ const MultiCarousel = () => {
     <section className="text-white mt-[150px]">
       <div className="container mx-auto ">
         <div className="text-center mb-10">
-                 <HeadingL label={"We Provide"} />
+                 <HeadingL label={"Our Products"} />
 
           <p className="mt-2 text-lg text-gray-400">
-            Explore India's leading private growth companies
+            Explore Nepal’s Leading growth companies at your fingertips.
           </p>
         </div>
 

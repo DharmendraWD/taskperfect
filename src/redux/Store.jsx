@@ -8,6 +8,10 @@ import promoshareReducer from './slices/promoShare/PromoshareSlice'
 import userReducer from './slices/user/Userslice'
 import blogReducer from './slices/blogs/BlogsSlice'
 import homeContentReducer from './slices/homeContent/HomepageSlice'
+import faqReducer from './slices/homeContent/FaqSlice'
+import HomePgBtmCardReducer from './slices/homeContent/HomePageBottomCardSlice'
+import first3BlogsReducer from './slices/blogs/FirstThreeBlogs'
+import downloadReducer from './slices/download/DownloadSlice'
 
 
 const store = configureStore({
@@ -19,7 +23,11 @@ const store = configureStore({
         promoshare: promoshareReducer,
         user: userReducer,
         blog: blogReducer,
-        homeContent: homeContentReducer
+        homeContent: homeContentReducer,
+        faq: faqReducer,
+        HomePageBottomCard: HomePgBtmCardReducer,
+        first3Blogs: first3BlogsReducer,
+        downloads:downloadReducer
     }
 })
 

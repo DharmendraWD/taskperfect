@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import man1 from '../../../assets/img/man1.jpg';
 import man2 from '../../../assets/img/man2.jpg';
 import man3 from '../../../assets/img/man3.jpg';
 import HeadingL from '../../utilities/HeadingL';
+import { FaEye } from "react-icons/fa";
 
 
 const TeamSupportSection = () => {
+    const [showPopup, setShowPopup] = useState(false);
+
+    
+  
+  
   return (
     <div className="flex xl:flex-row flex-col w-auto  xl:w-[1182px] mx-auto justify-between items-center gap-[85px]">
       <div className="md:w-[510px] w-full  relative h-[456px] shrink-0">
@@ -37,16 +43,40 @@ const TeamSupportSection = () => {
   
   {/* Description Paragraph */}
   <p className="text-gray-400 text-base sm:text-lg md:text-xl mb-12 max-w-2xl">
-  Chat, call or text. Our specialists are here to help you get the most out of your Precize experience.
+  Chat, call or text. Our specialists are here to help you get the most out of your Precize experience.<span
+      className="text-white cursor-pointer ml-1 flex items-center gap-1"
+      onClick={() => setShowPopup(true)}
+    >
+      View More <span><FaEye /></span>
+    </span>
   </p>
   
   {/* Call to Action Button */}
-  <button className="border-2 border-white text-white font-medium rounded-full px-8 py-3 sm:px-10 sm:py-4 hover:bg-white hover:text-black transition-colors duration-300">
+  {/* <button className="border-2 border-white text-white font-medium rounded-full px-8 py-3 sm:px-10 sm:py-4 hover:bg-white hover:text-black transition-colors duration-300">
   View More
-  </button>
+  </button> */}
   
   </div>
+  
+    
       </div>
+      {showPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+          <div className="bg-white px-6 pb-6 pt-2 rounded-lg shadow-lg w-[90%] max-w-md animate-fade-in">
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => setShowPopup(false)}
+                className="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700"
+              >
+               X
+              </button>
+            </div>
+            {/* <h2 className="text-lg font-semibold text-gray-800 mb-4">Confirm Logout</h2> */}
+            <p className="text-gray-600 mb-6">Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis asperiores quo porro praesentium nihil eaque molestias minus nulla laudantium accusamus.</p>
+            <p className="text-gray-600 mb-6">Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis asperiores quo porro praesentium nihil eaque molestias minus nulla laudantium accusamus.</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

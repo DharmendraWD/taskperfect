@@ -13,12 +13,18 @@ const NewsCard = () => {
   e.target.onerror = null; // Prevent infinite loop if fallback also fails
 };
   const dispatch = useDispatch();
+  const [currentPage, setCurrentPage] = useState(
+    parseInt(localStorage.getItem('newsCurrentPage')) || 1
+  );
+
+  useEffect(() => {
+    localStorage.setItem('newsCurrentPage', currentPage);
+  }, [currentPage]);
+
   const totalNewss = useSelector((state) => state.allNews);
 
-  const [currentPage, setCurrentPage] = useState(1);
-
   const totalPages = totalNewss?.news?.data?.totalPages || 1;
-  const items = totalNewss?.news?.data?.items || [];
+  const items = totalNewss?.news?.data?.items|| [];
 
   useEffect(() => {
     dispatch(news(currentPage));
@@ -85,20 +91,26 @@ const NewsCard = () => {
       </div>
     );
   }
+  console.log(items)
   return (
     <>
       <div className="grid grid-cols-1 justify-self-center md:grid-cols-2 lg:grid-cols-3 gap-6">
         {items.map((news) => (
           <Link className='w-fit' key={news.id} to={`/news/${news.id}`} state={news}>
-            <div className="border border-[#374151] rounded-[30px] w-fit  px-[20px] py-[30px]">
+            <div className="border allCards border-[#374151] rounded-[30px] w-fit  px-[20px] py-[30px]">
               <div className="max-w-[250px] sm:max-w-sm rounded-lg overflow-hidden  text-white">
                 <div className="relative">
-                  <img
+                  {
+                    `${news?.image1}` && (
+                               <img
                     className="max-w-[250px] sm:h-[auto] sm:w-[250px] w-[200px] h-[151px] object-contain mx-auto sm:object-cover"
                     src={news.image1 ? `${BASE_WEB_URL}/UploadedImages/News/${news?.image1}` : noImage}
                     alt="News Image Here"
                      onError={handleImageError}
                   />
+                    )
+                  }
+  
                 </div>
                 <div className="p-4">
                   <div className="font-bold twoLinePara text-xl mb-2 text-white">
@@ -139,3 +151,4 @@ const NewsCard = () => {
 };
 
 export default NewsCard;
+

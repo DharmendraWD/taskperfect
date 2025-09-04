@@ -25,6 +25,8 @@ const PromoShare = lazy(() => import('./components/pages/promoShare/PromoShare')
 const PromoshareDets = lazy(() => import('./components/pages/promoShare/PromoshareDets'));
 const PrivateRoutes = lazy(() => import('./redux/slices/auth/PrivateRoutes'));
 const ProctectedRoutesTest = lazy(() => import('./components/ProctectedRoutesTest'));
+const Download = lazy(() => import('./components/pages/downloads/Download'));
+
 
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
@@ -95,7 +97,10 @@ const handBg = "linear-gradient(2deg, #2c3139 17.55%, rgb(129 0 0 / 0%) 88.6%)";
 
       {/* PROMO SHARE ROUTES */}
       <Route path="/promoShare" element={<PromoShare />} />
-      <Route path="/promoShare/:name" element={<PromoshareDets />} />
+      <Route path="/promoShare/:id" element={<PromoshareDets />} />
+
+      {/* DOWNLOAD  */}
+  <Route path='/downloads' element={ <Download></Download>}></Route>
 
 
 

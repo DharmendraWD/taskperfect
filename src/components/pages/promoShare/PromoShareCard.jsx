@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 
 
 
-const PromoShareCard = ({title, desc, img}) => {
+const PromoShareCard = ({title, desc, img, id}) => {
     // console.log(title)
   return (
-   <Link to={`/promoshare/${title}`} state={{title, desc, img}} className='w-fit'>
+   <Link to={`/promoshare/${id}`} state={{id, desc, img}} className='w-fit'>
  <div className="flex justify-center items-center p-4">
-      <div className="max-w-xs rounded-lg overflow-hidden shadow-lg text-white border border-gray-700 min-h-[350px] max-h[350px]">
+      <div className="max-w-xs allCards rounded-lg overflow-hidden shadow-lg text-white border border-gray-700 min-h-[350px] max-h[350px]">
         <img
           className="w-full max-w[2020px] w-[220px] mx-auto h-auto object-cover"
           src={img}

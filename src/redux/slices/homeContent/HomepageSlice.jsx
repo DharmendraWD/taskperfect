@@ -4,7 +4,7 @@ export const BASE_API_URL = import.meta.env.VITE_API_BASE_URL;
 
 
 
-// get all blogs
+// get top home content
 export const homeContents = createAsyncThunk("homeContents", async (_, thunkAPI) => {
   try {
     const res = await axios.get(`${BASE_API_URL}/HomeContent/GetPagedHomeContentList?pageIndex=1&pageSize=10`);
@@ -14,6 +14,7 @@ export const homeContents = createAsyncThunk("homeContents", async (_, thunkAPI)
     return thunkAPI.rejectWithValue(error.message);
   }
 });
+
 
 
 
@@ -41,9 +42,10 @@ export const homeContentStatus = createSlice({
         state.loading = false;
         state.error = action.payload || action.error.message;
       })
+      
 
-   
-  },
+      
+    },
 });
 
 export default homeContentStatus.reducer;

@@ -125,3 +125,11 @@ perspective: 200px;
 .teamSuppImage{
       transform: rotateX(20deg);
 }
+.allCards{
+  transition: .3s ease-in-out;
+
+}
+.allCards:hover{
+  transform: scale(1.03);
+  background-color: #26262652;
+}

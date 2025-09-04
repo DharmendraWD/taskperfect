@@ -4,16 +4,20 @@ export const BASE_API_URL = import.meta.env.VITE_API_BASE_URL;
 
 
 
-// get all blogs
-export const blogs = createAsyncThunk("blogs", async (currentPage, thunkAPI) => {
-  try {
-    const res = await axios.get(`${BASE_API_URL}/Blog/GetPagedBlogList?pageIndex=${currentPage}&pageSize=6`);
-    // console.log(res.data)
-    return res.data; // return just the response data
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+export const blogs = createAsyncThunk(
+  "blogs",
+  async ({ currentPage, numOfBlogs }, thunkAPI) => {
+    try {
+      const res = await axios.get(
+        `${BASE_API_URL}/Blog/GetPagedBlogList?pageIndex=${currentPage}&pageSize=${numOfBlogs}`
+      );
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
   }
-});
+);
+
 
 // get blogs by id
 export const getBlogById = createAsyncThunk(

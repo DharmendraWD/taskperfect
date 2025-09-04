@@ -15,7 +15,7 @@ const Navbar = () => {
         { name: 'Promo Share', href: '/promoshare' },
         { name: 'Blog', href: '/blogs' },
         { name: 'News', href: '/news' },
-        { name: 'Download', href: '/download' },
+        { name: 'Download', href: '/downloads' },
         { name: 'Nepse', href: '/nepse' },
         { name: 'Protected', href: '/protected' },
         

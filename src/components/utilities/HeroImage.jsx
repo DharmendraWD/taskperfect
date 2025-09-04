@@ -14,7 +14,7 @@ useEffect(() => {
 }, [dispatch, homepageContent.homeContent.data]);
 
 
-console.log(homepageContent)
+// console.log(homepageContent)
 if (homepageContent.loading) {
   return <div className='text-white min-h-screen flex justify-center items-center text-2xl'>Loading..k.</div>
 }
@@ -24,11 +24,13 @@ if (homepageContent.loading) {
   <div className={`${my}`}>
      <div className="hreoImg relative">
     <div className="mt-12 relative max-w-lg mx-auto">
+      {homepageContent?.homeContent?.data?.items?.[0]?.imageUrl && (
 <img
-src={`http://www.taskperfect.somee.com${homepageContent.homeContent.data?.items[0].imageUrl}`}
+src={`http://www.taskperfect.somee.com${homepageContent?.homeContent?.data?.items[0].imageUrl}`}
 alt="Hand holding a phone"
 className="w-full"
-/>    
+/>      
+)})
 </div>
 <div className="bottomHandGrdientDiv absolute bottom-[-2px] left-0 w-full h-[254px]" style={{ background: handBg }}>
 </div>

@@ -12,9 +12,10 @@ const homepageContent = useSelector((state) => state.homeContent);
 const dispatch = useDispatch();
 
 useEffect(() => {
-dispatch(homeContents()); // Dispatch the thunk action
+dispatch(homeContents());
 }, [dispatch])
 
+console.log("renderd")
 if (homepageContent.loading) {
   return <div className='text-white min-h-screen flex justify-center items-center text-2xl'>Loading...</div>
 }
@@ -38,7 +39,7 @@ if (homepageContent.loading) {
           </div>
         </div>
         <span className="text-white text-sm sm:text-xl md:text-xl font-medium whitespace-nowrap">
-          Trusted by 21,000+ people
+          Trusted by people
         </span>
       </div>
     </div>

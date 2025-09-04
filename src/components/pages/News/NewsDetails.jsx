@@ -25,6 +25,22 @@ dispatch(getNewsById(id))
 if(newsDetail?.loading){
   return <div className='text-white min-h-screen flex justify-center items-center text-2xl'>Loading...</div>
 }
+/**
+ * Converts a date string in the format 'YYYY-MM-DDTHH:mm:ss' to 'Month-DD-YYYY'.
+ * @param {string} dateString The date string to format.
+ * @returns {string} The formatted date string.
+ */
+const formatDate = (dateString) => {
+  if (!dateString) return '';
+  const date = new Date(dateString);
+  const month = date.toLocaleString('default', { month: 'long' });
+  const day = String(date.getDate()).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${month}-${day}-${year}`;
+};
+
+
+const formattedDate = formatDate(newsDetail?.data?.createdDate);
 
   return (
     <div className="text-white min-h-screen">
@@ -46,7 +62,7 @@ if(newsDetail?.loading){
                   clipRule="evenodd"
                 ></path>
               </svg>
-              {newsDetail?.data?.createdDate}
+              {formattedDate}
             </span>
             <span className="flex items-center mr-4">
               <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
