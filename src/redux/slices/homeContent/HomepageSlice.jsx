@@ -1,31 +1,36 @@
+// src/redux/slices/homeContent/HomepageSlice.js
+
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+
+// Load base API URL from environment
+// export const BASE_API_URL = import.meta.env.VITE_API_BASE_URL;
 export const BASE_API_URL = import.meta.env.VITE_API_BASE_URL;
 
-
-
-// get top home content
+// Async thunk to fetch home content
 export const homeContents = createAsyncThunk("homeContents", async (_, thunkAPI) => {
   try {
     const res = await axios.get(`${BASE_API_URL}/HomeContent/GetPagedHomeContentList?pageIndex=1&pageSize=10`);
-    // console.log(res.data)
-    return res.data; // return just the response data
+    console.log(res.data)
+    return res.data;
+
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
   }
 });
 
-
-
-
-
-// createslice 
+// Redux slice
 export const homeContentStatus = createSlice({
   name: "homeContentStatus",
   initialState: {
-    homeContent: [],
+    homeContent: {
+      data: {
+        items: [],
+      },
+    },
     loading: false,
     error: null,
+    hasLoaded: false,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -35,18 +40,17 @@ export const homeContentStatus = createSlice({
         state.error = null;
       })
       .addCase(homeContents.fulfilled, (state, action) => {
+        if (!state.hasLoaded) {
+          state.homeContent = action.payload;
+          state.hasLoaded = true;
+        }
         state.loading = false;
-        state.homeContent = action.payload; // only assign the array
       })
       .addCase(homeContents.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || action.error.message;
-      })
-      
-
-      
-    },
+      });
+  },
 });
 
 export default homeContentStatus.reducer;
-
