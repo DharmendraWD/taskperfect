@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import noImage from '../../../assets/img/noImage.png';
+export const BASE_WEB_URL = import.meta.env.VITE_WEB_BASE_URL;
 
 
-
-const PromoShareCard = ({title, desc, img, id}) => {
+const PromoShareCard = ({title, desc, img, imageUrl, id}) => {
     // console.log(title)
   return (
    <Link to={`/promoshare/${id}`} state={{id, desc, img}} className='w-fit'>
@@ -11,7 +12,7 @@ const PromoShareCard = ({title, desc, img, id}) => {
       <div className="max-w-xs allCards rounded-lg overflow-hidden shadow-lg text-white border border-gray-700 min-h-[350px] max-h[350px]">
         <img
           className="w-full max-w[2020px] w-[220px] mx-auto h-auto object-cover"
-          src={img}
+          src={img ? `${BASE_WEB_URL}${imageUrl}` : noImage}
           alt="Stock graph"
         />
         <div className="pl-4 pr-4 pb-4">

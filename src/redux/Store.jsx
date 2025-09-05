@@ -12,6 +12,7 @@ import faqReducer from './slices/homeContent/FaqSlice'
 import HomePgBtmCardReducer from './slices/homeContent/HomePageBottomCardSlice'
 import first3BlogsReducer from './slices/blogs/FirstThreeBlogs'
 import downloadReducer from './slices/download/DownloadSlice'
+import promosshareReducer from './slices/promoShare/TabData'
 
 
 const store = configureStore({
@@ -27,7 +28,8 @@ const store = configureStore({
         faq: faqReducer,
         HomePageBottomCard: HomePgBtmCardReducer,
         first3Blogs: first3BlogsReducer,
-        downloads:downloadReducer
+        downloads:downloadReducer,
+        promoshareTabs: promosshareReducer
     }
 })
 

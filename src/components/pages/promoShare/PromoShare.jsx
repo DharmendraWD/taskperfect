@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { totalPromoshare, promoshareStatus } from "../../../redux/slices/promoShare/PromoshareSlice";
 import FAQ from "../../Hero/Homepage/FAQ";
 
+
 function PromoShare() {
   const dispatch = useDispatch();
 
@@ -41,6 +42,7 @@ function PromoShare() {
 
   // Extract items safely
   const promshares = data?.data?.items || [];
+console.log(promshares)
 
   return (
     <div>
@@ -57,7 +59,7 @@ function PromoShare() {
             key={index}
             title={promoshare.companyName}
             desc={promoshare.description}
-            img={promoshare.imageUrl}
+            imageUrl={promoshare.imageUrl}
             id={promoshare.id}
           />
         ))}

@@ -1,8 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import { getPromoshareById } from '../../../redux/slices/promoShare/PromoshareSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import HeadingL from '../../utilities/HeadingL';
+import { promoshareTabAPI, promoshareTabAPiStatus } from '../../../redux/slices/promoShare/TabData';
+
+
+import dollarImg from '../../../assets/img/dollar.png'
+import up from '../../../assets/img/up.png'
+import percentage from '../../../assets/img/percentage.png'
+import down from '../../../assets/img/down.png'
+import chart from '../../../assets/img/chart.png'
+import assets from '../../../assets/img/assets.png'
+import profit from '../../../assets/img/profit.png'
+import warn from '../../../assets/img/warn.png'
 
 
 
@@ -15,7 +26,7 @@ function Promoshare() {
     { title: "25.3%", subtitle: "Net Profit Margin", change: "+3.8%", icon: "🧮" },
     { title: "11.1%", subtitle: "Debt to Equity", change: "+1.1%A", icon: "⚖️" },
   ];
-
+  const [desc, setDesc] = useState(""); 
   const dispatch = useDispatch();
   const  singlePromoshareData = useSelector((state) => state?.promoshare?.singlePromoshare);
   const { id } = useParams();
@@ -25,7 +36,142 @@ useEffect(() => {
 }, [dispatch, id]);
 
 const singlePromoSHareDets = singlePromoshareData?.data;
-console.log(singlePromoSHareDets)
+
+
+// --------------
+// tab section 
+const [activeIndex, setActiveIndex] = useState(null);
+
+  const kpiItems = [
+    "Financial KPI",
+    "Valuation KPI",
+    "Operation KPI",
+    "Market KPI",
+    "News"
+  ];
+
+
+  const tabData = useSelector((state) => state.promoshareTabs?.data);
+   const [btnClicked, setbtnClicked] = useState("")
+   const [tabIndex, settabIndex] = useState("");
+   const [tabDataArray, settabDataArray] = useState([]);
+   const [financialKPI, setfinancialKPI] = useState([]);
+   const [operation, setoperation] = useState([]);
+   const [valuation, setvaluation] = useState([]);
+   const [market, setmarket] = useState([]);
+   const [news, setnews] = useState([]);
+
+
+   useEffect(() => {
+  if (singlePromoSHareDets?.description) {
+    setDesc(singlePromoSHareDets.description);
+  }
+}, [singlePromoSHareDets?.description, btnClicked]);
+
+
+  //  const [tabValue, settabValue] = useState("")
+// const isLoading = useSelector((state) => state?.promoshareTabAPiStatus?.loading);
+// const error = useSelector((state) => state?.promoshareTabAPiStatus?.error);
+const handleClick = (index) => {
+  setActiveIndex(index);
+
+  let api = "";
+
+  if (kpiItems[index] === "Financial KPI") {
+    api = `/FinancialKPI/GetPagedFinancialKPIList?pageIndex=1&pageSize=10&companyId=${id}`;
+    setbtnClicked(kpiItems[index])
+    
+    settabIndex(index)
+  } else if (kpiItems[index] === "Valuation KPI") {
+    api = `/ValuationKPI/GetPagedValuationKPIList?pageIndex=1&pageSize=10&companyId=${id}`;
+    setbtnClicked(kpiItems[index])
+    settabIndex(index)
+
+  } else if (kpiItems[index] === "Operation KPI") {
+    api = `/OperationalKPI/GetPagedOperationalKPIList?pageIndex=1&pageSize=10&companyId=${id}`;
+    setbtnClicked(kpiItems[index])
+    settabIndex(index)
+
+
+  } else if (kpiItems[index] === "Market KPI") {
+    api = `/MarketKPI/GetPagedMarketKPIList?pageIndex=1&pageSize=10&companyId=${id}`;
+    setbtnClicked(kpiItems[index])
+    settabIndex(index)
+
+
+  } else if (kpiItems[index] === "News") {
+
+    settabIndex(index)
+
+    return;
+  }
+
+  dispatch(promoshareTabAPI(api));
+};
+
+
+useEffect(() => {
+  if (kpiItems[tabIndex] === "Financial KPI") {
+    setfinancialKPI(null)
+    setfinancialKPI(tabData)
+    let paraBellow = tabData?.data?.items[0]?.description;
+    setDesc(paraBellow)
+  } else if (kpiItems[tabIndex] === "Valuation KPI") {
+    setvaluation(tabData)
+        let paraBellow = tabData?.data?.items[0]?.description;
+    setDesc(paraBellow)
+  } else if (kpiItems[tabIndex] === "Operation KPI") {
+setoperation(tabData)
+    let paraBellow = tabData?.data?.items[0]?.description;
+    setDesc(paraBellow)
+
+  } else if (kpiItems[tabIndex] === "Market KPI") {
+    setmarket(tabData)
+     let paraBellow = tabData?.data?.items[0]?.description;
+    setDesc(paraBellow)
+
+  } else if (kpiItems[tabIndex] === "News") {
+   setnews(tabData)
+  }
+}, [btnClicked, tabData]);
+// tab section end
+// --------------
+
+
+// --------------
+// marketkpit high medium low btn 
+  const [selectedCap, setSelectedCap] = useState("Medium"); // Default selected market cap 
+ 
+  const [marketCApValue, setmarketCApValue] = useState(); // 
+
+
+
+  const handleClickMarketKpi = (value) => {
+    setSelectedCap(value);
+if(value === "Low"){
+  setmarketCApValue(market?.data?.items?.[0]?.lowMarketCap)
+}else if(value === "Medium"){
+  setmarketCApValue(market?.data?.items?.[0]?.medMarketCap)
+}else if(value === "High"){
+  setmarketCApValue(market?.data?.items?.[0]?.highMarketCap)
+}
+  };
+
+  const capOptions = ["Low", "Medium", "High"];
+
+  useEffect(() => {
+  if(market?.data?.items?.items?.[0]?.medMarketCap){
+    setmarketCApValue(market?.data?.items[0].medMarketCap);
+  }
+  }, [btnClicked]);
+// --------------
+
+// console.log(btnClicked, "btnClicked")
+if(singlePromoshareData?.loading){
+  return <div className='text-white min-h-screen flex justify-center items-center text-2xl'>Loading...</div>
+}
+
+
   return (
      <div className=" text-white font-sans min-h-screen p-8">
       {/* Header Section */}
@@ -60,46 +206,322 @@ console.log(singlePromoSHareDets)
       </div>
       
       {/* Navigation Tabs */}
-      <div className="flex space-x-2 mb-8 text-sm font-medium">
-        {["Financial KPI", "Valuation KPI", "Operation KPI", "Market KPI", "News"].map((item, index) => (
-          <button
-            key={index}
-            className={`py-2 px-4 rounded-full transition-colors ${
-              index === 0 ? 'bg-indigo-600' : 'bg-[#212A3D] text-gray-400 hover:bg-[#313b52]'
-            }`}
-          >
-            {item}
-          </button>
-        ))}
-      </div>
+     <div className="flex space-x-2 mb-8 text-sm font-medium">
+      {kpiItems.map((item, index) => (
+        <button
+          key={index}
+          id={id} // Dynamic ID
+          onClick={() => handleClick(index)}
+          className={`py-2 px-4 border border-gray-400 rounded-full transition-colors ${
+            activeIndex === index
+              ? 'bg-white text-black'
+              : 'bg-transparent text-white hover:bg-[#313b52]'
+          }`}
+        >
+          {item}
+        </button>
+      ))}
+    </div>
       
       {/* Facts & Figures Section */}
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Facts & Figures</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {financialData.map((data, index) => (
-            <div key={index} className="bg-[#212A3D] p-5 rounded-xl shadow-lg">
-              <div className="flex justify-between items-center mb-2">
-                <p className="text-2xl font-semibold">{data.title}</p>
-                <div className="bg-white bg-opacity-10 p-2 rounded-full text-white text-lg">{data.icon}</div>
+        <h2 className="text-2xl font-semibold text-white mb-4">Facts & Figures</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:flex lg:flex-row gap-4">
+          {/* financialKPI  */}
+  {btnClicked === "Financial KPI" && financialKPI?.data?.items?.map((data, index) => (
+   
+ <React.Fragment key={"jskasjoqindex"}>
+
+    <div key={"819"} className="bg-[white] p-5 rounded-xl shadow-lg w-full">
+      <div className="flex justify-between items-center mb-2">
+        <p className="text-2xl text-black font-semibold">RS: {data?.eps}</p>
+        <img src={dollarImg} alt="" className="bg-white bg-opacity-10 p-2 rounded-full text-white text-lg"/>
+      </div>
+        <p className="text-sm text-gray-800 font-semibold">Earning Per Share</p>
+      <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[green] mt-2'>
+          <img src={up} alt="" />
+          <p className='text-sm text-[green]'>+12.4%</p>
+      </div>
+    </div>
+
+      <div key={"11"} className="bg-[white] p-5 rounded-xl shadow-lg w-full">
+      <div className="flex justify-between items-center mb-2">
+        <p className="text-2xl font-semibold text-black"> {data?.peRatio}</p>
+        <img src={percentage} alt="" className="bg-white bg-opacity-10 p-2 rounded-full text-white text-lg"/>
+      </div>
+        <p className="text-sm font-semibold text-gray-800">P/E Ratio:</p>
+      <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[green] mt-2'>
+          <img src={up} alt="" />
+          <p className='text-sm text-[green]'>+12.4%</p>
+      </div>
+    </div>
+
+      <div key={"22"} className="bg-[white] p-5 rounded-xl shadow-lg w-full">
+      <div className="flex justify-between items-center mb-2">
+        <p className="text-2xl font-semibold text-black"> {data?.roe}</p>
+        <img src={chart} alt="" className="bg-white bg-opacity-10 p-2 rounded-full text-white text-lg"/>
+      </div>
+        <p className="text-sm font-semibold text-gray-800">Return on Equity:</p>
+      <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[green] mt-2'>
+          <img src={down} alt="" />
+          <p className='text-sm text-[green]'>+12.4%</p>
+      </div>
+    </div>
+
+      <div key={"233"} className="bg-[white] p-5 rounded-xl shadow-lg w-full">
+      <div className="flex justify-between items-center mb-2">
+        <p className="text-2xl font-semibold text-black"> {data?.roa}</p>
+        <img src={assets} alt="" className="bg-white bg-opacity-10 p-2 rounded-full text-white text-lg"/>
+      </div>
+        <p className="text-sm font-semibold text-gray-800">Return on Assets:</p>
+      <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[green] mt-2'>
+          <img src={up} alt="" />
+          <p className='text-sm text-[green]'>+12.4%</p>
+      </div>
+    </div>
+
+      <div key={"3423"} className="bg-[white] p-5 rounded-xl shadow-lg w-full">
+      <div className="flex justify-between items-center mb-2">
+        <p className="text-2xl font-semibold text-black"> {data?.netProfitMargin}</p>
+        <img src={profit} alt="" className="bg-white bg-opacity-10 p-2 rounded-full text-white text-lg"/>
+      </div>
+        <p className="text-sm font-semibold text-gray-800">Net Profit Margin:</p>
+      <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[green] mt-2'>
+          <img src={down} alt="" />
+          <p className='text-sm text-[green]'>+12.4%</p>
+      </div>
+    </div>
+
+ </React.Fragment>
+  ))}
+
+{/* valuation kpi  */}
+  {btnClicked === "Valuation KPI" && valuation?.data?.items?.map((data, index) => (
+   <React.Fragment key={"index021"}>
+    {/* 1st card */}
+   <div key={"1001"} className="bg-[white] p-5 rounded-xl shadow-lg w-full">
+      <div className="flex justify-between items-center mb-2">    
+        <div className='flex justify-between w-full items-center gap-2'>
+              <div>
+               <p className='text-sm font-semibold text-gray-800'> P/B Ratio</p>
               </div>
-              <p className="text-sm text-gray-400">{data.subtitle}</p>
-              <div className={`mt-1 text-sm font-medium ${data.change.startsWith('+') ? 'text-green-400' : 'text-red-400'}`}>
-                {data.change}
-              </div>
+            <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[green] mt-2'>
+                  <img src={warn} alt="" />
+              <p className='text-sm flex gap-4 text-gray-800'>+12.4%</p>
+                  <img src={down} alt="" />
             </div>
+        </div>
+      </div>
+      <div className='mt-1 text-sm font-medium mt-2'>
+        <p className="text-2xl font-semibold text-black">{data?.pbRatio} </p>
+      </div>
+    </div>
+    {/* 2nd card  */}
+   <div key={"1002"} className="bg-[white] p-5 rounded-xl shadow-lg w-full">
+      <div className="flex justify-between items-center mb-2">    
+        <div className='flex justify-between w-full items-center gap-2'>
+              <div>
+               <p className='text-sm font-semibold text-gray-800'> Dividend Yield</p>
+              </div>
+            <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[green] mt-2'>
+                  <img src={warn} alt="" />
+              <p className='text-sm flex gap-4 text-gray-800'>+12.4%</p>
+                  <img src={down} alt="" />
+            </div>
+        </div>
+      </div>
+      <div className='mt-1 text-sm font-medium mt-2'>
+        <p className="text-2xl font-semibold text-black">{data?.dividentYield} </p>
+      </div>
+    </div>
+    {/* 3rd card */}
+   <div key={"1003"} className="bg-[white] p-5 rounded-xl shadow-lg w-full">
+      <div className="flex justify-between items-center mb-2">    
+        <div className='flex justify-between w-full items-center gap-2'>
+              <div>
+               <p className='text-sm font-semibold text-gray-800'> EBITDA</p>
+              </div>
+            <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[green] mt-2'>
+                  <img src={warn} alt="" />
+              <p className='text-sm flex gap-4 text-gray-800'>+12.4%</p>
+                  <img src={down} alt="" />
+            </div>
+        </div>
+      </div>
+      <div className='mt-1 text-sm font-medium mt-2'>
+        <p className="text-2xl font-semibold text-black">RS: {data?.ebitda} </p>
+      </div>
+    </div>
+    
+     </React.Fragment>
+  ))}
+
+{/* operational  */}
+  {btnClicked === "Operation KPI" && operation?.data?.items?.map((data, index) => (
+ <React.Fragment key={"index12091"}>
+ {/* 1st card  */}
+    <div key={"1006"} className="bg-[white] p-5 rounded-xl shadow-lg w-full">
+      <div className="flex justify-between items-center mb-2">    
+        <div className='flex justify-between w-full items-center gap-2'>
+              <div>
+               <p className='text-sm font-semibold text-gray-800'> Operating Margin</p>
+              </div>
+            <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[green] mt-2'>
+                  <img src={warn} alt="" />
+              <p className='text-sm flex gap-4 text-gray-800'>+12.4%</p>
+                  <img src={down} alt="" />
+            </div>
+        </div>
+      </div>
+      <div className='mt-1 text-sm font-medium mt-2'>
+        <p className="text-2xl font-semibold text-black">{data?.operatingMargin} </p>
+      </div>
+    </div>
+    {/* 2nd card */}
+    <div key={"1005"} className="bg-[white] p-5 rounded-xl shadow-lg w-full">
+      <div className="flex justify-between items-center mb-2">    
+        <div className='flex justify-between w-full items-center gap-2'>
+              <div>
+               <p className='text-sm font-semibold text-gray-800'>Inventory Turnover</p>
+              </div>
+            <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[green] mt-2'>
+                  <img src={warn} alt="" />
+              <p className='text-sm flex gap-4 text-gray-800'>+12.4%</p>
+                  <img src={down} alt="" />
+            </div>
+        </div>
+      </div>
+      <div className='mt-1 text-sm font-medium mt-2'>
+        <p className="text-2xl font-semibold text-black">{data?.invTurnOver} </p>
+      </div>
+    </div>
+ </React.Fragment>
+  ))}
+
+{/* marketkpi  */}
+  {btnClicked === "Market KPI" && market?.data?.items?.map((data, index) => (
+ <React.Fragment key={"index98662"}>
+        
+        {/* Beta */}
+        <div className="bg-white/5 w-full p-4 rounded-xl border border-dashed border-white/20" key={"1101"}>
+          <div className="flex justify-between items-center mb-1">
+            <p className="text-sm text-gray-300">Beta</p>
+            <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full">Stable</span>
+          </div>
+          <p className="text-2xl font-semibold">{data?.beta}</p>
+          <p className="text-xs text-gray-400 mt-1">Volatility vs Market</p>
+        </div>
+
+        {/* Market Cap */}
+      <div className="bg-white/5 w-full p-4 rounded-xl border border-dashed border-white/20" key={"1102"}>
+      <div className="flex justify-between items-center mb-1">
+        <p className="text-sm text-gray-300">Market Cap</p>
+        <div className="flex gap-1">
+          {capOptions.map((cap) => (
+            <span
+              key={cap}
+              onClick={() => handleClickMarketKpi(cap)}
+              className={`cursor-pointer text-xs px-2 py-0.5 rounded-full transition
+                ${
+                  selectedCap === cap
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                }
+              `}
+            >
+              {cap}
+            </span>
           ))}
+        </div>
+      </div>
+      <p className="text-2xl font-semibold">Rs: {marketCApValue}</p>
+      <p className="text-xs text-gray-400 mt-1">{selectedCap}</p>
+    </div>
+
+        {/* Production Output */}
+        <div className="bg-white/5 w-full p-4 rounded-xl border border-dashed border-white/20"  key={"1103"}>
+          <p className="text-sm text-gray-300 mb-1">Production Output</p>
+          <div className="flex justify-between">
+            <div>
+              <p className="text-xs text-gray-400">Retail Sales</p>
+              <p className="text-lg font-semibold text-green-400">250K</p>
+            </div>
+            <div>
+              <p className="text-xs text-gray-400">Active Users</p>
+              <p className="text-lg font-semibold text-blue-400">18.2M</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Volume */}
+        <div className="bg-white/5 w-full p-4 rounded-xl border border-dashed border-white/20"  key={"1104"}>
+          <p className="text-sm text-gray-300 mb-1">Volume</p>
+          <p className="text-2xl font-semibold">{data?.volume}<span className="text-sm font-normal">shares</span></p>
+          <p className="text-xs text-gray-400 mt-1">Daily Avg Volume</p>
+          {/* Optional: Add bar chart here later */}
+        </div>
+
+        {/* Due Diligence */}
+        <div className="bg-white/5 w-full p-4 rounded-xl border border-dashed border-white/20" key={"1105"}>
+  <p className="text-sm text-gray-300 mb-1">Due Diligence</p>
+  <div className="flex items-center space-x-2">
+    <div className="relative w-10 h-10">
+      <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+        <path
+          className="text-gray-700 stroke-current"
+          strokeWidth="3"
+          fill="none"
+          d="
+            M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831
+          "
+        />
+        <path
+          className="text-green-500 stroke-current"
+          strokeWidth="3"
+          fill="none"
+          d="
+            M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831
+          "
+          strokeDasharray={`${data.duedegi}, 100`}
+        />
+      </svg>
+      <div className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white">
+        {data.duedegi}%
+      </div>
+    </div>
+    <span className="text-xs bg-orange-100 text-orange-800 px-2 py-0.5 rounded-full">In Progress</span>
+  </div>
+  <p className="text-xs text-gray-400 mt-2">Due Diligence Status</p>
+</div>
+
+  </React.Fragment>
+  ))}
+
+  {btnClicked === "News" && news?.data?.items?.map((data, index) => (
+    <div key={index} className="bg-[white] p-5 rounded-xl shadow-lg">
+      <div className="flex justify-between items-center mb-2">
+        <p className="text-2xl font-semibold text-black">{data.title}</p>
+        <div className="bg-white bg-opacity-10 p-2 rounded-full text-white text-lg">{data.icon}</div>
+      </div>
+      <p className="text-sm text-gray-400">{data.subtitle}</p>
+    </div>
+  ))}
+
+
+       
         </div>
       </div>
 
       {/* Text Section */}
-      <div className="bg-[#212A3D] p-8 rounded-xl leading-relaxed text-gray-300">
+      <div className=" p-8 rounded-xl leading-relaxed text-gray-300">
         <p>
-          Apple's financial KPIs highlight its position as a market leader in the technology sector. A consistently strong EPS and high ROE reflect efficient use of capital, while superior net profit margins underline its pricing power and operational excellence. Although its P/E ratio suggests a premium valuation compared to peers, investor confidence remains high given its stable cash flows, innovation pipeline, and dominant ecosystem. These metrics collectively indicate a company with strong profitability, efficient management, and long-term growth potential.
+          {desc&& desc}
         </p>
-        <p className="mt-4">
-          Apple's financial KPIs highlight its position as a market leader in the technology sector. A consistently strong EPS and high ROE reflect efficient use of capital, while superior net profit margins underline its pricing power and operational excellence. Although its P/E ratio suggests a premium valuation compared to peers, investor confidence remains high given its stable cash flows, innovation pipeline, and dominant ecosystem. These metrics collectively indicate a company with strong profitability, efficient management, and long-term growth potential.
-        </p>
+       
       </div>
     </div>
   )
