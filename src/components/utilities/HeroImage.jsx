@@ -26,7 +26,7 @@ if (homepageContent.loading) {
     <div className="mt-12 relative max-w-lg mx-auto">
       {homepageContent?.homeContent?.data?.items?.[0]?.imageUrl && (
 <img
-src={`http://www.taskperfect.somee.com${homepageContent?.homeContent?.data?.items[0].imageUrl}`}
+src={`${import.meta.env.VITE_WEB_BASE_URL}${homepageContent?.homeContent?.data?.items[0].imageUrl}`}
 alt="Hand holding a phone"
 className="w-full"
 />      
