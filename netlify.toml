@@ -6,6 +6,6 @@
 
 [[redirects]]
   from = "/media/*"
-  to = "http://www.taskperfect.somee.com/UploadedImages/:splat"
+  to = "http://www.taskperfect.somee.com/:splat"
   status = 200
   force = true
