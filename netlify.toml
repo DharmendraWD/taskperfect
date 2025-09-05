@@ -3,3 +3,9 @@
   to = "http://www.taskperfect.somee.com/api/:splat"
   status = 200
   force = true
+
+[[redirects]]
+  from = "/media/*"
+  to = "http://www.taskperfect.somee.com/UploadedImages/:splat"
+  status = 200
+  force = true
