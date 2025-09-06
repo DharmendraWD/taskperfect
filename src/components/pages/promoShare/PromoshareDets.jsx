@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import HeadingL from '../../utilities/HeadingL';
 import { promoshareTabAPI, promoshareTabAPiStatus } from '../../../redux/slices/promoShare/TabData';
-
+import noImg from '../../../assets/img/noImage.png'
+import googleAdImg from '../../../assets/img/googleAd.png'
+import Barclays from '../../../assets/img/Barclays.png'
 
 import dollarImg from '../../../assets/img/dollar.png'
 import up from '../../../assets/img/up.png'
@@ -14,6 +16,7 @@ import chart from '../../../assets/img/chart.png'
 import assets from '../../../assets/img/assets.png'
 import profit from '../../../assets/img/profit.png'
 import warn from '../../../assets/img/warn.png'
+import Loading2 from '../../utilities/loading/Loading2';
 
 
 
@@ -52,6 +55,7 @@ const [activeIndex, setActiveIndex] = useState(null);
 
 
   const tabData = useSelector((state) => state.promoshareTabs?.data);
+  const loadingTabData = useSelector((state) => state.promoshareTabs);
    const [btnClicked, setbtnClicked] = useState("")
    const [tabIndex, settabIndex] = useState("");
    const [tabDataArray, settabDataArray] = useState([]);
@@ -62,16 +66,19 @@ const [activeIndex, setActiveIndex] = useState(null);
    const [news, setnews] = useState([]);
 
 
-   useEffect(() => {
-  if (singlePromoSHareDets?.description) {
-    setDesc(singlePromoSHareDets.description);
+//    useEffect(() => {
+//   if (singlePromoSHareDets?.description) {
+//     setDesc(singlePromoSHareDets.description);
+//   }
+// }, [singlePromoSHareDets?.description, btnClicked]);
+// setting default first paragraph 
+useEffect(() => {
+  if (singlePromoSHareDets?.remarks1) {
+    setDesc(`${singlePromoSHareDets.remarks1} ${singlePromoSHareDets.remarks2} ${singlePromoSHareDets.remarks3}`);
   }
-}, [singlePromoSHareDets?.description, btnClicked]);
+},[singlePromoSHareDets]);
 
-
-  //  const [tabValue, settabValue] = useState("")
-// const isLoading = useSelector((state) => state?.promoshareTabAPiStatus?.loading);
-// const error = useSelector((state) => state?.promoshareTabAPiStatus?.error);
+// console.log(desc)
 const handleClick = (index) => {
   setActiveIndex(index);
 
@@ -92,7 +99,6 @@ const handleClick = (index) => {
     setbtnClicked(kpiItems[index])
     settabIndex(index)
 
-
   } else if (kpiItems[index] === "Market KPI") {
     api = `/MarketKPI/GetPagedMarketKPIList?pageIndex=1&pageSize=10&companyId=${id}`;
     setbtnClicked(kpiItems[index])
@@ -109,7 +115,6 @@ const handleClick = (index) => {
   dispatch(promoshareTabAPI(api));
 };
 
-
 useEffect(() => {
   if (kpiItems[tabIndex] === "Financial KPI") {
     setfinancialKPI(null)
@@ -118,6 +123,7 @@ useEffect(() => {
     setDesc(paraBellow)
   } else if (kpiItems[tabIndex] === "Valuation KPI") {
     setvaluation(tabData)
+    setDesc("")
         let paraBellow = tabData?.data?.items[0]?.description;
     setDesc(paraBellow)
   } else if (kpiItems[tabIndex] === "Operation KPI") {
@@ -131,13 +137,19 @@ setoperation(tabData)
     setDesc(paraBellow)
 
   } else if (kpiItems[tabIndex] === "News") {
-   setnews(tabData)
+   setnews([])
+   setfinancialKPI([])
+   setmarket([])
+   setvaluation([])
+   setoperation([])
+  //  console.log(financialData)
   }
+  // console.log(kpiItems[tabIndex])
 }, [btnClicked, tabData]);
 // tab section end
 // --------------
 
-
+// console.log(loadingTabData.loading)
 // --------------
 // marketkpit high medium low btn 
   const [selectedCap, setSelectedCap] = useState("Medium"); // Default selected market cap 
@@ -171,17 +183,19 @@ if(singlePromoshareData?.loading){
   return <div className='text-white min-h-screen flex justify-center items-center text-2xl'>Loading...</div>
 }
 
-
   return (
      <div className=" text-white font-sans min-h-screen p-8">
       {/* Header Section */}
-      <div className="flex justify-between items-center mb-6">
-        <div className="flex items-center space-x-4">
-          <img src="https://placehold.co/60x60/ffffff/000000?text=T" alt="Toyota Logo" className="h-16 w-16 rounded-full" />
+      <div className="flex justify-between flex-col md:flex-row gap-[20px] md:gap-[auto] items-center mb-6">
+        <div className="flex items-center space-x-4 md:justify-start w-full md:w-auto justify-between">
+          <img src={singlePromoSHareDets?.imageUrl ? `${import.meta.env.VITE_WEB_BASE_URL}${singlePromoSHareDets?.imageUrl}` : noImg} alt="Company Logo" className="h-16 w-16 rounded-full" />
           <div>
           <HeadingL label={singlePromoSHareDets?.companyName || "Company Name"}></HeadingL>
 
-            <div className="text-sm text-gray-400 flex gap-8"><p>{singlePromoSHareDets?.remarks1}</p> <p>{singlePromoSHareDets?.remarks2}</p> <p>{singlePromoSHareDets?.remarks3} </p>  <p>{singlePromoSHareDets?.sector}</p> </div>
+            <div className="text-sm text-gray-400 flex gap-8">
+              <p>{singlePromoSHareDets?.sector}</p>
+               <p>{singlePromoSHareDets?.address ? singlePromoSHareDets?.address : "Address No Available"} </p>
+                  </div>
           </div>
         </div>
         <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-full shadow-lg transition-colors">
@@ -193,20 +207,26 @@ if(singlePromoshareData?.loading){
       <div className="flex items-center space-x-16 mb-8">
         <div>
           <p className="text-gray-400 text-sm">Price Per Share</p>
-          <p className="text-lg">Rs 1000 <span className="text-gray-400 text-sm">| Face Value |</span></p>
+          <p className="text-lg truncate-two-words">{singlePromoSHareDets?.remarks1} <span className="text-gray-400 text-sm">| Face Value |</span></p>
         </div>
         <div>
           <p className="text-gray-400 text-sm">Available on</p>
           <div className="flex space-x-2 mt-1">
-            <img src="https://placehold.co/40x40/4285F4/ffffff?text=G" alt="Google" className="h-10 w-10 rounded-md" />
-            <img src="https://placehold.co/40x40/FF0000/ffffff?text=B" alt="Bing" className="h-10 w-10 rounded-md" />
-            <img src="https://placehold.co/40x40/000000/ffffff?text=A" alt="Apple" className="h-10 w-10 rounded-md" />
+            <img src={googleAdImg} alt="Google" className="h-10 w-10 rounded-md" />
+            <img src={Barclays} alt="Bing" className="h-10 w-10 rounded-md" />
           </div>
         </div>
       </div>
       
       {/* Navigation Tabs */}
-     <div className="flex space-x-2 mb-8 text-sm font-medium">
+     <div className=" mb-8 
+  text-sm 
+  font-medium
+  grid grid-cols-1
+  md:grid-cols-3
+  md:gap-4
+  gap-2 
+  xl:flex xl:space-x-2 xl:grid-cols-none">
       {kpiItems.map((item, index) => (
         <button
           key={index}
@@ -228,181 +248,237 @@ if(singlePromoshareData?.loading){
         <h2 className="text-2xl font-semibold text-white mb-4">Facts & Figures</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:flex lg:flex-row gap-4">
           {/* financialKPI  */}
-  {btnClicked === "Financial KPI" && financialKPI?.data?.items?.map((data, index) => (
-   
- <React.Fragment key={"jskasjoqindex"}>
-
-    <div key={"819"} className="bg-[white] p-5 rounded-xl shadow-lg w-full">
-      <div className="flex justify-between items-center mb-2">
-        <p className="text-2xl text-black font-semibold">RS: {data?.eps}</p>
-        <img src={dollarImg} alt="" className="bg-white bg-opacity-10 p-2 rounded-full text-white text-lg"/>
+{btnClicked === "Financial KPI" && (
+  <>
+    {loadingTabData.loading ? (
+      <div className='text-white flex justify-center items-center text-2xl'>
+       <Loading2></Loading2>
       </div>
-        <p className="text-sm text-gray-800 font-semibold">Earning Per Share</p>
-      <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[green] mt-2'>
+    ) : (
+      financialKPI?.data?.items?.map((data, index) => (
+        <React.Fragment key={index}>
+          <div key={"819"} className="bg-white/5 rounded-xl border border-dashed border-white/20 p-5 rounded-xl shadow-lg w-full">
+      <div className="flex justify-between items-center mb-2">
+        <p className="text-2xl text-white font-semibold">RS: {data?.eps}</p>
+        <img src={dollarImg} alt="" className="bg-white  p-2 rounded-full text-white text-lg"/>
+      </div>
+        <p className="text-sm text-[#a2a2a2] font-semibold">Earning Per Share</p>
+      <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[grey] mt-2'>
           <img src={up} alt="" />
-          <p className='text-sm text-[green]'>+12.4%</p>
+          <p className='text-sm text-[#4bf187]'>+12.4%</p>
       </div>
     </div>
 
-      <div key={"11"} className="bg-[white] p-5 rounded-xl shadow-lg w-full">
+      <div key={"11"} className="bg-[white] p-5 rounded-xl shadow-lg w-full bg-white/5 rounded-xl border border-dashed border-white/20">
       <div className="flex justify-between items-center mb-2">
-        <p className="text-2xl font-semibold text-black"> {data?.peRatio}</p>
-        <img src={percentage} alt="" className="bg-white bg-opacity-10 p-2 rounded-full text-white text-lg"/>
+        <p className="text-2xl font-semibold text-white"> {data?.peRatio}</p>
+        <img src={percentage} alt="" className="bg-white  p-2 rounded-full text-white text-lg"/>
       </div>
-        <p className="text-sm font-semibold text-gray-800">P/E Ratio:</p>
-      <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[green] mt-2'>
+        <p className="text-sm font-semibold text-[#a2a2a2]">P/E Ratio:</p>
+      <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[#4bf187] mt-2'>
           <img src={up} alt="" />
-          <p className='text-sm text-[green]'>+12.4%</p>
+          <p className='text-sm text-[#4bf187]'>+12.4%</p>
       </div>
     </div>
 
-      <div key={"22"} className="bg-[white] p-5 rounded-xl shadow-lg w-full">
+      <div key={"22"} className="bg-[white] p-5 rounded-xl shadow-lg w-full bg-white/5 rounded-xl border border-dashed border-white/20">
       <div className="flex justify-between items-center mb-2">
-        <p className="text-2xl font-semibold text-black"> {data?.roe}</p>
-        <img src={chart} alt="" className="bg-white bg-opacity-10 p-2 rounded-full text-white text-lg"/>
+        <p className="text-2xl font-semibold text-white"> {data?.roe}</p>
+        <img src={chart} alt="" className="bg-white  p-2 rounded-full text-white text-lg"/>
       </div>
-        <p className="text-sm font-semibold text-gray-800">Return on Equity:</p>
-      <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[green] mt-2'>
+        <p className="text-sm font-semibold text-[#a2a2a2]">Return on Equity:</p>
+      <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[#4bf187] mt-2'>
           <img src={down} alt="" />
-          <p className='text-sm text-[green]'>+12.4%</p>
+          <p className='text-sm text-[#4bf187]'>+12.4%</p>
       </div>
     </div>
 
-      <div key={"233"} className="bg-[white] p-5 rounded-xl shadow-lg w-full">
+      <div key={"233"} className="bg-[white] p-5 rounded-xl shadow-lg w-full bg-white/5 rounded-xl border border-dashed border-white/20">
       <div className="flex justify-between items-center mb-2">
-        <p className="text-2xl font-semibold text-black"> {data?.roa}</p>
-        <img src={assets} alt="" className="bg-white bg-opacity-10 p-2 rounded-full text-white text-lg"/>
+        <p className="text-2xl font-semibold text-white"> {data?.roa}</p>
+        <img src={assets} alt="" className="bg-white  p-2 rounded-full text-white text-lg"/>
       </div>
-        <p className="text-sm font-semibold text-gray-800">Return on Assets:</p>
-      <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[green] mt-2'>
+        <p className="text-sm font-semibold text-[#a2a2a2]">Return on Assets:</p>
+      <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[#4bf187] mt-2'>
           <img src={up} alt="" />
-          <p className='text-sm text-[green]'>+12.4%</p>
+          <p className='text-sm text-[#4bf187]'>+12.4%</p>
       </div>
     </div>
 
-      <div key={"3423"} className="bg-[white] p-5 rounded-xl shadow-lg w-full">
+      <div key={"3423"} className="bg-[white] p-5 rounded-xl shadow-lg w-full bg-white/5 rounded-xl border border-dashed border-white/20">
       <div className="flex justify-between items-center mb-2">
-        <p className="text-2xl font-semibold text-black"> {data?.netProfitMargin}</p>
-        <img src={profit} alt="" className="bg-white bg-opacity-10 p-2 rounded-full text-white text-lg"/>
+        <p className="text-2xl font-semibold text-white"> {data?.netProfitMargin}</p>
+        <img src={profit} alt="" className="bg-white  p-2 rounded-full text-white text-lg"/>
       </div>
-        <p className="text-sm font-semibold text-gray-800">Net Profit Margin:</p>
-      <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[green] mt-2'>
+        <p className="text-sm font-semibold text-[#a2a2a2]">Net Profit Margin:</p>
+      <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[#4bf187] mt-2'>
           <img src={down} alt="" />
-          <p className='text-sm text-[green]'>+12.4%</p>
+          <p className='text-sm text-[#4bf187]'>+12.4%</p>
       </div>
     </div>
 
- </React.Fragment>
-  ))}
+        </React.Fragment>
+      ))
+    )}
+  </>
+)}
+
+
+
+  
+
 
 {/* valuation kpi  */}
-  {btnClicked === "Valuation KPI" && valuation?.data?.items?.map((data, index) => (
-   <React.Fragment key={"index021"}>
-    {/* 1st card */}
-   <div key={"1001"} className="bg-[white] p-5 rounded-xl shadow-lg w-full">
-      <div className="flex justify-between items-center mb-2">    
-        <div className='flex justify-between w-full items-center gap-2'>
-              <div>
-               <p className='text-sm font-semibold text-gray-800'> P/B Ratio</p>
-              </div>
-            <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[green] mt-2'>
+{btnClicked === "Valuation KPI" && (
+  <>
+    {loadingTabData.loading ? (
+      <div className="text-white mx-auto flex justify-center items-center text-2xl">
+        <Loading2 />
+      </div>
+    ) : valuation?.data?.items?.length > 0 ? (
+      valuation.data.items.map((data, index) => (
+        <React.Fragment key={index}>
+          {/* 1st card */}
+          <div className="bg-white/5 rounded-xl border border-dashed border-white/20 p-5 rounded-xl shadow-lg w-full">
+            <div className="flex justify-between items-center mb-2">
+              <div className="flex justify-between w-full items-center gap-2">
+                <p className="text-sm font-semibold text-[#a2a2a2]">P/B Ratio</p>
+                <div className="flex items-center gap-2 mt-1 text-sm font-medium text-green-600">
                   <img src={warn} alt="" />
-              <p className='text-sm flex gap-4 text-gray-800'>+12.4%</p>
+                  <p className="text-sm flex gap-4 text-[#4bf187]">+12.4%</p>
                   <img src={down} alt="" />
-            </div>
-        </div>
-      </div>
-      <div className='mt-1 text-sm font-medium mt-2'>
-        <p className="text-2xl font-semibold text-black">{data?.pbRatio} </p>
-      </div>
-    </div>
-    {/* 2nd card  */}
-   <div key={"1002"} className="bg-[white] p-5 rounded-xl shadow-lg w-full">
-      <div className="flex justify-between items-center mb-2">    
-        <div className='flex justify-between w-full items-center gap-2'>
-              <div>
-               <p className='text-sm font-semibold text-gray-800'> Dividend Yield</p>
+                </div>
               </div>
-            <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[green] mt-2'>
-                  <img src={warn} alt="" />
-              <p className='text-sm flex gap-4 text-gray-800'>+12.4%</p>
-                  <img src={down} alt="" />
             </div>
-        </div>
-      </div>
-      <div className='mt-1 text-sm font-medium mt-2'>
-        <p className="text-2xl font-semibold text-black">{data?.dividentYield} </p>
-      </div>
-    </div>
-    {/* 3rd card */}
-   <div key={"1003"} className="bg-[white] p-5 rounded-xl shadow-lg w-full">
-      <div className="flex justify-between items-center mb-2">    
-        <div className='flex justify-between w-full items-center gap-2'>
-              <div>
-               <p className='text-sm font-semibold text-gray-800'> EBITDA</p>
+            <div className="mt-1 text-sm font-medium">
+              <p className="text-2xl font-semibold text-white">{data?.pbRatio}</p>
+            </div>
+          </div>
+
+          {/* 2nd card */}
+          <div className="bg-white/5 border border-dashed border-white/20 p-5 rounded-xl shadow-lg w-full">
+            <div className="flex justify-between items-center mb-2">
+              <div className="flex justify-between w-full items-center gap-2">
+                <p className="text-sm font-semibold text-[#a2a2a2]">Dividend Yield</p>
+                <div className="flex items-center gap-2 mt-1 text-sm font-medium text-green-600">
+                  <img src={warn} alt="" />
+                  <p className="text-sm flex gap-4 text-[#4bf187]">+12.4%</p>
+                  <img src={down} alt="" />
+                </div>
               </div>
-            <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[green] mt-2'>
-                  <img src={warn} alt="" />
-              <p className='text-sm flex gap-4 text-gray-800'>+12.4%</p>
-                  <img src={down} alt="" />
             </div>
-        </div>
+            <div className="mt-1 text-sm font-medium">
+              <p className="text-2xl font-semibold text-black">{data?.dividentYield}</p>
+            </div>
+          </div>
+
+          {/* 3rd card */}
+          <div className="bg-white/5 rounded-xl border border-dashed border-white/20 p-5  shadow-lg w-full">
+            <div className="flex justify-between items-center mb-2">
+              <div className="flex justify-between w-full items-center gap-2">
+                <p className="text-sm font-semibold text-[#a2a2a2]">EBITDA</p>
+                <div className="flex items-center gap-2 mt-1 text-sm font-medium text-green-600">
+                  <img src={warn} alt="" />
+                  <p className="text-sm flex gap-4 text-[#f23e60]">+12.4%</p>
+                  <img src={down} alt="" />
+                </div>
+              </div>
+            </div>
+            <div className="mt-1 text-sm font-medium">
+              <p className="text-2xl font-semibold text-white">RS: {data?.ebitda}</p>
+            </div>
+          </div>
+        </React.Fragment>
+      ))
+    ) : (
+      <div className="text-gray-500 text-center mx-auto py-10 text-center text-lg font-medium">
+        No Data Found
       </div>
-      <div className='mt-1 text-sm font-medium mt-2'>
-        <p className="text-2xl font-semibold text-black">RS: {data?.ebitda} </p>
-      </div>
-    </div>
-    
-     </React.Fragment>
-  ))}
+    )}
+  </>
+)}
+
+
+
+
+
 
 {/* operational  */}
-  {btnClicked === "Operation KPI" && operation?.data?.items?.map((data, index) => (
- <React.Fragment key={"index12091"}>
- {/* 1st card  */}
-    <div key={"1006"} className="bg-[white] p-5 rounded-xl shadow-lg w-full">
+{btnClicked === "Operation KPI" && (
+  <>
+    {loadingTabData.loading ? (
+      <div className="text-white mx-auto flex justify-center items-center text-2xl">
+        <Loading2 />
+      </div>
+    ) : operation?.data?.items?.length > 0 ? (
+      operation.data.items.map((data, index) => (
+        <React.Fragment key={index}>
+        {/* 1st card  */}
+    <div key={"1006"} className="bg-white/5 rounded-xl border border-dashed border-white/20 p-5 shadow-lg w-full bg-white/5 rounded-xl border border-dashed border-white/20">
       <div className="flex justify-between items-center mb-2">    
         <div className='flex justify-between w-full items-center gap-2'>
               <div>
-               <p className='text-sm font-semibold text-gray-800'> Operating Margin</p>
+               <p className='text-sm font-semibold text-[#a2a2a2]'> Operating Margin</p>
               </div>
-            <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[green] mt-2'>
+            <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[#4bf187] mt-2'>
                   <img src={warn} alt="" />
-              <p className='text-sm flex gap-4 text-gray-800'>+12.4%</p>
+              <p className='text-sm flex gap-4 text-[#f23e60]'>+12.4%</p>
                   <img src={down} alt="" />
             </div>
         </div>
       </div>
       <div className='mt-1 text-sm font-medium mt-2'>
-        <p className="text-2xl font-semibold text-black">{data?.operatingMargin} </p>
+        <p className="text-2xl font-semibold text-white">{data?.operatingMargin} </p>
       </div>
     </div>
     {/* 2nd card */}
-    <div key={"1005"} className="bg-[white] p-5 rounded-xl shadow-lg w-full">
+    <div key={"1005"} className="bg-[white] p-5 rounded-xl shadow-lg w-full bg-white/5 rounded-xl border border-dashed border-white/20">
       <div className="flex justify-between items-center mb-2">    
         <div className='flex justify-between w-full items-center gap-2'>
               <div>
-               <p className='text-sm font-semibold text-gray-800'>Inventory Turnover</p>
+               <p className='text-sm font-semibold text-[#a2a2a2]'>Inventory Turnover</p>
               </div>
-            <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[green] mt-2'>
+            <div className='flex items-center gap-2 mt-1 text-sm font-medium text-[#4bf187] mt-2'>
                   <img src={warn} alt="" />
-              <p className='text-sm flex gap-4 text-gray-800'>+12.4%</p>
+              <p className='text-sm flex gap-4 text-[#f23e60]'>+12.4%</p>
                   <img src={down} alt="" />
             </div>
         </div>
       </div>
       <div className='mt-1 text-sm font-medium mt-2'>
-        <p className="text-2xl font-semibold text-black">{data?.invTurnOver} </p>
+        <p className="text-2xl font-semibold text-white">{data?.invTurnOver} </p>
       </div>
     </div>
- </React.Fragment>
-  ))}
+        </React.Fragment>
+      ))
+    ) : (
+      <div className="text-gray-500 text-center mx-auto py-10 text-center text-lg font-medium">
+        No Data Found
+      </div>
+    )}
+  </>
+)}
+
+
+
+
+
+
+
+
+
 
 {/* marketkpi  */}
-  {btnClicked === "Market KPI" && market?.data?.items?.map((data, index) => (
- <React.Fragment key={"index98662"}>
-        
-        {/* Beta */}
+{btnClicked === "Market KPI" && (
+  <>
+    {loadingTabData.loading ? (
+      <div className="text-white mx-auto flex justify-center items-center text-2xl">
+        <Loading2 />
+      </div>
+    ) : market?.data?.items?.length > 0 ? (
+      market.data.items.map((data, index) => (
+        <React.Fragment key={index}>
+         {/* Beta */}
         <div className="bg-white/5 w-full p-4 rounded-xl border border-dashed border-white/20" key={"1101"}>
           <div className="flex justify-between items-center mb-1">
             <p className="text-sm text-gray-300">Beta</p>
@@ -498,14 +574,26 @@ if(singlePromoshareData?.loading){
   <p className="text-xs text-gray-400 mt-2">Due Diligence Status</p>
 </div>
 
-  </React.Fragment>
-  ))}
+        </React.Fragment>
+      ))
+    ) : (
+      <div className="text-gray-500 text-center mx-auto py-10 text-center text-lg font-medium">
+        No Data Found
+      </div>
+    )}
+  </>
+)}
 
+
+
+
+
+{/* News  */}
   {btnClicked === "News" && news?.data?.items?.map((data, index) => (
     <div key={index} className="bg-[white] p-5 rounded-xl shadow-lg">
       <div className="flex justify-between items-center mb-2">
         <p className="text-2xl font-semibold text-black">{data.title}</p>
-        <div className="bg-white bg-opacity-10 p-2 rounded-full text-white text-lg">{data.icon}</div>
+        <div className="bg-white  p-2 rounded-full text-white text-lg">{data.icon}</div>
       </div>
       <p className="text-sm text-gray-400">{data.subtitle}</p>
     </div>

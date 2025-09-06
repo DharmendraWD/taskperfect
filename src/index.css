@@ -133,3 +133,11 @@ backdrop-filter: blur(14px);
   transform: scale(1.03);
   background-color: #26262652;
 }
+
+.truncate-two-words {
+  width: 10ch; /* Approx width for 2 short words */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+}

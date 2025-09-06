@@ -17,39 +17,41 @@ import { Link } from 'react-router-dom';
 
 
 const BlogPosts = () => {
-  const first3BlogsData = useSelector((state) => state.blog);
+  const first3BlogsData = useSelector((state) => state?.first3Blogs?.data);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(first3Blogs({ currentPage: 1, numOfBlogs: 3 })); // Fetch first page with 3 items
+    dispatch(first3Blogs({ currentPage: 1, numOfBlogs: 6})); // Fetch first page with 3 items
   }, [dispatch]);
 
 
   if (first3BlogsData.loading) {
     return <div className='text-white min-h-screen flex justify-center items-center text-2xl'>Loading...</div>
   }
+
+  console.log(first3BlogsData)
   return (
  <>
     <div className='py-[80px]'>
       <HeadingL label="Market and Insights Concepts" />
-      <Para label="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod." />
+      <Para label="Market and Insights Concepts involve analyzing trends, consumer behavior, and data to guide strategic business decisions and uncover growth opportunities." />
       <div className=" text-white flex-col  font-sans flex items-start justify-center px-[10px] lg:px-[0px]">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 w-full">
         {/* Large Card */}
 
-        {first3BlogsData?.blogs?.data?.items?.[0] && (
-       <Link to={"/blog/"+first3BlogsData?.blogs?.data?.items?.[0].id} state={first3BlogsData?.blogs?.data?.items?.[0]} className=''>
+        {first3BlogsData?.data?.items?.[0] && (
+       <Link to={"/blog/"+first3BlogsData?.data?.items?.[0].id} state={first3BlogsData?.blogs?.data?.items?.[0]} className=''>
         <div className='flex flex-col md:flex-row bg-transparent rounded-lg overflow-hidden'>
          <div className="relative group overflow-hidden  md:col-span-1 lg:col-span-1">
            <img
-            src={first3BlogsData?.blogs?.data?.items?.[0]?.images?.[0] || noImg}
+            src={first3BlogsData?.data?.items?.[0]?.images?.[0] || noImg}
             alt={"img"}
             className="w-full h-[50%] object-cover transform transition-transform duration-500 ease-in-out group-hover:scale-105"
           />
           <div className=" inset-0 flex flex-col justify-end ">
-            <div className="text-gray-400 mt-2 text-lg flex justify-between mb-1">{first3BlogsData?.blogs?.data?.items?.[0].createdDate} <MdArrowOutward /></div>
-            <h2 className="text-2xl md:text-3xl font-bold mb-2 leading-tight twoLinePara">{first3BlogsData?.blogs?.data?.items?.[0].blogTitle}</h2>
-            <p className="text-gray-300 text-sm md:text-base leading-relaxed twoLinePara">{first3BlogsData?.blogs?.data?.items?.[0].blogDesc}</p>
+            <div className="text-gray-400 mt-2 text-lg flex justify-between mb-1">{first3BlogsData?.data?.items?.[0].createdDate} <MdArrowOutward /></div>
+            <h2 className="text-2xl md:text-3xl font-bold mb-2 leading-tight twoLinePara">{first3BlogsData?.data?.items?.[0].blogTitle}</h2>
+            <p className="text-gray-300 text-sm md:text-base leading-relaxed twoLinePara">{first3BlogsData?.data?.items?.[0].blogDesc}</p>
 
           </div>
         </div>
@@ -60,7 +62,7 @@ const BlogPosts = () => {
 
         {/* Small Cards */}
         <div className="grid grid-cols-1 gap-8">
-          {first3BlogsData?.blogs?.data?.items.slice(1, 3).map((blog, index) => (
+          {first3BlogsData?.data?.items.slice(1, 3).map((blog, index) => (
             <div key={index} className="flex flex-col md:flex-row  bg-transparent rounded-lg overflow-hidden">
               <Link to={"/blog/"+blog.id} state={blog} className=''>
                <div className='flex flex-col md:flex-row items-center gap-4 bg-transparent rounded-lg overflow-hidden'>

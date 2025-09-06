@@ -10,6 +10,11 @@ import Navbar from '../Nav/Nav';
 import HeadingL from '../utilities/HeadingL';
 import Button from '../utilities/Button';
 
+import noImg from '../../assets/img/noImage.png'
+import { useDispatch, useSelector } from 'react-redux';
+import { totalPromoshare } from '../../redux/slices/promoShare/PromoshareSlice';
+
+
 const items = [
   { id: 1, title: 'Nabil Bank stock Exchange', description: 'Lorem ipsum dolor sit amet...', image: img6 },
   { id: 2, title: 'Hydropower share buying and', description: 'Lorem ipsum dolor sit amet...', image: img2 },
@@ -22,8 +27,38 @@ const items = [
 ];
 
 const MultiCarousel = () => {
+  const [items, setitems] = useState([])
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsToShow, setItemsToShow] = useState(5);
+
+  const dispatch = useDispatch();
+  const {
+    data,
+    loading,
+    error,
+    limit,
+    skip,
+    totalPages,
+    currentPage,
+  } = useSelector((state) => state.promoshare);
+
+  // Fetch paginated data on mount or when skip/limit changes
+  useEffect(() => {
+    dispatch(totalPromoshare({ limit, skip }));
+  }, [dispatch, limit, skip]);
+
+  console.log(data?.data?.items?.[0])
+
+// ✅ Correct - run when `data` changes
+useEffect(() => {
+  if (data?.data?.items?.length) {
+    setitems(data.data.items);
+    setCurrentIndex(0); // reset to first slide
+  }
+}, [data]);
+
+  console.log(items)
 
   useEffect(() => {
     const handleResize = () => {
@@ -41,7 +76,7 @@ const MultiCarousel = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const totalItems = items.length;
+  const totalItems = items?.length;
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % totalItems);
@@ -51,13 +86,21 @@ const MultiCarousel = () => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + totalItems) % totalItems);
   };
 
-  const getVisibleItems = () => {
-    const visibleItems = [];
-    for (let i = 0; i < itemsToShow; i++) {
-      visibleItems.push(items[(currentIndex + i) % totalItems]);
-    }
-    return visibleItems;
-  };
+ const getVisibleItems = () => {
+  if (!items || items.length === 0) return [];
+
+  const visibleItems = [];
+
+  // If total items < itemsToShow, show only what's available
+  const count = Math.min(itemsToShow, items.length);
+
+  for (let i = 0; i < count; i++) {
+    visibleItems.push(items[(currentIndex + i) % items?.length]);
+  }
+
+  return visibleItems;
+};
+
 
   return (
     <section className="text-white mt-[150px]">
@@ -92,17 +135,17 @@ const MultiCarousel = () => {
           <div className="flex justify-center md:justify-start">
             {getVisibleItems().map((item, index) => (
               <div
-                key={item.id}
+                key={item?.id}
                 className="flex-shrink-0 p-2"
                 style={{ width: `${100 / itemsToShow}%` }}
               >
                 <div className=" rounded-[20px] overflow-hidden ">
-                  <img src={item.image} alt={item.title} className="w-full h-40 object-cover" />
+                  <img src={item?.image? `${import.meta.env.VITE_WEB_BASE_URL}${item?.imageUrl}` : noImg} alt={item?.imageUrl} className="w-full h-40 object-cover" />
                 </div>
                 <div>
-                    <h3 className="text-base font-semibold text-gray-50">{item.title}</h3>
+                    <h3 className="text-base font-semibold text-gray-50">{item?.companyName}</h3>
                     <p className="= text-xs text-gray-400 leading-tight line-clamp-2">
-                      {item.description}
+                      {item?.remarks1}
                     </p>
                 </div>
               </div>

@@ -47,10 +47,10 @@ console.log(promshares)
   return (
     <div>
       <h2 className="text-white text-2xl md:text-3xl font-semibold text-center mb-2">
-        Promoshare Lorem Ipsum Dolor
+        Promoshare 
       </h2>
       <p className="text-white/60 text-sm text-center mb-6">
-        Lorem ipsum dolor sit amet consectetur.
+       Innovative. Engaging. Rewarding. Social.
       </p>
 
       <div className="grid grid-cols-1 justify-self-center md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
@@ -58,9 +58,11 @@ console.log(promshares)
           <PromoShareCard
             key={index}
             title={promoshare.companyName}
-            desc={promoshare.description}
+            desc={promoshare.remarks1}
             imageUrl={promoshare.imageUrl}
             id={promoshare.id}
+           sector={promoshare.sector}
+
           />
         ))}
       </div>

@@ -31,17 +31,30 @@ if (homepageContent.loading) {
   
   
   return (
-    <div className="flex lg:flex-row flex-col w-auto  lg:w-[1182px] mx-auto justify-between items-center gap-[85px]">
-      <div className="md:w-[510px] w-full  relative h-[456px] shrink-0">
-        <div className="lg:w-[222px] teamSuppImageParent lg:h-[222px] w-[146px] h-[146px] absolute top-0 left-[32px] shrink-0">
+    <div className="flex xl:flex-row flex-col w-auto  lg:w-[1182px] mx-auto justify-between items-center gap-[85px]">
+      <div className="w-[90%] lg:w-[500px]  relative h-[456px] shrink-0">
+        <div className="lg:w-[222px] w-[40%] h-[50%] teamSuppImageParent lg:h-[222px] w-[146px] h-[146px] absolute top-0 left-[32px] shrink-0">
           <img src={man1} alt="" className='h-full w-full teamSuppImage  rounded-[30px] object-cover' />
         </div>
 
-        <div className='lg:w-[261px] teamSuppImageParent w-[166px] h-[176px] lg:h-[198px] lg:left-[0px] left-[5px] absolute bottom-0'>
+        <div className='lg:w-[261px] h-[46%] w-[40%] teamSuppImageParent w-[166px] h-[176px] lg:h-[198px] lg:left-[0px] left-[5px] absolute bottom-0'>
           <img src={man2} className='h-full w-full teamSuppImage object-cover rounded-[30px]' alt="" />
         </div>
 
-        <div className='lg:w-[221px] teamSuppImageParent w-[146px] h-[193px] lg:h-[263px] lg:right-[0px] right-[5px] absolute right-0 top-[50%] -translate-y-1/2 ' >
+        <div className='w-[40%]               /* ✅ Width for small screens */
+  sm:w-[50%]            /* Optional: medium small tweak */
+  md:w-[221px]          /* Width for md+ if needed */
+  w-[146px]             /* ✅ Default width (overridden by 40% on small) */
+  h-[193px] 
+  lg:h-[263px] 
+  h-[100%] 
+  teamSuppImageParent 
+  absolute 
+  right-0 
+  right-[5px] 
+  lg:right-[0px] 
+  top-[50%] 
+  -translate-y-1/2' >
           <img className='h-full w-full teamSuppImage object-cover rounded-[30px]' src={man3} alt="" />
         </div>
       </div>
