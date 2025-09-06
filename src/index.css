@@ -120,10 +120,10 @@ backdrop-filter: blur(14px);
    -webkit-box-orient: vertical;
 }
 .teamSuppImageParent{
-perspective: 200px;
+/* perspective: 200px; */
 }
 .teamSuppImage{
-      transform: rotateX(20deg);
+      /* transform: rotateX(20deg); */
 }
 .allCards{
   transition: .3s ease-in-out;

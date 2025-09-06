@@ -1,19 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import man1 from '../../../assets/img/man1.jpg';
 import man2 from '../../../assets/img/man2.jpg';
 import man3 from '../../../assets/img/man3.jpg';
 import HeadingL from '../../utilities/HeadingL';
 import { FaEye } from "react-icons/fa";
+import {homeContents} from '../../../redux/slices/homeContent/HomepageSlice'
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const TeamSupportSection = () => {
     const [showPopup, setShowPopup] = useState(false);
 
+
+    const homepageContent = useSelector((state) => state.homeContent);
+const dispatch = useDispatch();
+
+useEffect(() => {
+  if (!homepageContent.homeContent.data) {
+    dispatch(homeContents());
+  }
+}, [dispatch, homepageContent.homeContent.data]);
+
+let teamSupportData = homepageContent?.homeContent?.data?.items[1]
+console.log(teamSupportData)
+if (homepageContent.loading) {
+  return <div className='text-white min-h-screen flex justify-center items-center text-2xl'>Loading...</div>
+}
+
     
   
   
   return (
-    <div className="flex xl:flex-row flex-col w-auto  xl:w-[1182px] mx-auto justify-between items-center gap-[85px]">
+    <div className="flex lg:flex-row flex-col w-auto  lg:w-[1182px] mx-auto justify-between items-center gap-[85px]">
       <div className="md:w-[510px] w-full  relative h-[456px] shrink-0">
         <div className="lg:w-[222px] teamSuppImageParent lg:h-[222px] w-[146px] h-[146px] absolute top-0 left-[32px] shrink-0">
           <img src={man1} alt="" className='h-full w-full teamSuppImage  rounded-[30px] object-cover' />
@@ -39,17 +57,19 @@ const TeamSupportSection = () => {
   </div>
   
   {/* Main Heading */}
-  <HeadingL label="We're here for you" />
+  <HeadingL label={teamSupportData?.topic} />
   
   {/* Description Paragraph */}
-  <p className="text-gray-400 text-base sm:text-lg md:text-xl mb-12 max-w-2xl">
-  Chat, call or text. Our specialists are here to help you get the most out of your Precize experience.<span
+  <div className="paraandTopic ">
+    <p className="text-gray-400 text-base sm:text-lg md:text-xl  max-w-2xl twoLinePara">
+  {teamSupportData?.description}
+  </p><span
       className="text-white cursor-pointer ml-1 flex items-center gap-1"
       onClick={() => setShowPopup(true)}
     >
-      View More <span><FaEye /></span>
+      View More
     </span>
-  </p>
+  </div>
   
   {/* Call to Action Button */}
   {/* <button className="border-2 border-white text-white font-medium rounded-full px-8 py-3 sm:px-10 sm:py-4 hover:bg-white hover:text-black transition-colors duration-300">
@@ -62,7 +82,7 @@ const TeamSupportSection = () => {
       </div>
       {showPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-          <div className="bg-white px-6 pb-6 pt-2 rounded-lg shadow-lg w-[90%] max-w-md animate-fade-in">
+          <div className="bg-[#081a3b]  rounded-xl border border-dashed border-white/20 px-6 pb-6 pt-2 rounded-lg shadow-lg w-[90%] max-w-md animate-fade-in">
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setShowPopup(false)}
@@ -72,8 +92,8 @@ const TeamSupportSection = () => {
               </button>
             </div>
             {/* <h2 className="text-lg font-semibold text-gray-800 mb-4">Confirm Logout</h2> */}
-            <p className="text-gray-600 mb-6">Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis asperiores quo porro praesentium nihil eaque molestias minus nulla laudantium accusamus.</p>
-            <p className="text-gray-600 mb-6">Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis asperiores quo porro praesentium nihil eaque molestias minus nulla laudantium accusamus.</p>
+            <p className="text-white mb-6">{teamSupportData?.description}</p>
+
           </div>
         </div>
       )}

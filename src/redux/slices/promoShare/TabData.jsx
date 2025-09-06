@@ -18,18 +18,6 @@ export const promoshareTabAPI = createAsyncThunk(
 );
 
 
-// get particular promoshare page detailes 
-// export const getPromoshareById = createAsyncThunk(
-//   "getPromoshareById",
-//   async (id, thunkAPI) => {
-//     try {
-//       const res = await axios.get(`${BASE_API_URL}/CompanyProfile/GetCompanyProfileById/${id}`);
-//       return res.data; // return just the response data
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error.message);
-//     }
-//   }
-// );
 
 // Slice
 export const promoshareTabAPiStatus = createSlice({
@@ -60,20 +48,3 @@ extraReducers: (builder) => {
   export default promoshareTabAPiStatus.reducer;
   
   
-  
-      // //   singlie promoshare 
-      //         .addCase(getPromoshareById.pending, (state) => {
-      //     state.loading = true;
-      //     state.error = null;
-      //   })
-      //   .addCase(getPromoshareById.fulfilled, (state, action) => {
-      //     state.loading = false;
-      //     state.singlePromoshare = action.payload;
-  
-      //     const totalCount = action.payload?.data?.totalCount || 0;
-      //     state.totalPages = Math.ceil(totalCount / state.limit);
-      //   })
-      //   .addCase(getPromoshareById.rejected, (state, action) => {
-      //     state.loading = false;
-      //     state.error = action.payload || action.error.message;
-      //   });
