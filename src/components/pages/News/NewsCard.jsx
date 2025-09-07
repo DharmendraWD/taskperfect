@@ -5,6 +5,7 @@ import { news } from '../../../redux/slices/news/NewsSlice';
 // http://www.taskperfect.somee.com/UploadedImages/News/Screenshot__3_.png
 export const BASE_WEB_URL = import.meta.env.VITE_WEB_BASE_URL;
 import noImage from '../../../assets/img/noImage.png';
+import Loading2 from '../../utilities/loading/Loading2';
 
 
 const NewsCard = () => {
@@ -86,8 +87,8 @@ const NewsCard = () => {
 
   if (totalNewss.loading) {
     return (
-      <div className="text-white min-h-screen flex justify-center items-center text-2xl">
-        Loading...
+      <div className="text-white relative min-h-screen flex justify-center items-center text-2xl">
+       <Loading2 />
       </div>
     );
   }

@@ -3,6 +3,7 @@ import PromoShareCard from "./PromoShareCard";
 import { useDispatch, useSelector } from "react-redux";
 import { totalPromoshare, promoshareStatus } from "../../../redux/slices/promoShare/PromoshareSlice";
 import FAQ from "../../Hero/Homepage/FAQ";
+import Loading2 from "../../utilities/loading/Loading2";
 
 
 function PromoShare() {
@@ -30,8 +31,8 @@ function PromoShare() {
 
   if (loading) {
     return (
-      <div className="text-white min-h-screen flex justify-center items-center text-2xl">
-        Loading...
+      <div className="text-white min-h-screen relative flex justify-center items-center text-2xl">
+  <Loading2  />
       </div>
     );
   }

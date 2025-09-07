@@ -17,7 +17,7 @@ useEffect(() => {
 let cards = cardData?.HomePageBottomCard?.data?.items || [];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <>
       {cards.map((card, index) => (
         <div key={index} className="bg_transparent relative rounded-[20px] min-h-[320px]  w-[100%] overflow-hidden p-4 md:p-6 lg:p-8 text-white">
           <img src={card?.image || cardImg} alt="Card Image" className=" absolute right-[10%] w-[100px] opacity-40 object-cover mb-4 rounded" />
@@ -31,8 +31,7 @@ let cards = cardData?.HomePageBottomCard?.data?.items || [];
        </div>
         </div></div>
       ))}
-     
-    </div>
+     </>
   );
 };
 export default Card1;

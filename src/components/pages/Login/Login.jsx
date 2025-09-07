@@ -111,9 +111,6 @@ const Login = () => {
       <div>
 <div className='grid sm:grid-cols-2  grid-cols-1 gap-4 p-10'>
   <Card1></Card1>
-  <Card1></Card1>
-  <Card1></Card1>
-  <Card1></Card1>
 </div>
       </div>
     </div>
