@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import HeadingL from '../../utilities/HeadingL';
 import Loading2 from '../../utilities/loading/Loading2';
 import ParaTextStart from '../../utilities/Para/ParaTextStart';
+import FAQ from '../../Hero/Homepage/FAQ';
 
 
 const Legal = () => {
@@ -31,10 +32,14 @@ if (data.loading) {
 
 
   return (
+<>
     <div className="text-white mt-20 lg:mt-4  text-justify min-h-screen flex flex-col gap-4">
 <HeadingL label={footerContent?.title} />
 <ParaTextStart label={footerContent?.description} />
     </div>
+
+    <FAQ></FAQ>
+</>
   );
 };
 
