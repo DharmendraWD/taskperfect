@@ -54,7 +54,7 @@ console.log(promshares)
        Innovative. Engaging. Rewarding. Social.
       </p>
 
-      <div className="grid grid-cols-1 justify-self-center md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+      <div className="grid grid-cols-1 justify-self-center md:grid-cols-2 items-center justify-center lg:grid-cols-4 gap-6 mb-6">
         {promshares.map((promoshare, index) => (
           <PromoShareCard
             key={index}
