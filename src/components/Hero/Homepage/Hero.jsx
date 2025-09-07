@@ -7,6 +7,7 @@ import HeroImage from '../../utilities/HeroImage';
 import { useDispatch, useSelector } from 'react-redux';
 import { homeContents } from '../../../redux/slices/homeContent/HomepageSlice';
 import { Link } from 'react-router-dom';
+import Loading2 from '../../utilities/loading/Loading2';
 
 const HeroSection = () => {
   const handBg = "linear-gradient(0deg, #0a265c 17.55%, rgba(0, 0, 0, 0.00) 88.6%)";
@@ -24,8 +25,8 @@ const HeroSection = () => {
 
   if (homepageContent.loading || !contentItem) {
     return (
-      <div className='text-white min-h-screen flex justify-center items-center text-2xl'>
-        Loading...
+      <div className='text-white min-h-screen z-[899999] flex relative justify-center items-center text-2xl'>
+      <Loading2 />
       </div>
     );
   }

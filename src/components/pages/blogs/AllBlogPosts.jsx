@@ -3,6 +3,7 @@ import BlogPostCard from './BlogPostCard';
 import { blogs } from '../../../redux/slices/blogs/BlogsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import noImage from "../../../assets/img/noImage.png";
+import Loading2 from '../../utilities/loading/Loading2';
 
 const AllBlogPosts = () => {
   const dispatch = useDispatch();
@@ -67,7 +68,9 @@ const AllBlogPosts = () => {
 
 
   if (allBlogs.loading) {
-    return <div className='text-white min-h-screen flex justify-center items-center text-2xl'>Loading...</div>;
+    return <div className='text-white relative min-h-screen flex justify-center items-center text-2xl'>
+      <Loading2 />
+    </div>;
   }
 
   if (!items || items.length === 0) {

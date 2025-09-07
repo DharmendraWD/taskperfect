@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import img2 from '../../assets/img/carousels1/2.jpg';
-import img3 from '../../assets/img/carousels1/3.jpg';
-import img4 from '../../assets/img/carousels1/4.jpg';
-import img5 from '../../assets/img/carousels1/5.jpg';
-import img6 from '../../assets/img/carousels1/6.jpg';
 import { Link } from 'react-router-dom';
-import Navbar from '../Nav/Nav';
 import HeadingL from '../utilities/HeadingL';
 import Button from '../utilities/Button';
 
@@ -15,16 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { totalPromoshare } from '../../redux/slices/promoShare/PromoshareSlice';
 
 
-const items = [
-  { id: 1, title: 'Nabil Bank stock Exchange', description: 'Lorem ipsum dolor sit amet...', image: img6 },
-  { id: 2, title: 'Hydropower share buying and', description: 'Lorem ipsum dolor sit amet...', image: img2 },
-  { id: 3, title: 'Metrocycle stock Exchange', description: 'Lorem ipsum dolor sit amet...', image: img3 },
-  { id: 4, title: 'Demo Stock Share exchange', description: 'Lorem ipsum dolor sit amet...', image: img4 },
-  { id: 5, title: 'Global Connect Bank Shares', description: 'Lorem ipsum dolor sit amet...', image: img5 },
-  { id: 6, title: 'Another stock exchange', description: 'Lorem ipsum dolor sit amet...', image: img6 },
-  { id: 7, title: 'More share trading', description: 'Lorem ipsum dolor sit amet...', image: img4 },
-  { id: 8, title: 'Investment opportunities', description: 'Lorem ipsum dolor sit amet...', image: img6 },
-];
+
 
 const MultiCarousel = () => {
   const [items, setitems] = useState([])

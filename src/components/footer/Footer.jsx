@@ -12,7 +12,7 @@ const Footer = () => {
         {/* Left Section: Logo, Text, and Social Icons */}
         <div className="md:col-span-2 lg:col-span-3">
           <div className="flex items-center mb-4">
-                  <Link to="/">  <img src={Logo} className='w-3xl' alt="" /></Link>
+                  <Link to="/">  <img src={Logo} className='w-[60px]' alt="" /></Link>
         
           </div>
           <p className="text-sm text-gray-400 mb-6 w-[90%] lg:w-[55%]">

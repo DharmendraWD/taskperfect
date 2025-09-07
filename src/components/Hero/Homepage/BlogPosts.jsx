@@ -1,19 +1,14 @@
 import React from 'react';
-import img1 from '../../../assets/img/carousels1/2.jpg';
-import img2 from '../../../assets/img/carousels1/5.jpg';
-import img3 from '../../../assets/img/carousels1/4.jpg';
 import HeadingL from '../../utilities/HeadingL';
 import Para from '../../utilities/Para';
 import { MdArrowOutward } from "react-icons/md";
-import Button from '../../utilities/Button';
-import HeroImage from '../../utilities/HeroImage';
-import Button2 from '../../utilities/Button2';
 import noImg from '../../../assets/img/noImage.png'
 
 import {first3Blogs} from '../../../redux/slices/blogs/FirstThreeBlogs';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Loading2 from '../../utilities/loading/Loading2';
 
 
 const BlogPosts = () => {
@@ -26,10 +21,12 @@ const BlogPosts = () => {
 
 
   if (first3BlogsData.loading) {
-    return <div className='text-white min-h-screen flex justify-center items-center text-2xl'>Loading...</div>
+    return <div className='text-white min-h-screen relative z-[899999] flex justify-center items-center text-2xl'>
+      <Loading2 />
+    </div>
   }
 
-  console.log(first3BlogsData)
+  // console.log(first3BlogsData)
   return (
  <>
     <div className='py-[80px]'>

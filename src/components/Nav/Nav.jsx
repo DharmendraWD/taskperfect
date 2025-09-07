@@ -45,7 +45,7 @@ const Navbar = () => {
                 {/* Logo Section */}
                 <div className="flex-shrink-0">
                     {/* Placeholder for the bull icon - use an actual SVG or Image component */}
-                  <Link to="/">  <img src={Logo} className='w-3xl' alt="" /></Link>
+                  <Link to="/">  <img src={Logo} className='w-[60px]' alt="" /></Link>
                 </div>
 
                 {/* Desktop Navigation Links (Hidden on small screens) */}

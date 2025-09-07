@@ -26,12 +26,13 @@ const PromoshareDets = lazy(() => import('./components/pages/promoShare/Promosha
 const PrivateRoutes = lazy(() => import('./redux/slices/auth/PrivateRoutes'));
 const ProctectedRoutesTest = lazy(() => import('./components/ProctectedRoutesTest'));
 const Download = lazy(() => import('./components/pages/downloads/Download'));
+const AboveFooter = lazy(() => import('./components/footer/AboveFooter'));
 
 
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { useSelector } from 'react-redux';
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import { Route, Routes, BrowserRouter, Link } from 'react-router-dom';
 import './index.css'
 
 function App() {
@@ -69,13 +70,13 @@ const handBg = "linear-gradient(2deg, #2c3139 17.55%, rgb(129 0 0 / 0%) 88.6%)";
         <FAQ></FAQ>
         <BlogPosts></BlogPosts>
       <div className='flex pb-32 items-center w-full items-center justify-center mt-[40px]'>
-    <Button label="View More" />
+    <Button label="View More" link="/blogs" />
   </div>
         <div className='flex items-center flex-col w-full items-center justify-center'>
     <HeadingL label="Your gateway to growth" />
-                 <Button2 label="Lorem ipsum"  link="/"></Button2>
+                 <Button2 label="Get Started Right Now"  link="/"></Button2>
 </div>
-      <HeroImage my0={"100px"} handBg={handBg}></HeroImage>
+      <AboveFooter my0={"100px"} handBg={handBg}></AboveFooter>
         </>
     )
   }

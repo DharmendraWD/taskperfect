@@ -2,12 +2,15 @@
 import React from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import Loading2 from '../../utilities/loading/Loading2';
 
 
 const BlogPostCard = ({ blog, noImage}) => {
-  if(blog?.loading){
-  return  <div className='text-white min-h-screen flex justify-center items-center text-2xl'>Loading...</div>
-  }
+  // if(blog?.loading){
+  // return  <div className='text-white min-h-screen flex relative justify-center items-center text-2xl'>
+  //   <Loading2 />
+  // </div>
+  // }
   // console.log(blog)
   return (
     <div className=" rounded-lg allCards overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.02]">
