@@ -2,11 +2,7 @@ import React from 'react';
 import { FaTwitter, FaFacebookF, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
 import mainImage from '../../../assets/img/carousels1/4.jpg'; // Adjust path to your image
 import ctaImage from '../../../assets/img/carousels1/2.jpg'; // Adjust path to your image
-import Blogs from './Blogs';
-import img1 from '../../../assets/img/carousels1/2.jpg';
-import img2 from '../../../assets/img/carousels1/3.jpg';
-import img3 from '../../../assets/img/carousels1/4.jpg';
-import BlogPostCard from './BlogPostCard';
+
 import noImage from "../../../assets/img/noImage.png"
 
 import {getBlogById} from "../../../redux/slices/blogs/BlogsSlice";
@@ -22,7 +18,7 @@ const postData = {
     intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     paragraph1: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     paragraph2: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    quote: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+    quote: 'Blog Post Quote',
     subheading: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
     subParagraph1: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     subParagraph2: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
@@ -37,13 +33,7 @@ const postData = {
   }
 };
 
-const blogPosts = [
-  // Sample data for your related blog posts. In a real app, this would come from an API.
-  { id: 1, image: img1, date: '17 Jan 2022', title: 'Lorem ipsum dolor', description: 'Like to know the secrets of transforming a 2-14 team into a 3x Super Bowl winning Dynasty?', readMoreLink: '#' },
-  { id: 2, image: img2, date: '6 Jan 2022', title: 'Lorem ipsum dolor', description: 'Mental models are simple expressions of complex processes or relationships.', readMoreLink: '#' },
-  { id: 3, image: img3, date: '15 Jan 2022', title: 'Lorem ipsum dolor', description: 'Introduction to Wireframing and its Principles. Learn from the best in the industry.', readMoreLink: '#' },
- 
-];
+
 
 const BlogPostDetail = () => {
   const dispatch = useDispatch();
