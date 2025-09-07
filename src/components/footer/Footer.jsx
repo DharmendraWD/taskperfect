@@ -1,5 +1,6 @@
 import React from 'react';
-import Logo from '../../assets/img/Logo.png';
+
+import Logo from '../../assets/img/Logo.png'
 import { Link } from 'react-router-dom';
 import footerImg from '../../assets/img/footerbg.png';
 
