@@ -21,7 +21,7 @@ useEffect(() => {
 
 const footerContent = data?.data?.data?.items[id];
 
-console.log(footerContent)
+// console.log(footerContent)
 
 
 if (data.loading) {
