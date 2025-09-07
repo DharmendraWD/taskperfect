@@ -141,3 +141,7 @@ backdrop-filter: blur(14px);
   text-overflow: ellipsis;
   display: inline-block;
 }
+
+.justifyItemsCenter{
+  justify-items: center;
+}

@@ -38,8 +38,8 @@ const BlogPosts = () => {
 
         {first3BlogsData?.data?.items?.[0] && (
        <Link to={"/blog/"+first3BlogsData?.data?.items?.[0].id} state={first3BlogsData?.blogs?.data?.items?.[0]} className=''>
-        <div className='flex flex-col md:flex-row bg-transparent rounded-lg overflow-hidden'>
-         <div className="relative group overflow-hidden  md:col-span-1 lg:col-span-1">
+        <div className='flex  flex-col md:flex-row bg-transparent rounded-lg overflow-hidden'>
+         <div className="relative allCards group overflow-hidden  md:col-span-1 lg:col-span-1">
            <img
             src={first3BlogsData?.data?.items?.[0]?.images?.[0] || noImg}
             alt={"img"}
@@ -60,7 +60,7 @@ const BlogPosts = () => {
         {/* Small Cards */}
         <div className="grid grid-cols-1 gap-8">
           {first3BlogsData?.data?.items.slice(1, 3).map((blog, index) => (
-            <div key={index} className="flex flex-col md:flex-row  bg-transparent rounded-lg overflow-hidden">
+            <div key={index} className="flex allCards flex-col md:flex-row  bg-transparent rounded-lg overflow-hidden">
               <Link to={"/blog/"+blog.id} state={blog} className=''>
                <div className='flex flex-col md:flex-row items-center gap-4 bg-transparent rounded-lg overflow-hidden'>
                 <div className="w-full md:w-1/2 flex-shrink-0 relative">

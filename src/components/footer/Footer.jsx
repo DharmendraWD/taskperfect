@@ -82,6 +82,7 @@ const footerItems = data?.data?.data?.items;
                 footerItems?.map((item, index)=>{
                   return(
                   <Link
+                  key={index}
   to={{
     pathname: "/legal/" + item?.title.replace(/\s+/g, '-').toLowerCase().replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())
   }}

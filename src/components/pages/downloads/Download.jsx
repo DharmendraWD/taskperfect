@@ -54,7 +54,7 @@ function DownloadCard() {
       </p>
 
       <div className="min-h-screen p-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 lg:gap-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 justifyItemsCenter md:grid-cols-3 gap-4 lg:gap-16">
           {downloadsItems?.map((item, index) => (
             <div key={index} className="allCards min-w-[313px] min-h-[200px] text-white border border-[#FEFBFB] rounded-[20px] p-4 flex flex-col justify-between shadow-lg hover:shadow-2xl transition duration-300">
               <div>

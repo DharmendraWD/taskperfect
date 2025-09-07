@@ -22,7 +22,11 @@ const Navbar = () => {
         
     ];
 
-
+const handleCloseMenu = () => {
+  setIsMenuOpen(false);
+  console.log(isMenuOpen)
+  console.log("first")
+}
  const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
 
   const [isVisible, setIsVisible] = useState(false);
@@ -60,6 +64,7 @@ const Navbar = () => {
       isActive ? 'text-green-700' : 'text-white'
     }`
   }
+
 >
   {item.name}
 </NavLink>
@@ -107,6 +112,7 @@ const Navbar = () => {
                 <div className="flex flex-col space-y-1 px-2 pt-2 pb-3 sm:px-3">
                     {navItems.map((item) => (
                     <NavLink
+                      onClick={handleCloseMenu}
   key={item.name}
   to={item.href}
   className={({ isActive }) =>
