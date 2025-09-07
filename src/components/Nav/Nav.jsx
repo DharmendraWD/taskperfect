@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { HiBars3, HiXMark } from 'react-icons/hi2'; // Import icons from Heroicons
 import Button2 from '../utilities/Button2';
 
-import Logo from "../../assets/img/Logo.png"
+import Logo1 from "../../assets/img/Logo1.png"
 import { Link, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import NavProfile from './NavProfile';
@@ -46,7 +46,7 @@ const Navbar = () => {
                 {/* Logo Section */}
                 <div className="flex-shrink-0">
                     {/* Placeholder for the bull icon - use an actual SVG or Image component */}
-                  <Link to="/">  <img src={Logo} className='w-[60px]' alt="" /></Link>
+                  <Link to="/">  <img src={Logo1} className='w-[60px]' alt="" /></Link>
                 </div>
 
                 {/* Desktop Navigation Links (Hidden on small screens) */}
