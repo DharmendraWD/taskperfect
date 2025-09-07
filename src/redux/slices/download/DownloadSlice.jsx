@@ -1,34 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+export const BASE_API_URL = import.meta.env.VITE_API_BASE_URL;
 
-// get allPromoshare 
+// Get paginated downloads
 export const download = createAsyncThunk("download", async ({ limit, skip }, thunkAPI) => {
     try {
-        const res = await axios.get(`https://dummyjson.com/products?limit=${limit}&skip=${skip}`);
-        return res.data.products; // return just the response data
+        const res = await axios.get(
+            `${BASE_API_URL}/DownloadFiles/GetPagedDownloadList?pageIndex=${skip}&pageSize=${limit}`
+        );
+        return res.data;
     } catch (error) {
         return thunkAPI.rejectWithValue(error.message);
     }
-})
+});
 
-
-// get particular promoshare page detailes 
-// export const getPromoshareById = createAsyncThunk(
-//   "getPromoshareById",
-//   async (id, thunkAPI) => {
-//     try {
-//       const res = await axios.get(`${BASE_API_URL}/Blog/GetBlogById/${id}`);
-//       console.log(res.data)
-//       return res.data; // return just the response data
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error.message);
-//     }
-//   }
-// );
-
-
-// slice 
+// Slice
 export const downloadStatus = createSlice({
     name: "downloadStatus",
     initialState: {
@@ -37,7 +24,7 @@ export const downloadStatus = createSlice({
         singlePromoshare: null,
         error: null,
         limit: 12,
-        skip: 0,
+        skip: 1,
         totalPages: 1,
         currentPage: 1,
     },
@@ -45,7 +32,10 @@ export const downloadStatus = createSlice({
         setPage: (state, action) => {
             state.skip = (action.payload - 1) * state.limit;
             state.currentPage = action.payload;
-        }
+        },
+        setSkip: (state, action) => {
+            state.skip = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -55,15 +45,16 @@ export const downloadStatus = createSlice({
             })
             .addCase(download.fulfilled, (state, action) => {
                 state.loading = false;
-                state.data = action.payload; // Already paginated
-                state.totalPages = Math.ceil(100 / state.limit); // Replace 100 with real total count if available
+                state.data = action.payload;
+
+                const totalCount = action.payload?.data?.totalCount || 0;
+                state.totalPages = Math.ceil(totalCount / state.limit);
             })
             .addCase(download.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload || action.error.message;
-            })
-    }
-})
-
+            });
+    },
+});
 
 export default downloadStatus.reducer;

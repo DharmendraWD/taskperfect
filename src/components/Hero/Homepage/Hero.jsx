@@ -6,6 +6,7 @@ import Para from '../../utilities/Para';
 import HeroImage from '../../utilities/HeroImage';
 import { useDispatch, useSelector } from 'react-redux';
 import { homeContents } from '../../../redux/slices/homeContent/HomepageSlice';
+import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   const handBg = "linear-gradient(0deg, #0a265c 17.55%, rgba(0, 0, 0, 0.00) 88.6%)";
@@ -56,11 +57,14 @@ const HeroSection = () => {
           <Para label={contentItem.description} />
 
           <div className="mt-8">
+            <Link
+              to="/login"
+              >
             <button
               className="bg-white text-green-800 font-semibold px-6 py-3 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-colors duration-300"
             >
               Reserve Access
-            </button>
+            </button></Link>
           </div>
         </div>
 

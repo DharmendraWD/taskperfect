@@ -8,8 +8,8 @@ function News() {
 
   return (
     <div>
-        <HeadingL label="Latest Lorem Lorem Lorem " />
-        <Para label="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos." />
+        <HeadingL label="News" />
+        <Para label="Stay updated with the latest news and announcements from our company." />
 <NewsCard></NewsCard>
     </div>
   )
