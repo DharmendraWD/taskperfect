@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import {homeContents} from '../../redux/slices/homeContent/HomepageSlice'
 import { useDispatch, useSelector } from 'react-redux';
-import Logo from '../../assets/img/Logo.png';
+import Logo1 from '../../assets/img/Logo1.png';
 
 function HeroImage({my, handBg}) {
 const homepageContent = useSelector((state) => state.homeContent);
@@ -26,7 +26,7 @@ useEffect(() => {
     <div className="mt-12 relative max-w-lg mx-auto">
       {homepageContent?.homeContent?.data?.items?.[0]?.imageUrl && (
 <img
-src={Logo}
+src={Logo1}
 alt="Hand holding a phone"
 className="w-full"
 />      
