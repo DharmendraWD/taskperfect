@@ -22,7 +22,7 @@ useEffect(() => {
 }, [dispatch, homepageContent.homeContent.data]);
 
 let teamSupportData = homepageContent?.homeContent?.data?.items[1]
-console.log(teamSupportData)
+// console.log(teamSupportData)
 if (homepageContent.loading) {
   return <div className='text-white min-h-screen flex justify-center items-center text-2xl'>Loading...</div>
 }

@@ -11,7 +11,7 @@ export const first3Blogs = createAsyncThunk(
       const res = await axios.get(
         `${BASE_API_URL}/Blog/GetPagedBlogList?pageIndex=${currentPage}&pageSize=${numOfBlogs}`
       );
-      console.log(res.data)
+      // console.log(res.data)
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

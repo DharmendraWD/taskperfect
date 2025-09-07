@@ -34,6 +34,7 @@ import { ToastContainer } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { Route, Routes, BrowserRouter, Link } from 'react-router-dom';
 import './index.css'
+import Legal from './components/footer/legal/Legal';
 
 function App() {
 
@@ -102,6 +103,9 @@ const handBg = "linear-gradient(2deg, #2c3139 17.55%, rgb(129 0 0 / 0%) 88.6%)";
 
       {/* DOWNLOAD  */}
   <Route path='/downloads' element={ <Download></Download>}></Route>
+
+  {/* FOOTER LEGAL  */}
+  <Route path='/legal/:title' element={ <Legal></Legal>}></Route>
 
 
 

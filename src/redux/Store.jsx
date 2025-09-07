@@ -13,6 +13,7 @@ import HomePgBtmCardReducer from './slices/homeContent/HomePageBottomCardSlice'
 import first3BlogsReducer from './slices/blogs/FirstThreeBlogs'
 import downloadReducer from './slices/download/DownloadSlice'
 import promosshareReducer from './slices/promoShare/TabData'
+import footerAsideReducer from './slices/footer/footerSLice'
 
 
 const store = configureStore({
@@ -29,7 +30,8 @@ const store = configureStore({
         HomePageBottomCard: HomePgBtmCardReducer,
         first3Blogs: first3BlogsReducer,
         downloads:downloadReducer,
-        promoshareTabs: promosshareReducer
+        promoshareTabs: promosshareReducer,
+        footerAsideS: footerAsideReducer,
     }
 })
 

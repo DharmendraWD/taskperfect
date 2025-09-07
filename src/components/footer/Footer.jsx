@@ -1,11 +1,25 @@
-import React from 'react';
-
-
+import React, { useEffect } from 'react';
 import Logo1 from '../../assets/img/Logo1.png'
 import { Link } from 'react-router-dom';
 import footerImg from '../../assets/img/footerbg.png';
+import { footerAsideStatus, footerAside } from '../../redux/slices/footer/footerSLice';
+import { useDispatch, useSelector } from 'react-redux';
+
+
 
 const Footer = () => {
+const dispatch = useDispatch();
+const data = useSelector((state) => state.footerAsideS);
+
+
+useEffect(() => {
+  dispatch(footerAside());
+}, [dispatch]);
+
+const footerItems = data?.data?.data?.items;
+
+
+
   return (
     <footer className="text-white max-w-[1440px] mt-16 border-t-2 border-white/10 px-4 pb-16  left-0 right-0 bottom-0">
                <img src={footerImg} alt="" className='absolute z-[-1] top-0 left-0 w-[100%] opacity-[30%] h-full'/>
@@ -62,12 +76,23 @@ const Footer = () => {
           {/* Sections Links */}
           <div>
             <h4 className="font-semibold text-lg mb-4">Sections</h4>
-            <ul className="space-y-2 text-sm text-gray-400">
-              <li><a href="#" className="hover:underline">Process</a></li>
-              <li><a href="#" className="hover:underline">Services</a></li>
-              <li><a href="#" className="hover:underline">Benefits</a></li>
-              <li><a href="#" className="hover:underline">Plans</a></li>
-              <li><a href="#" className="hover:underline">Contact</a></li>
+            <ul className="space-y-2 text-sm text-gray-400 flex flex-col">
+
+              {
+                footerItems?.map((item, index)=>{
+                  return(
+                  <Link
+  to={{
+    pathname: "/legal/" + item?.title.replace(/\s+/g, '-').toLowerCase().replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())
+  }}
+  state={{ id: index }}  // Pass the ID here
+  className="hover:underline"
+>
+  {item?.title}
+</Link>
+                  )
+                })
+              }
             </ul>
           </div>
           {/* Pages Links */}

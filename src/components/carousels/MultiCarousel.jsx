@@ -33,7 +33,7 @@ const MultiCarousel = () => {
     dispatch(totalPromoshare({ limit, skip }));
   }, [dispatch, limit, skip]);
 
-  console.log(data?.data?.items?.[0])
+  // console.log(data?.data?.items?.[0])
 
 // ✅ Correct - run when `data` changes
 useEffect(() => {
@@ -43,7 +43,7 @@ useEffect(() => {
   }
 }, [data]);
 
-  console.log(items)
+  // console.log(items)
 
   useEffect(() => {
     const handleResize = () => {
