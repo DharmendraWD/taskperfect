@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { HiBars3, HiXMark } from 'react-icons/hi2'; // Import icons from Heroicons
 import Button2 from '../utilities/Button2';
-import Logo from '../../assets/img/Logo.png';
+
+import Logo from "../../assets/img/Logo.png"
 import { Link, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import NavProfile from './NavProfile';
