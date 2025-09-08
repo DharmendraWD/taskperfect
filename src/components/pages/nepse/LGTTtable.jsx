@@ -1,17 +1,22 @@
 import React from 'react';
 import { FaChartLine, FaArrowUp } from 'react-icons/fa'; // Importing necessary icons
+import { MdOutlineTrendingDown } from "react-icons/md";
 
-const LGTTtable = ({Keys, Data}) => {
 
+
+const LGTTtable = ({Keys, Data, Icon: Icon, IconColor, heading, heading2, textColor, textBg}) => {
 
   return (
+    <>
     <div className="border rounded-[20px] border-gray-700 p-4 sm:p-6 lg:p-8 shadow-lg max-w-full mx-auto">
       {/* Header Section */}
       <div className="flex items-center mb-2">
-        <FaChartLine className="text-green-500 text-xl sm:text-2xl mr-2" />
-        <h2 className="text-lg sm:text-xl font-semibold text-white">Gainers</h2>
+        {/* <FaChartLine className="text-green-500 text-xl sm:text-2xl mr-2" /> */}
+       <Icon style={{ color: IconColor, fontSize: '20px' }} />
+
+        <h2 className="text-lg sm:text-xl font-semibold text-white">{heading}</h2>
       </div>
-      <p className="text-sm text-gray-400 mb-6">Top Stock Gainers</p>
+      <p className="text-sm text-gray-400 mb-6">{heading2}</p>
 
       {/* Table Section */}
       <div className="overflow-x-auto">
@@ -34,9 +39,10 @@ const LGTTtable = ({Keys, Data}) => {
                 </td>
                 <td className="px-3 border-b border-b-gray-700 py-3 font-bold text-white whitespace-nowrap">{stock.ltp}</td>
                 <td className="px-3 border-b border-b-gray-700 py-3 whitespace-nowrap">
-                  <span className="inline-flex items-center bg-green-600/30 text-green-500 text-sm font-semibold px-2 py-1 rounded-md">
-                    <FaArrowUp className="mr-1 text-xs" /> {stock.change}
-                  </span>
+                  <span className={`inline-flex items-center ${textBg} ${textColor} text-sm font-semibold px-2 py-1 rounded-md`}>
+  <FaArrowUp className="mr-1 text-xs" /> {stock.change}
+</span>
+
                 </td>
                 <td className="px-3 py-3 border-b border-b-gray-700 rounded-r-md text-white whitespace-nowrap">{stock.qty}</td>
               </tr>
@@ -45,6 +51,9 @@ const LGTTtable = ({Keys, Data}) => {
         </table>
       </div>
     </div>
+    <br />
+    
+    </>
   );
 };
 

@@ -1,9 +1,164 @@
 import React from 'react';
 import { FaSearch, FaArrowDown, FaArrowUp } from 'react-icons/fa';
+
 import LGTTtable from './LGTTtable';
 
 const LiveTradingTable = () => {
   const data = [
+    {
+      id: 1,
+      symbol: 'AAPL',
+      company: 'Apple Inc.',
+      ltp: '175.43',
+      xChange: '+2.34%',
+      isUp: true,
+      open: '172.50',
+      high: '176.80',
+      low: '171.20',
+      qty: '2.4M',
+      pClose: '171.43',
+      diff: '+4.00',
+    },
+    {
+      id: 1,
+      symbol: 'AAPL',
+      company: 'Apple Inc.',
+      ltp: '175.43',
+      xChange: '+2.34%',
+      isUp: true,
+      open: '172.50',
+      high: '176.80',
+      low: '171.20',
+      qty: '2.4M',
+      pClose: '171.43',
+      diff: '+4.00',
+    },
+    {
+      id: 1,
+      symbol: 'AAPL',
+      company: 'Apple Inc.',
+      ltp: '175.43',
+      xChange: '+2.34%',
+      isUp: true,
+      open: '172.50',
+      high: '176.80',
+      low: '171.20',
+      qty: '2.4M',
+      pClose: '171.43',
+      diff: '+4.00',
+    },
+    {
+      id: 1,
+      symbol: 'AAPL',
+      company: 'Apple Inc.',
+      ltp: '175.43',
+      xChange: '+2.34%',
+      isUp: true,
+      open: '172.50',
+      high: '176.80',
+      low: '171.20',
+      qty: '2.4M',
+      pClose: '171.43',
+      diff: '+4.00',
+    },
+    {
+      id: 1,
+      symbol: 'AAPL',
+      company: 'Apple Inc.',
+      ltp: '175.43',
+      xChange: '+2.34%',
+      isUp: true,
+      open: '172.50',
+      high: '176.80',
+      low: '171.20',
+      qty: '2.4M',
+      pClose: '171.43',
+      diff: '+4.00',
+    },
+    {
+      id: 1,
+      symbol: 'AAPL',
+      company: 'Apple Inc.',
+      ltp: '175.43',
+      xChange: '+2.34%',
+      isUp: true,
+      open: '172.50',
+      high: '176.80',
+      low: '171.20',
+      qty: '2.4M',
+      pClose: '171.43',
+      diff: '+4.00',
+    },
+    {
+      id: 1,
+      symbol: 'AAPL',
+      company: 'Apple Inc.',
+      ltp: '175.43',
+      xChange: '+2.34%',
+      isUp: true,
+      open: '172.50',
+      high: '176.80',
+      low: '171.20',
+      qty: '2.4M',
+      pClose: '171.43',
+      diff: '+4.00',
+    },
+    {
+      id: 1,
+      symbol: 'AAPL',
+      company: 'Apple Inc.',
+      ltp: '175.43',
+      xChange: '+2.34%',
+      isUp: true,
+      open: '172.50',
+      high: '176.80',
+      low: '171.20',
+      qty: '2.4M',
+      pClose: '171.43',
+      diff: '+4.00',
+    },
+    {
+      id: 1,
+      symbol: 'AAPL',
+      company: 'Apple Inc.',
+      ltp: '175.43',
+      xChange: '+2.34%',
+      isUp: true,
+      open: '172.50',
+      high: '176.80',
+      low: '171.20',
+      qty: '2.4M',
+      pClose: '171.43',
+      diff: '+4.00',
+    },
+    {
+      id: 1,
+      symbol: 'AAPL',
+      company: 'Apple Inc.',
+      ltp: '175.43',
+      xChange: '+2.34%',
+      isUp: true,
+      open: '172.50',
+      high: '176.80',
+      low: '171.20',
+      qty: '2.4M',
+      pClose: '171.43',
+      diff: '+4.00',
+    },
+    {
+      id: 1,
+      symbol: 'AAPL',
+      company: 'Apple Inc.',
+      ltp: '175.43',
+      xChange: '+2.34%',
+      isUp: true,
+      open: '172.50',
+      high: '176.80',
+      low: '171.20',
+      qty: '2.4M',
+      pClose: '171.43',
+      diff: '+4.00',
+    },
     {
       id: 1,
       symbol: 'AAPL',
@@ -65,76 +220,7 @@ const LiveTradingTable = () => {
 
 
   // right side
-  //  gainer data 
-    const gainerData = [
-    {
-      id: 1,
-      symbol: 'AAPL',
-      company: 'Apple Inc.',
-      ltp: '175.43',
-      change: '+2.34%',
-      qty: '150',
-    },
-    {
-      id: 2,
-      symbol: 'TSLA',
-      company: 'Tesla Inc.',
-      ltp: '248.87',
-      change: '+2.34%',
-      qty: '75',
-    },
-    {
-      id: 3,
-      symbol: 'GOOGL',
-      company: 'Alphabet Inc.',
-      ltp: '142.56',
-      change: '+2.34%',
-      qty: '200',
-    },
-    {
-      id: 4,
-      symbol: 'MSFT',
-      company: 'Microsoft Corp.',
-      ltp: '378.91',
-      change: '+2.34%',
-      qty: '120',
-    },
-    {
-      id: 5,
-      symbol: 'AMZN',
-      company: 'Amazon.com Inc.',
-      ltp: '145.32',
-      change: '+2.34%',
-      qty: '90',
-    },
-    {
-      id: 6,
-      symbol: 'NVDA',
-      company: 'NVIDIA Corp.',
-      ltp: '892.45',
-      change: '+2.34%',
-      qty: '45',
-    },
-  ];
 
-  const gainerKeys = [
-    {
-      id: 1,
-      key: 'Symbol',
-    },
-    {
-      id: 2,
-      key: 'LTP',
-    },
-    {
-      id: 3,
-      key: '% Change',
-    },
-    {
-      id: 4,
-      key: 'Qty',
-    },
-  ];
 
   return (
     <>
@@ -161,7 +247,7 @@ const LiveTradingTable = () => {
       </div>
 
       {/* Table Section */}
-      <div className="overflow-x-auto rounded-lg">
+      <div className="overflow-x-auto rounded-lg table-container scrollbar-thin">
         <table className="min-w-full  border-separate border-spacing-y-2">
           <thead>
             <tr className="">
@@ -211,12 +297,12 @@ const LiveTradingTable = () => {
         </table>
       </div>
     </div>
-<div className='flex flex-col gap-4'>
+{/* <div className='flex flex-col gap-4'>
       <LGTTtable Data={gainerData} Keys={gainerKeys}></LGTTtable>
     <LGTTtable Data={gainerData} Keys={gainerKeys}></LGTTtable>
     <LGTTtable Data={gainerData} Keys={gainerKeys}></LGTTtable>
     <LGTTtable Data={gainerData} Keys={gainerKeys}></LGTTtable>
-</div>
+</div> */}
     </div>
 
     </>

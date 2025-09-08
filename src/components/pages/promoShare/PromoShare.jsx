@@ -44,7 +44,13 @@ function PromoShare() {
   // Extract items safely
   const promshares = data?.data?.items || [];
 console.log(promshares)
-
+if(promshares.length === 0){
+  return (
+    <div className="text-white min-h-screen flex justify-center items-center text-2xl">
+      No Data Found
+    </div>
+  );
+}
   return (
     <div>
       <h2 className="text-white text-2xl md:text-3xl font-semibold text-center mb-2">

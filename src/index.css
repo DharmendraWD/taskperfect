@@ -145,3 +145,30 @@ backdrop-filter: blur(14px);
 .justifyItemsCenter{
   justify-items: center;
 }
+
+/* table  */
+ .table-container {
+      max-height: 300px; /* Adjust height as needed */
+      overflow-y: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    thead tr th{
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+/* table  */
