@@ -43,6 +43,11 @@ function DownloadCard() {
   if (error) {
     return <div className='text-red-500 text-center'>{error}</div>
   }
+  if(!downloadsItems?.length==0){
+    return   <div className="text-white min-h-screen flex justify-center items-center text-2xl">
+      No Data Found
+    </div>
+  }
 
   return (
     <div>
