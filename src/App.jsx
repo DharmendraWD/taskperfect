@@ -27,6 +27,7 @@ const PrivateRoutes = lazy(() => import('./redux/slices/auth/PrivateRoutes'));
 const ProctectedRoutesTest = lazy(() => import('./components/ProctectedRoutesTest'));
 const Download = lazy(() => import('./components/pages/downloads/Download'));
 const AboveFooter = lazy(() => import('./components/footer/AboveFooter'));
+import UpperTitle from './components/utilities/UpperTitle/UpperTitle';
 
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -37,7 +38,7 @@ import './index.css'
 import Legal from './components/footer/legal/Legal';
 
 function App() {
-
+UpperTitle();
   const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
 
 
