@@ -25,18 +25,18 @@ const footerItems = data?.data?.data?.items;
 
 
   return (
-    <footer className="text-white max-w-[1440px] mt-16 border-t-2 border-white/10 px-4 pb-16  left-0 right-0 bottom-0">
+    <footer className="text-white max-w-[1440px] mt-16 border-t-2 border-white/10 px-4 md:px-0 pb-16  left-0 right-0 bottom-0">
                <img src={footerImg} alt="" className='absolute z-[-1] top-0 left-0 w-[100%] opacity-[30%] h-full'/>
 
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 pl-[20px] lg:pl-[0px]">
+      <div className="container grid grid-cols-1 md:grid-cols-3 max-w-full gap-8  lg:pl-[0px] lg:grid-cols-[1.5fr_2fr]">
         {/* Left Section: Logo, Text, and Social Icons */}
-        <div className="md:col-span-2 lg:col-span-3">
+        <div className="">
           <div className="flex items-center mb-4">
                   <Link to="/">  <img src={Logo1} className='w-[60px]' alt="" /></Link>
         
           </div>
-          <p className="text-sm text-gray-400 mb-6 w-[90%] lg:w-[55%]">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non risus nec nulla tempus varius. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti ac massa vel dapibus Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et netus.
+          <p className="text-sm text-gray-400 mb-6 w-[90%] lg:w-[85%]">
+            Promoshare offers exclusive access to premier private growth enterprises and specialized trade finance investment opportunities for promoters.
           </p>
           <div className="flex space-x-2">
             {/* Social Icons - Using simple buttons as placeholders for icons */}
@@ -76,8 +76,16 @@ const footerItems = data?.data?.data?.items;
         </div>
 
         {/* Right Section: Link Columns */}
-        <div className="md:col-span-1 lg:col-span-2 grid grid-cols-2 gap-8 md:gap-4 lg:gap-8">
+        <div className="flex-col lg:flex-row flex gap-8 justify-between">
           {/* Sections Links */}
+          <div>
+            <h4 className="font-semibold text-lg mb-4">Resources</h4>
+            <ul className="space-y-2 text-sm text-gray-400 flex flex-col">
+    <Link to="/news"  className="hover:underline">News</Link>
+    <Link to="/blog"  className="hover:underline">Blogs</Link>
+    <Link to="/faqs"  className="hover:underline">FAQs</Link>
+            </ul>
+          </div>
           <div>
             <h4 className="font-semibold text-lg mb-4">Legal</h4>
             <ul className="space-y-2 text-sm text-gray-400 flex flex-col">
@@ -112,7 +120,7 @@ const footerItems = data?.data?.data?.items;
           {/* Pages Links */}
           <div>
             <h4 className="font-semibold text-lg mb-4">Our Office</h4>
-            <ul className="space-y-2 text-sm text-gray-400">
+            <ul className="space-y-2 text-sm text-gray-400 max-w-[230px]">
     {
   footerItems?.map((item, index) => {
     if (item?.title !== "Our Office:") return null;
@@ -187,14 +195,13 @@ const footerItems = data?.data?.data?.items;
     return null;
   })
 } */}
-
- {
+{
   footerItems?.map((item, index) => {
     if (
       (item?.title === "Page end disclaimers:" || item?.title === "Page end Disclaimers") &&
       !hasRenderedDisclaimer
     ) {
-      hasRenderedDisclaimer = true; // Mark as rendered
+      hasRenderedDisclaimer = true; // 👈 prevent further rendering
 
       const fullText = item?.description || "";
       const halfLength = Math.floor(fullText.length / 2);
