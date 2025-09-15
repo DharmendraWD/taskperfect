@@ -82,7 +82,7 @@ const footerItems = data?.data?.data?.items;
             <h4 className="font-semibold text-lg mb-4">Resources</h4>
             <ul className="space-y-2 text-sm text-gray-400 flex flex-col">
     <Link to="/news"  className="hover:underline">News</Link>
-    <Link to="/blog"  className="hover:underline">Blogs</Link>
+    <Link to="/blogs"  className="hover:underline">Blogs</Link>
     <Link to="/faqs"  className="hover:underline">FAQs</Link>
             </ul>
           </div>
