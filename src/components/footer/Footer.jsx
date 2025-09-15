@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Logo1 from '../../assets/img/Logo1.png'
 import { Link } from 'react-router-dom';
 import footerImg from '../../assets/img/footerbg.png';
@@ -10,6 +10,10 @@ import { useDispatch, useSelector } from 'react-redux';
 const Footer = () => {
 const dispatch = useDispatch();
 const data = useSelector((state) => state.footerAsideS);
+
+const [isExpanded, setIsExpanded] = useState(false);
+let hasRenderedDisclaimer = false; // Track if already rendered
+
 
 
 useEffect(() => {
@@ -165,6 +169,58 @@ const footerItems = data?.data?.data?.items;
           </div>
         </div>
       </div>
+      <hr className='border-gray-600 my-4' />
+{/* {
+  footerItems?.map((item, index) => {
+    if (
+      item?.title === "Page end disclaimers:" ||
+      item?.title === "Page end Disclaimers"
+    ) {
+      return (
+        <p key={index} className="text-sm text-gray-500 text-justify">
+          {item?.description}
+        </p>
+      );
+    }
+
+    // Skip everything else
+    return null;
+  })
+} */}
+
+ {
+  footerItems?.map((item, index) => {
+    if (
+      (item?.title === "Page end disclaimers:" || item?.title === "Page end Disclaimers") &&
+      !hasRenderedDisclaimer
+    ) {
+      hasRenderedDisclaimer = true; // Mark as rendered
+
+      const fullText = item?.description || "";
+      const halfLength = Math.floor(fullText.length / 2);
+      const visibleText = isExpanded ? fullText : fullText.slice(0, halfLength);
+
+      return (
+        <div key={index} className="text-sm text-gray-500 text-justify transition-all duration-300 ease-in-out">
+          <p>{visibleText}{!isExpanded && '...'}</p>
+
+          <button
+            onClick={() => setIsExpanded(prev => !prev)}
+            className="mt-2 text-blue-500 hover:underline text-sm"
+          >
+            {isExpanded ? "Show less" : "Show more"}
+          </button>
+        </div>
+      );
+    }
+
+    // Skip everything else
+    return null;
+  })
+}
+
+
+
     </footer>
   );
 };
