@@ -75,34 +75,93 @@ const footerItems = data?.data?.data?.items;
         <div className="md:col-span-1 lg:col-span-2 grid grid-cols-2 gap-8 md:gap-4 lg:gap-8">
           {/* Sections Links */}
           <div>
-            <h4 className="font-semibold text-lg mb-4">Sections</h4>
+            <h4 className="font-semibold text-lg mb-4">Legal</h4>
             <ul className="space-y-2 text-sm text-gray-400 flex flex-col">
 
-              {
-                footerItems?.map((item, index)=>{
-                  return(
-                  <Link
-                  key={index}
-  to={{
-    pathname: "/legal/" + item?.title.replace(/\s+/g, '-').toLowerCase().replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())
-  }}
-  state={{ id: index }}  // Pass the ID here
-  className="hover:underline"
->
-  {item?.title}
-</Link>
-                  )
-                })
-              }
+         {
+  footerItems?.map((item, index) => {
+    // Skip if the title is "Our Office:"
+    if (item?.title === "Our Office:") return null;
+
+    return (
+      <Link
+        key={index}
+        to={{
+          pathname:
+            "/legal/" +
+            item?.title
+              .replace(/\s+/g, '-')
+              .toLowerCase()
+              .replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()),
+        }}
+        state={{ id: index }} // Pass the ID here
+        className="hover:underline"
+      >
+        {item?.title}
+      </Link>
+    );
+  })
+}
+
             </ul>
           </div>
           {/* Pages Links */}
           <div>
-            <h4 className="font-semibold text-lg mb-4">Pages</h4>
+            <h4 className="font-semibold text-lg mb-4">Our Office</h4>
             <ul className="space-y-2 text-sm text-gray-400">
-              <li><a href="#" className="hover:underline">Demo</a></li>
-              <li><a href="#" className="hover:underline">Demo</a></li>
-            </ul>
+    {
+  footerItems?.map((item, index) => {
+    if (item?.title !== "Our Office:") return null;
+
+    // Extract parts from description
+    const description = item?.description || "";
+
+    const gmailMatch = description.match(/[a-zA-Z0-9._%+-]+@gmail\.com/);
+    const mobNumMatch = description.match(/\+977\s?\d{9}/);
+
+    const gmailState = gmailMatch ? gmailMatch[0] : "";
+    const mobNumState = mobNumMatch ? mobNumMatch[0] : "";
+    const addressState = description
+      .replace(gmailState, "")
+      .replace(mobNumState, "")
+      .trim();
+
+    return (
+      <div key={index} >
+
+        {/* Address */}
+        {addressState && (
+          <p className="mb-1">
+            <strong>Address:</strong> {addressState}
+          </p>
+        )}
+
+        {/* Gmail */}
+        {gmailState && (
+          <p className="mb-1">
+            <strong>Email:</strong>{" "}
+            <Link to={`mailto:${gmailState}`}>
+              {gmailState}
+            </Link>
+          </p>
+        )}
+
+        {/* Mobile Number */}
+        {mobNumState && (
+          <p>
+            <strong>Phone:</strong>{" "}
+            <a href={`tel:${mobNumState}`}>
+              {mobNumState}
+            </a>
+          </p>
+        )}
+      </div>
+    );
+  })
+}
+
+</ul>
+
           </div>
         </div>
       </div>
