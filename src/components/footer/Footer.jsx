@@ -140,7 +140,7 @@ const footerItems = data?.data?.data?.items;
         {gmailState && (
           <p className="mb-1">
             <strong>Email:</strong>{" "}
-            <Link to={`mailto:${gmailState}`}>
+            <Link to={`mailto:${gmailState}`} className='break-words text-sm leading-snug'>
               {gmailState}
             </Link>
           </p>
