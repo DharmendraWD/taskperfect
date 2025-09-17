@@ -46,7 +46,7 @@ function PromoShare() {
 console.log(promshares)
 if(promshares.length === 0){
   return (
-    <div className="text-white min-h-screen flex justify-center items-center text-2xl">
+    <div className="text-white min-h-screen flex justify-center items-center text-2xl"> 
       No Data Found
     </div>
   );

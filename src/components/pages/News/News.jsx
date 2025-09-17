@@ -11,6 +11,7 @@ function News() {
         <HeadingL label="News" />
         <Para label="Stay updated with the latest news and announcements from our company." />
 <NewsCard></NewsCard>
+
     </div>
   )
 }
