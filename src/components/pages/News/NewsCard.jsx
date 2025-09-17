@@ -97,7 +97,7 @@ const NewsCard = () => {
     <>
       <div className="grid grid-cols-1 justify-self-center md:grid-cols-2 lg:grid-cols-3 gap-6">
         {items.map((news) => (
-          <Link className='w-fit' key={news.id} to={`/news/${news.id}`} state={news}>
+          <Link className='w-fit mx-auto' key={news.id} to={`/news/${news.id}`} state={news}>
             <div className="border allCards border-[#374151] rounded-[30px] w-fit  px-[20px] py-[30px]">
               <div className="max-w-[250px] sm:max-w-sm rounded-lg overflow-hidden  text-white">
                 <div className="relative">
