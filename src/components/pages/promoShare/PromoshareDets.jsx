@@ -194,7 +194,7 @@ if(singlePromoshareData?.loading){
 
             <div className="text-sm text-gray-400 flex gap-8">
               <p>{singlePromoSHareDets?.sector}</p>
-               <p>{singlePromoSHareDets?.address ? singlePromoSHareDets?.address : "Address No Available"} </p>
+               <p>{singlePromoSHareDets?.remarks2 ? singlePromoSHareDets?.remarks2 : "Address No Available"} </p>
                   </div>
           </div>
         </div>

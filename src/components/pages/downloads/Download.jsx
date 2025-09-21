@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { download } from '../../../redux/slices/download/DownloadSlice';
 import { downloadStatus } from '../../../redux/slices/download/DownloadSlice';
 import Loading2 from  '../../utilities/loading/Loading2';
+export const BASE_WEB_URL = import.meta.env.VITE_WEB_BASE_URL;
+
 
 function DownloadCard() {
   const dispatch = useDispatch();
@@ -30,6 +32,21 @@ function DownloadCard() {
     dispatch(download({ limit, skip: newSkip }));
   };
 
+console.log(downloadsItems)
+console.log(`${BASE_WEB_URL}${downloadsItems?.[0]?.fileURL}/${downloadsItems?.[0]?.docName}`)
+// const fileUrl = BASE_WEB_URL; 
+ const handleDownload = () => {
+    const fileUrl = "http://www.taskperfect.somee.com"+downloadsItems?.[0]?.fileURL+downloadsItems?.[0]?.docName; 
+    const fileName =downloadsItems[0]?.docName;
+
+    const link = document.createElement("a");
+    link.href = fileUrl;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   if (loading) {
     return(
           <>
@@ -43,7 +60,7 @@ function DownloadCard() {
   if (error) {
     return <div className='text-red-500 text-center'>{error}</div>
   }
-  if(!downloadsItems?.length==0){
+  if(downloadsItems?.length<1){
     return   <div className="text-white min-h-screen flex justify-center items-center text-2xl">
       No Data Found
     </div>
@@ -67,7 +84,7 @@ function DownloadCard() {
                 <p className="text-xs mt-1 text-gray-300">(Bank, Phone, Email, PAN, Address)</p>
               </div>
               <div className="mt-4 flex flex-wrap gap-2 justify-between">
-                <button className="flex items-center gap-1 bg-white text-[#0A0F2C] text-xs px-3 py-1 rounded-md hover:bg-gray-200 transition">
+                <button onClick={handleDownload} className="flex items-center gap-1 bg-white text-[#0A0F2C] text-xs px-3 py-1 rounded-md hover:bg-gray-200 transition">
                   <FaDownload size={12} />
                   Download
                 </button>
