@@ -5,7 +5,7 @@ import axios from "axios";
 export const footerAside = createAsyncThunk("footerAside", async (_, thunkAPI) => {
   try {
     const res = await axios.get(`${BASE_API_URL}/PromoConfig/GetPagedPromoConfigList?pageIndex=1&pageSize=10`);
-    console.log(res.data)
+    // console.log(res.data)
     return res.data; // return just the response data
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
