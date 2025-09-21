@@ -108,6 +108,9 @@ const handBg = "linear-gradient(2deg, #2c3139 17.55%, rgb(129 0 0 / 0%) 88.6%)";
   {/* FOOTER LEGAL  */}
   <Route path='/legal/:title' element={ <Legal></Legal>}></Route>
 
+  {/* FAQS  */}
+  <Route path='/faqs' element={ <FAQ></FAQ>}></Route>
+
 
 
 
