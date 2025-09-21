@@ -18,7 +18,7 @@ const Navbar = () => {
         { name: 'News', href: '/news' },
         { name: 'Download', href: '/downloads' },
         { name: 'Nepse', href: '/nepse' },
-        { name: 'Protected', href: '/protected' },
+        // { name: 'Protected', href: '/protected' },
         
     ];
 

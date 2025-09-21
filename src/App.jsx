@@ -118,7 +118,7 @@ const handBg = "linear-gradient(2deg, #2c3139 17.55%, rgb(129 0 0 / 0%) 88.6%)";
 
   {/* protected routes  */}
     <Route element={<PrivateRoutes />}>
-    <Route path="/protected" element={<ProctectedRoutesTest />} />
+    {/* <Route path="/protected" element={<ProctectedRoutesTest />} /> */}
     {/* <Route path="/profile" element={<Profile />} />*/} 
   </Route>
 </Routes>
