@@ -46,12 +46,12 @@ const handleCloseMenu = () => {
  
     return (
         <header className={`sticky top-0 z-[9] animated-div ${isVisible ? 'blured' : 'unblur'}` }>
-            <div  className={`mx-auto  h-20 flex max-w-[1440px] items-center justify-between border-b border-[darkolivegreen] md:border-none`}>
+            <div  className={`mx-auto mt-[2px] lg:mt-[27px] h-20 flex max-w-[1440px] items-center justify-between border-b border-[darkolivegreen] md:border-none`}>
                 
                 {/* Logo Section */}
                 <div className="flex-shrink-0">
                     {/* Placeholder for the bull icon - use an actual SVG or Image component */}
-                  <Link to="/">  <img src={Logo1} className='w-[60px]' alt="" /></Link>
+                  <Link to="/">  <img src={Logo1} className='w-[70px] lg:w-[120px]' alt="" /></Link>
                 </div>
 
                 {/* Desktop Navigation Links (Hidden on small screens) */}
