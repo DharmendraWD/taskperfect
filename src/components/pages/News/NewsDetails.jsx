@@ -82,7 +82,7 @@ const formattedDate = formatDate(newsDetail?.data?.createdDate);
                   clipRule="evenodd"
                 ></path>
               </svg>
-              5 min read
+       {newsDetail?.data?.readDuration} mins
             </span>
           </div>
 

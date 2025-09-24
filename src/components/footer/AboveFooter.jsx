@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import {homeContents} from '../../redux/slices/homeContent/HomepageSlice'
 import { useDispatch, useSelector } from 'react-redux';
-import Logo1 from '../../assets/img/Logo1.png';
+import Logo1 from '../../assets/img/promoquityArow.gif';
 
 function HeroImage({my, handBg}) {
 const homepageContent = useSelector((state) => state.homeContent);

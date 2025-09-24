@@ -36,6 +36,7 @@ import { useSelector } from 'react-redux';
 import { Route, Routes, BrowserRouter, Link } from 'react-router-dom';
 import './index.css'
 import Legal from './components/footer/legal/Legal';
+import Otc from './components/pages/otc/Otc';
 
 function App() {
 UpperTitle();
@@ -108,6 +109,12 @@ const handBg = "linear-gradient(2deg, #2c3139 17.55%, rgb(129 0 0 / 0%) 88.6%)";
   {/* FOOTER LEGAL  */}
   <Route path='/legal/:title' element={ <Legal></Legal>}></Route>
 
+  {/* FAQS  */}
+  <Route path='/faqs' element={ <FAQ></FAQ>}></Route>
+
+  {/* otc  */}
+  <Route path='/otc' element={ <Otc></Otc>}></Route>
+
 
 
 
@@ -115,7 +122,7 @@ const handBg = "linear-gradient(2deg, #2c3139 17.55%, rgb(129 0 0 / 0%) 88.6%)";
 
   {/* protected routes  */}
     <Route element={<PrivateRoutes />}>
-    <Route path="/protected" element={<ProctectedRoutesTest />} />
+    {/* <Route path="/protected" element={<ProctectedRoutesTest />} /> */}
     {/* <Route path="/profile" element={<Profile />} />*/} 
   </Route>
 </Routes>

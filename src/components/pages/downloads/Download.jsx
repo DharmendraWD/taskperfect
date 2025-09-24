@@ -1,10 +1,15 @@
 // AccountCardGrid.jsx
 import { FaDownload, FaFileAlt, FaEdit } from 'react-icons/fa';
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { download } from '../../../redux/slices/download/DownloadSlice';
 import { downloadStatus } from '../../../redux/slices/download/DownloadSlice';
 import Loading2 from  '../../utilities/loading/Loading2';
+export const BASE_WEB_URL = import.meta.env.VITE_WEB_BASE_URL;
+
+import Logo from '../../../assets/img/Logo.png';
+import axios from 'axios';
+
 
 function DownloadCard() {
   const dispatch = useDispatch();
@@ -22,6 +27,7 @@ function DownloadCard() {
     dispatch(download({ limit, skip }));
   }, [dispatch, limit, skip]);
 
+
   const downloadsItems = data?.data?.items;
   const handlePageChange = (page) => {
     const newSkip = (page - 1) * limit;
@@ -30,6 +36,61 @@ function DownloadCard() {
     dispatch(download({ limit, skip: newSkip }));
   };
 
+// console.log(downloadsItems)
+// console.log(`${BASE_WEB_URL}${downloadsItems?.[0]?.fileURL}/${downloadsItems?.[0]?.docName}`)
+// const fileUrl = BASE_WEB_URL; 
+// download 
+ const [isLoading, setIsLoading] = useState(false);
+
+ const handleDownload = async (itemId, limit, skip) => {
+    setIsLoading(true);
+    try {
+      // 1. Get the list of downloadable files
+      const { data } = await axios.get(
+        `http://www.taskperfect.somee.com/api/DownloadFiles/GetPagedDownloadList?pageIndex=${skip}&pageSize=${limit}`
+      );
+
+      const item = data?.data?.items[itemId];
+      if (!item) {
+        alert("No files found.");
+        return;
+      }
+
+      // 2. Construct full file URL
+      const fileUrl =
+        "http://www.taskperfect.somee.com" +
+        item.fileURL +
+        item.docName;
+
+        console.log("RiFileUserLine", fileUrl)
+      // 3. Download the file as a blob
+      const fileResponse = await axios.get(fileUrl, {
+        responseType: "blob",
+      });
+
+      // 4. Trigger file download
+      const blobUrl = window.URL.createObjectURL(new Blob([fileResponse.data]));
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.setAttribute("download", item?.docName);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error("Download failed:", error);
+      alert("FIle not available");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+
+
+
+
+
+// download 
   if (loading) {
     return(
           <>
@@ -43,7 +104,7 @@ function DownloadCard() {
   if (error) {
     return <div className='text-red-500 text-center'>{error}</div>
   }
-  if(!downloadsItems?.length==0){
+  if(downloadsItems?.length<1){
     return   <div className="text-white min-h-screen flex justify-center items-center text-2xl">
       No Data Found
     </div>
@@ -63,22 +124,20 @@ function DownloadCard() {
           {downloadsItems?.map((item, index) => (
             <div key={index} className="allCards min-w-[313px] min-h-[200px] text-white border border-[#FEFBFB] rounded-[20px] p-4 flex flex-col justify-between shadow-lg hover:shadow-2xl transition duration-300">
               <div>
-                <h2 className="text-sm font-semibold">ACCOUNT DETAILS UPDATE FORM</h2>
-                <p className="text-xs mt-1 text-gray-300">(Bank, Phone, Email, PAN, Address)</p>
+                <h2 className="text-sm font-semibold">{item?.docTitle}</h2>
+                <p className="text-xs mt-1 text-gray-300">{item?.docName}</p>
               </div>
               <div className="mt-4 flex flex-wrap gap-2 justify-between">
-                <button className="flex items-center gap-1 bg-white text-[#0A0F2C] text-xs px-3 py-1 rounded-md hover:bg-gray-200 transition">
+                <button  
+                onClick={() => handleDownload(index, limit, skip)}
+                disabled={isLoading}
+                 className={`flex items-center mx-auto gap-1 bg-white text-[#0A0F2C] text-xs px-3 py-1 rounded-md hover:bg-gray-200 transition ${isLoading ? 'bg-gray-100' : ''}`}>
+
+
                   <FaDownload size={12} />
                   Download
                 </button>
-                <button className="flex items-center gap-1 bg-white text-[#0A0F2C] text-xs px-3 py-1 rounded-md hover:bg-gray-200 transition">
-                  <FaFileAlt size={12} />
-                  Sample
-                </button>
-                <button className="flex items-center gap-1 bg-white text-[#0A0F2C] text-xs px-3 py-1 rounded-md hover:bg-gray-200 transition">
-                  <FaEdit size={12} />
-                  Editable
-                </button>
+             
               </div>
             </div>
           ))}
