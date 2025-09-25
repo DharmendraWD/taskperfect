@@ -251,7 +251,7 @@ if(singlePromoshareData?.loading){
 {btnClicked === "Financial KPI" && (
   <>
     {loadingTabData.loading ? (
-      <div className='text-white flex justify-center items-center text-2xl'>
+      <div className='text-white w-full flex justify-center item-self items-center min-h-[50vh] items-center text-2xl'>
        <Loading2></Loading2>
       </div>
     ) : (
@@ -332,7 +332,7 @@ if(singlePromoshareData?.loading){
 {btnClicked === "Valuation KPI" && (
   <>
     {loadingTabData.loading ? (
-      <div className="text-white mx-auto flex justify-center items-center text-2xl">
+      <div className="text-white w-full flex justify-center item-self items-center min-h-[50vh] items-center text-2xl">
         <Loading2 />
       </div>
     ) : valuation?.data?.items?.length > 0 ? (
@@ -407,7 +407,7 @@ if(singlePromoshareData?.loading){
 {btnClicked === "Operation KPI" && (
   <>
     {loadingTabData.loading ? (
-      <div className="text-white mx-auto flex justify-center items-center text-2xl">
+      <div className="text-white w-full flex justify-center item-self items-center min-h-[50vh] items-center text-2xl">
         <Loading2 />
       </div>
     ) : operation?.data?.items?.length > 0 ? (
@@ -472,7 +472,7 @@ if(singlePromoshareData?.loading){
 {btnClicked === "Market KPI" && (
   <>
     {loadingTabData.loading ? (
-      <div className="text-white mx-auto flex justify-center items-center text-2xl">
+      <div className="text-white w-full flex justify-center item-self items-center min-h-[50vh] items-center text-2xl">
         <Loading2 />
       </div>
     ) : market?.data?.items?.length > 0 ? (

@@ -4,7 +4,7 @@ import loadingImgGIF from '../../../assets/img/promoquityArow.gif'
 function Loading2() {
   return (
   <div className="loadingGif">
-    <img className='w-[300px]' src={loadingImgGIF} alt="" />
+    <img className='w-[300px] mx-auto' src={loadingImgGIF} alt="" />
   </div>
 
   )
