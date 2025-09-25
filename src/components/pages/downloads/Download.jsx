@@ -6,8 +6,6 @@ import { download } from '../../../redux/slices/download/DownloadSlice';
 import { downloadStatus } from '../../../redux/slices/download/DownloadSlice';
 import Loading2 from  '../../utilities/loading/Loading2';
 export const BASE_WEB_URL = import.meta.env.VITE_WEB_BASE_URL;
-
-import Logo from '../../../assets/img/Logo.png';
 import axios from 'axios';
 
 
