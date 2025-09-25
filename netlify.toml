@@ -1,11 +1,13 @@
 [[redirects]]
   from = "/api/*"
-  to = "http://www.taskperfect.somee.com/api/:splat"
+  to = "http://3.27.120.54/api/:splat"
   status = 200
   force = true
 
 [[redirects]]
   from = "/media/*"
-  to = "http://www.taskperfect.somee.com/:splat"
+  to = "http://3.27.120.54/:splat"
   status = 200
   force = true
+
+
