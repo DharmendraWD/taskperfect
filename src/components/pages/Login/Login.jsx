@@ -5,7 +5,7 @@ import googleIcon from '../../../assets/img/Logo-google-icon-PNG.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../../redux/slices/auth/LoginSlice';
 import { toast } from 'react-toastify';
-import Loading from '../../utilities/loading/Loading';
+import Loading2 from '../../utilities/loading/Loading2';
 import Card1 from '../../utilities/cards/Card1';
 import lineImage from '../../../assets/img/line.png';
 
@@ -38,8 +38,8 @@ const Login = () => {
     <div className="mt-16 relative">
 {
   isLoading && <>
-  <div className="flex absolute top-1/2 -translate-y-1/2 justify-center w-full ">
-      <Loading></Loading>
+  <div className="flex bg-[#0000002e] flex items-center justify-center w-full h-full absolute top-1/2 -translate-y-1/2 justify-center ">
+      <Loading2></Loading2>
 
 </div>
   </>
@@ -98,6 +98,7 @@ const Login = () => {
         <button
           type="submit"
           className="w-full bg-white text-black py-3 rounded-lg text-sm font-semibold hover:bg-gray-100 transition duration-200"
+          disabled={isLoading}
         >
           Sign In
         </button>

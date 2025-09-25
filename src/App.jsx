@@ -28,7 +28,8 @@ const ProctectedRoutesTest = lazy(() => import('./components/ProctectedRoutesTes
 const Download = lazy(() => import('./components/pages/downloads/Download'));
 const AboveFooter = lazy(() => import('./components/footer/AboveFooter'));
 import UpperTitle from './components/utilities/UpperTitle/UpperTitle';
-
+const Otc = lazy(() => import('./components/pages/otc/Otc'));
+const IpoPipeline = lazy(() => import('./components/pages/IPOpipeline/IpoPipeLine'));
 
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
@@ -36,7 +37,6 @@ import { useSelector } from 'react-redux';
 import { Route, Routes, BrowserRouter, Link } from 'react-router-dom';
 import './index.css'
 import Legal from './components/footer/legal/Legal';
-import Otc from './components/pages/otc/Otc';
 
 function App() {
 UpperTitle();
@@ -114,6 +114,9 @@ const handBg = "linear-gradient(2deg, #2c3139 17.55%, rgb(129 0 0 / 0%) 88.6%)";
 
   {/* otc  */}
   <Route path='/otc' element={ <Otc></Otc>}></Route>
+
+  {/* IPO Pipeline  */}
+  <Route path='/ipo-pipeline' element={ <IpoPipeline></IpoPipeline>}></Route>
 
 
 
