@@ -8,6 +8,8 @@ import noImage from "../../../assets/img/noImage.png"
 import {getBlogById} from "../../../redux/slices/blogs/BlogsSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
+import parse from 'html-react-parser';
+
 
 const postData = {
   title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -71,7 +73,12 @@ if(blogStatus.error){
         </div>
       </div>
       <div className="max-w-5xl mx-auto mt-8 relative h-64 sm:h-80 md:h-96 rounded-lg overflow-hidden shadow-xl">
+        {/* <img src={blog?.data?.images?.[0] ? blog?.data?.image1 : noImage} alt="Blog Post Hero" className="w-full h-full object-cover" /> */}
+
+        {blog?.data?.images?.[0] && (
         <img src={blog?.data?.images?.[0] ? blog?.data?.image1 : noImage} alt="Blog Post Hero" className="w-full h-full object-cover" />
+
+)}
         <div className="absolute inset-0 "></div>
       </div>
     </div>
@@ -80,19 +87,25 @@ if(blogStatus.error){
   const ContentSection = () => (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <h2 className="text-2xl sm:text-3xl font-bold mb-6">{blog?.data?.image1Titile}</h2>
-      <p className="text-gray-300 mb-6 leading-relaxed">
+      {/* <p className="text-gray-300 mb-6 leading-relaxed">
         {blog?.data?.blogDesc}
-      </p>
+      </p> */}
  
+<div className="text-gray-300 mb-6 leading-relaxed">
+  {parse(blog?.data?.blogDesc || '')}
+</div>
 
       <blockquote className="border-l-4 border-green-500 pl-4 py-2 mb-8 italic text-gray-200">
         "{postData.content.quote}"
       </blockquote>
 
       <h2 className="text-2xl sm:text-3xl font-bold mb-6">{blog?.data?.image2Title}</h2>
-      <p className="text-gray-300 mb-6 leading-relaxed">
+      {/* <p className="text-gray-300 mb-6 leading-relaxed">
         {blog?.data?.blogDesc}
-      </p>
+      </p> */}
+       <div className="text-gray-300 mb-6 leading-relaxed">
+  {parse(blog?.data?.blogDesc || '')}
+</div>
     </div>
   );
 

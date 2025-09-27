@@ -6,6 +6,7 @@ import { download } from '../../../redux/slices/download/DownloadSlice';
 import { downloadStatus } from '../../../redux/slices/download/DownloadSlice';
 import Loading2 from  '../../utilities/loading/Loading2';
 export const BASE_WEB_URL = import.meta.env.VITE_WEB_BASE_URL;
+export const VITE_WEB_BASE_DOWNLOAD_URL = import.meta.env.VITE_WEB_BASE_DOWNLOAD_URL;
 import axios from 'axios';
 
 
@@ -45,7 +46,7 @@ function DownloadCard() {
     try {
       // 1. Get the list of downloadable files
       const { data } = await axios.get(
-        `http://www.taskperfect.somee.com/api/DownloadFiles/GetPagedDownloadList?pageIndex=${skip}&pageSize=${limit}`
+        `${VITE_WEB_BASE_DOWNLOAD_URL}/api/DownloadFiles/GetPagedDownloadList?pageIndex=${skip}&pageSize=${limit}`
       );
 
       const item = data?.data?.items[itemId];
@@ -56,7 +57,7 @@ function DownloadCard() {
 
       // 2. Construct full file URL
       const fileUrl =
-        "http://www.taskperfect.somee.com" +
+        VITE_WEB_BASE_DOWNLOAD_URL +
         item.fileURL +
         item.docName;
 
