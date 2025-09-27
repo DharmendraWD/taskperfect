@@ -34,7 +34,7 @@ let cards = cardData?.HomePageBottomCard?.data?.items || [];
     padding: 7px;
     border-radius: 8px; absolute top-[10%]' /> */}
     <div className='h-full flex flex-col pb-[p5x]'> 
-    <img src={ticketImages[index]} alt={`Ticket ${index}`} className=" w-[50px] widthWkitFIll rounded-[20px] h-[170px]" />
+    <img src={ticketImages[index]} alt={`Ticket ${index}`} className="widthWkitFIll rounded-[20px] h-[170px]" />
        <div className='mt-1'>
            <h3 className="text-xl oneLinePara font-semibold mb-2">{card?.topic}</h3>
           <p className="text-sm text-gray-400 threeLinePara">{card?.description}</p>
