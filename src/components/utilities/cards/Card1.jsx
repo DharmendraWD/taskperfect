@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 
 import ticketimg0 from '../../../assets/img/lowTicket/1.jpeg'
 import ticketimg1 from '../../../assets/img/lowTicket/2.jpeg'
-import ticketimg2 from '../../../assets/img/lowTicket/3.jpeg'
+import ticketimg2 from '../../../assets/img/lowTicket/rech.jpeg'
 import ticketimg3 from '../../../assets/img/lowTicket/4.jpeg'
 
 
