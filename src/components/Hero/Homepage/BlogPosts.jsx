@@ -10,8 +10,11 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Loading2 from '../../utilities/loading/Loading2';
 
+import parse from 'html-react-parser';
+
 
 const BlogPosts = () => {
+  console.log("las")
   const first3BlogsData = useSelector((state) => state?.first3Blogs?.data);
   const dispatch = useDispatch();
 
@@ -48,7 +51,11 @@ const BlogPosts = () => {
           <div className=" inset-0 flex flex-col justify-end ">
             <div className="text-gray-400 mt-2 text-lg flex justify-between mb-1">{first3BlogsData?.data?.items?.[0].createdDate} <MdArrowOutward /></div>
             <h2 className="text-2xl md:text-3xl font-bold mb-2 leading-tight twoLinePara">{first3BlogsData?.data?.items?.[0].blogTitle}</h2>
-            <p className="text-gray-300 text-sm md:text-base leading-relaxed twoLinePara">{first3BlogsData?.data?.items?.[0].blogDesc}</p>
+            {/* <p className="text-gray-300 text-sm md:text-base leading-relaxed twoLinePara">{first3BlogsData?.data?.items?.[0].blogDesc}</p> */}
+            <div className="text-gray-300 text-sm md:text-base leading-relaxed twoLinePara">
+  {parse(first3BlogsData?.data?.items?.[0].blogDesc)}
+</div>
+
 
           </div>
         </div>
@@ -73,7 +80,9 @@ const BlogPosts = () => {
               <div className="pr-4 md:pr-6 w-full flex-grow flex flex-col justify-start">
                 <span className="text-gray-400 text-sm mb-1">{blog.createdDate} </span>
                 <h3 className="text-xl font-bold mb-2 leading-tight twoLinePara">{blog.blogTitle}</h3>
-                <p className="text-gray-300 text-sm md:text-base leading-relaxed twoLinePara">{blog.blogDesc}</p>
+                {/* <p className="text-gray-300 text-sm md:text-base leading-relaxed twoLinePara">{blog.blogDesc}</p> */}
+
+                <div className="text-gray-300 text-sm md:text-base leading-relaxed twoLinePara">{parse(blog.blogDesc)}</div>
               </div>
               </div>
               </Link>

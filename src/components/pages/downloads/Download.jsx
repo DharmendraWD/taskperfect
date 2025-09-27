@@ -45,7 +45,7 @@ function DownloadCard() {
     try {
       // 1. Get the list of downloadable files
       const { data } = await axios.get(
-        `http://www.taskperfect.somee.com/api/DownloadFiles/GetPagedDownloadList?pageIndex=${skip}&pageSize=${limit}`
+        `http://3.27.120.54:81/api/DownloadFiles/GetPagedDownloadList?pageIndex=${skip}&pageSize=${limit}`
       );
 
       const item = data?.data?.items[itemId];
@@ -56,7 +56,7 @@ function DownloadCard() {
 
       // 2. Construct full file URL
       const fileUrl =
-        "http://www.taskperfect.somee.com" +
+        "http://3.27.120.54:81" +
         item.fileURL +
         item.docName;
 
