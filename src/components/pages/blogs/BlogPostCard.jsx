@@ -55,7 +55,7 @@ const BlogPostCard = ({ blog, noImage }) => {
     <div className="rounded-lg allCards overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.02]">
       <div className="relative h-48 sm:h-56">
         <img
-          src={blog.images[0] ? blog.image1 : noImage}
+          src={BASE_WEB_URL+blog?.fileURL+blog?.image1 || noImage}
           alt={blog.blogTitle}
           className="w-full h-full object-cover"
         />

@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Loading2 from '../../utilities/loading/Loading2';
+export const BASE_WEB_URL = import.meta.env.VITE_WEB_BASE_URL;
+
 
 import parse from 'html-react-parser';
 
@@ -44,10 +46,11 @@ const BlogPosts = () => {
         <div className='flex  flex-col md:flex-row bg-transparent rounded-lg overflow-hidden'>
          <div className="relative allCards group overflow-hidden  md:col-span-1 lg:col-span-1">
            <img
-            src={first3BlogsData?.data?.items?.[0]?.images?.[0] || noImg}
+            src={ BASE_WEB_URL+first3BlogsData?.data?.items?.[0]?.fileURL+first3BlogsData?.data?.items?.[0]?.image1 || noImg}
             alt={"img"}
             className="w-full h-[50%] object-cover transform transition-transform duration-500 ease-in-out group-hover:scale-105"
           />
+          {/* src={blog?.data?.images?.[0] ? BASE_WEB_URL+blog?.data?.fileURL+blog?.data?.image1 : noImage} */}
           <div className=" inset-0 flex flex-col justify-end ">
             <div className="text-gray-400 mt-2 text-lg flex justify-between mb-1">{first3BlogsData?.data?.items?.[0].createdDate} <MdArrowOutward /></div>
             <h2 className="text-2xl md:text-3xl font-bold mb-2 leading-tight twoLinePara">{first3BlogsData?.data?.items?.[0].blogTitle}</h2>
@@ -72,7 +75,7 @@ const BlogPosts = () => {
                <div className='flex flex-col md:flex-row items-center gap-4 bg-transparent rounded-lg overflow-hidden'>
                 <div className="w-full md:w-1/2 flex-shrink-0 relative">
                 <img
-                  src={blog.images[0] || noImg}
+                  src={BASE_WEB_URL+blog?.fileURL+blog?.image1 || noImg}
                   alt={"img"}
                   className="w-full h-full object-cover transform transition-transform duration-500 ease-in-out hover:scale-105"
                 />
