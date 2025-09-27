@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { news } from '../../../redux/slices/news/NewsSlice';
-// http://www.taskperfect.somee.com/UploadedImages/News/Screenshot__3_.png
 export const BASE_WEB_URL = import.meta.env.VITE_WEB_BASE_URL;
 import noImage from '../../../assets/img/noImage.png';
 import Loading2 from '../../utilities/loading/Loading2';
+import parse from 'html-react-parser';
+
 
 
 const NewsCard = () => {
@@ -92,7 +93,7 @@ const NewsCard = () => {
       </div>
     );
   }
-  console.log(items)
+  // console.log(items)
   return (
     <>
       <div className="grid grid-cols-1 justify-self-center md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -118,7 +119,8 @@ const NewsCard = () => {
                     {news.title}
                   </div>
                   <p className="text-gray-400 twoLinePara font-semibold text-base">
-                    {news.description}
+                    {parse(news.description)}
+
                   </p>
                 </div>
               </div>

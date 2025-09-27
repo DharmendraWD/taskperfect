@@ -25,7 +25,7 @@ export const getBlogById = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const res = await axios.get(`${BASE_API_URL}/Blog/GetBlogById/${id.toString()}`);
-      console.log(res.data)
+      // console.log(res.data)
       return res.data; // return just the response data
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

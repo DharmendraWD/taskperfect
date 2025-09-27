@@ -53,7 +53,7 @@ if (blog?.loading){
   return  <div className='text-white min-h-screen flex justify-center items-center text-2xl'>Loading...</div>
 
 }
-console.log(blogStatus)
+// console.log(blogStatus)
 
 if(blogStatus.error){
   return <div className='text-red-300 min-h-screen flex justify-center items-center text-2xl'>{blogStatus?.error}</div>

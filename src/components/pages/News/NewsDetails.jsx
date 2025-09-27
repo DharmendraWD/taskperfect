@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import img from '../../../assets/img/Rectangle14.png'
 export const BASE_WEB_URL = import.meta.env.VITE_WEB_BASE_URL || 'http://www.taskperfect.somee.com';
+import parse from 'html-react-parser';
+
 
 
 const NewsDetails = () => {
@@ -90,7 +92,7 @@ const formattedDate = formatDate(newsDetail?.data?.createdDate);
           <div className="mb-8">
             
             <img
-              src={`${BASE_WEB_URL}${newsDetail?.data?.images?.[0]?.imageUrl}`} // Placeholder for your image
+              src={`${BASE_WEB_URL+newsDetail?.data?.fileURL+newsDetail?.data?.image1}`} // Placeholder for your image
               alt="first image here"
               className="w-full h-auto rounded-lg"
             />
@@ -102,13 +104,13 @@ const formattedDate = formatDate(newsDetail?.data?.createdDate);
           <div className="space-y-6 text-gray-300 text-lg leading-relaxed">
             {/* Limited-time offer banner */}
             <div className="">
-     <img src={`${BASE_WEB_URL}${newsDetail?.data?.images?.[1]?.imageUrl}`} alt="second image here" />
+     <img src={`${BASE_WEB_URL+newsDetail?.data?.fileURL+newsDetail?.data?.image2}`} alt="second image here" />
             <p className='space-y-6 py-2 text-gray-300 text-lg leading-relaxed semibold'> {newsDetail?.data?.image2Title}</p>
 
             </div>
 
             <p>
-            {newsDetail?.data?.description}
+            {parse(newsDetail?.data?.description)}
             </p>
           </div>
         </div>
