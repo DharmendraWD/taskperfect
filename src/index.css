@@ -67,7 +67,9 @@ body{
 padding: 0;
 position: relative;
 }
-
+.widthWkitFIll{
+      width: -webkit-fill-available;
+}
 /* .greenBlackFadedBg{
   background: linear-gradient(to bottom, #0d4f1e 0%, #000000 90%,  #000000 100% );
 } */
@@ -111,12 +113,28 @@ backdrop-filter: blur(14px);
   background: transparent;   /* Track background */
 }
 
+.oneLinePara {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 1;
+           line-clamp: 1; 
+   -webkit-box-orient: vertical;
+}
 .twoLinePara {
    overflow: hidden;
    text-overflow: ellipsis;
    display: -webkit-box;
    -webkit-line-clamp: 2;
            line-clamp: 2; 
+   -webkit-box-orient: vertical;
+}
+.threeLinePara {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 3;
+           line-clamp: 3; 
    -webkit-box-orient: vertical;
 }
 .teamSuppImageParent{

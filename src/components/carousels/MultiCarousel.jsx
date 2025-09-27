@@ -119,9 +119,10 @@ useEffect(() => {
           {/* Carousel Content */}
           <div className="flex justify-center md:justify-start">
             {getVisibleItems().map((item, index) => (
-              <div
+              <Link
+              to={"/promoshare/"+item.id} state={item}
                 key={item?.id}
-                className="flex-shrink-0 p-2"
+                className="flex-shrink-0 p-2 hover:scale-105 hover:bg-[#2222225e] transition-transform duration-300"
                 style={{ width: `${100 / itemsToShow}%` }}
               >
                 <div className=" rounded-[20px] overflow-hidden ">
@@ -133,7 +134,7 @@ useEffect(() => {
                       {item?.remarks1}
                     </p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
        
