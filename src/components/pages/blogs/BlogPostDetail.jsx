@@ -10,7 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import parse from 'html-react-parser';
 
-export const BASE_WEB_URL = import.meta.env.VITE_WEB_BASE_URL;
+export const VITE_WEB_BASE_DOWNLOAD_URL = import.meta.env.VITE_WEB_BASE_DOWNLOAD_URL;
 
 
 
@@ -79,7 +79,7 @@ if(blogStatus.error){
         {/* <img src={blog?.data?.images?.[0] ? blog?.data?.image1 : noImage} alt="Blog Post Hero" className="w-full h-full object-cover" /> */}
 
         {blog?.data?.images?.[0] && (
-        <img src={blog?.data?.images?.[0] ? BASE_WEB_URL+blog?.data?.fileURL+blog?.data?.image1 : noImage} alt="Blog Post Hero" className="w-full h-full object-cover" />
+        <img src={blog?.data?.images?.[0] ? VITE_WEB_BASE_DOWNLOAD_URL+blog?.data?.fileURL+blog?.data?.image1 : noImage} alt="Blog Post Hero" className="w-full h-full object-cover" />
 
 )}
         <div className="absolute inset-0 "></div>
