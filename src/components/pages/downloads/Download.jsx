@@ -35,56 +35,97 @@ function DownloadCard() {
     dispatch(download({ limit, skip: newSkip }));
   };
 
-// console.log(downloadsItems)
-// console.log(`${BASE_WEB_URL}${downloadsItems?.[0]?.fileURL}/${downloadsItems?.[0]?.docName}`)
-// const fileUrl = BASE_WEB_URL; 
-// download 
- const [isLoading, setIsLoading] = useState(false);
 
- const handleDownload = async (itemId, limit, skip) => {
-    setIsLoading(true);
-    try {
-      // 1. Get the list of downloadable files
-      const { data } = await axios.get(
-        `${VITE_WEB_BASE_DOWNLOAD_URL}/api/DownloadFiles/GetPagedDownloadList?pageIndex=${skip}&pageSize=${limit}`
-      );
+const [loadingIndex, setLoadingIndex] = useState(null);
+const [progressMap, setProgressMap] = useState({});
 
-      const item = data?.data?.items[itemId];
-      if (!item) {
-        alert("No files found.");
-        return;
-      }
+//  const handleDownload = async (itemId, limit, skip) => {
+//     setIsLoading(true);
+//     try {
+//       // 1. Get the list of downloadable files
+//       const { data } = await axios.get(
+//         `http://3.27.120.54:81/api/DownloadFiles/GetPagedDownloadList?pageIndex=${skip}&pageSize=${limit}`
+//       );
 
-      // 2. Construct full file URL
-      const fileUrl =
-        VITE_WEB_BASE_DOWNLOAD_URL +
-        item.fileURL +
-        item.docName;
+//       const item = data?.data?.items[itemId];
+//       if (!item) {
+//         alert("No files found.");
+//         return;
+//       }
 
-        console.log("RiFileUserLine", fileUrl)
-      // 3. Download the file as a blob
-      const fileResponse = await axios.get(fileUrl, {
-        responseType: "blob",
-      });
+//       // 2. Construct full file URL
+//       const fileUrl =
+//         "http://3.27.120.54:81" +
+//         item.fileURL +
+//         item.docName;
 
-      // 4. Trigger file download
-      const blobUrl = window.URL.createObjectURL(new Blob([fileResponse.data]));
-      const link = document.createElement("a");
-      link.href = blobUrl;
-      link.setAttribute("download", item?.docName);
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.URL.revokeObjectURL(blobUrl);
-    } catch (error) {
-      console.error("Download failed:", error);
-      alert("FIle not available");
-    } finally {
-      setIsLoading(false);
+//         console.log("RiFileUserLine", fileUrl)
+//       // 3. Download the file as a blob
+//       const fileResponse = await axios.get(fileUrl, {
+//         responseType: "blob",
+//       });
+
+//       // 4. Trigger file download
+//       const blobUrl = window.URL.createObjectURL(new Blob([fileResponse.data]));
+//       const link = document.createElement("a");
+//       link.href = blobUrl;
+//       link.setAttribute("download", item?.docName);
+//       document.body.appendChild(link);
+//       link.click();
+//       link.remove();
+//       window.URL.revokeObjectURL(blobUrl);
+//     } catch (error) {
+//       console.error("Download failed:", error);
+//       alert("FIle not available");
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   };
+
+const handleDownload = async (itemIndex, limit, skip) => {
+  setLoadingIndex(itemIndex);
+  setProgressMap(prev => ({ ...prev, [itemIndex]: 0 }));
+
+  try {
+    const { data } = await axios.get(
+      `http://3.27.120.54:81/api/DownloadFiles/GetPagedDownloadList?pageIndex=${skip}&pageSize=${limit}`
+    );
+
+    const item = data?.data?.items[itemIndex];
+    if (!item) {
+      alert("No files found.");
+      return;
     }
-  };
 
+    const fileUrl = "http://3.27.120.54:81" + item.fileURL + item.docName;
+    console.log("Download URL:", fileUrl);
 
+    const fileResponse = await axios.get(fileUrl, {
+      responseType: "blob",
+      onDownloadProgress: (progressEvent) => {
+        const percentCompleted = Math.round(
+          (progressEvent.loaded * 100) / (progressEvent.total || 1)
+        );
+        setProgressMap(prev => ({ ...prev, [itemIndex]: percentCompleted }));
+      },
+    });
+
+    const blobUrl = window.URL.createObjectURL(new Blob([fileResponse.data]));
+    const link = document.createElement("a");
+    link.href = blobUrl;
+    link.setAttribute("download", item?.docName);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(blobUrl);
+  } catch (error) {
+    console.error("Download failed:", error);
+    alert("File not available");
+  } finally {
+    setLoadingIndex(null);
+    setProgressMap(prev => ({ ...prev, [itemIndex]: 0 })); // reset progress
+  }
+};
 
 
 
@@ -127,15 +168,33 @@ function DownloadCard() {
                 <p className="text-xs mt-1 text-gray-300">{item?.docName}</p>
               </div>
               <div className="mt-4 flex flex-wrap gap-2 justify-between">
-                <button  
-                onClick={() => handleDownload(index, limit, skip)}
-                disabled={isLoading}
-                 className={`flex items-center mx-auto gap-1 bg-white text-[#0A0F2C] text-xs px-3 py-1 rounded-md hover:bg-gray-200 transition ${isLoading ? 'bg-gray-100' : ''}`}>
+           <button
+  onClick={() => handleDownload(index, limit, skip)}
+  disabled={loadingIndex === index}
+  className={`flex flex-row items-center justify-center mx-auto gap-1 bg-white text-[#0A0F2C] text-xs px-3 py-2 rounded-md hover:bg-gray-200 transition ${
+    loadingIndex === index ? 'bg-gray-100 cursor-wait' : ''
+  }`}
+>
+  {loadingIndex === index ? (
+    <>
+      <span className="animate-pulse text-[#002366] font-semibold relative mb-1">
+        Downloading... ({progressMap[index] || 0}%)
+        <div className="flex flex-row gap-2 justify-center mb-1 absolute left-0 right-0">
+          <div className="w-2 h-2 rounded-full bg-green-700 animate-bounce [animation-delay:.6s]"></div>
+          <div className="w-2 h-2 rounded-full bg-blue-700 animate-bounce [animation-delay:.3s]"></div>
+          <div className="w-2 h-2 rounded-full bg-yellow-700 animate-bounce [animation-delay:.6s]"></div>
+        </div>
+      </span>
+    </>
+  ) : (
+    <>
+      <FaDownload size={12} />
+      Download
+    </>
+  )}
+</button>
 
 
-                  <FaDownload size={12} />
-                  Download
-                </button>
              
               </div>
             </div>

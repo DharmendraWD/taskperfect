@@ -16,7 +16,7 @@ import parse from 'html-react-parser';
 
 
 const BlogPosts = () => {
-  console.log("las")
+  // console.log("las")
   const first3BlogsData = useSelector((state) => state?.first3Blogs?.data);
   const dispatch = useDispatch();
 

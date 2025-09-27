@@ -9,6 +9,7 @@ import {getBlogById} from "../../../redux/slices/blogs/BlogsSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import parse from 'html-react-parser';
+import Loading2 from '../../utilities/loading/Loading2';
 
 export const VITE_WEB_BASE_DOWNLOAD_URL = import.meta.env.VITE_WEB_BASE_DOWNLOAD_URL;
 
@@ -49,13 +50,14 @@ const BlogPostDetail = () => {
     dispatch(getBlogById(id));
   }, [dispatch, id]);
 
-if (blog?.loading){  
-  return  <div className='text-white min-h-screen flex justify-center items-center text-2xl'>Loading...</div>
+if (blogStatus?.loading){  
+  return  <div className='text-white min-h-screen flex justify-center items-center text-2xl'>
+  <Loading2 />
+  </div>
 
 }
-console.log(blogStatus)
 
-if(blogStatus.error){
+if(blogStatus?.error){
   return <div className='text-red-300 min-h-screen flex justify-center items-center text-2xl'>{blogStatus?.error}</div>
 }
   const HeroSection = () => (

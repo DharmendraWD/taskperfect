@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { news } from '../../../redux/slices/news/NewsSlice';
-// http://www.taskperfect.somee.com/UploadedImages/News/Screenshot__3_.png
 export const BASE_WEB_URL = import.meta.env.VITE_WEB_BASE_URL;
 import noImage from '../../../assets/img/noImage.png';
 import Loading2 from '../../utilities/loading/Loading2';
+import parse from 'html-react-parser';
+
 
 
 const NewsCard = () => {
@@ -92,7 +93,7 @@ const NewsCard = () => {
       </div>
     );
   }
-  console.log(items)
+  // console.log(items)
   return (
     <>
       <div className="grid grid-cols-1 justify-self-center md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -105,7 +106,7 @@ const NewsCard = () => {
                     `${news?.image1}` && (
                                <img
                     className="max-w-[250px] sm:h-[auto] sm:w-[250px] w-[200px] h-[151px] object-contain mx-auto sm:object-cover"
-                    src={news.image1 ? `${BASE_WEB_URL}/UploadedImages/News/${news?.image1}` : noImage}
+                    src={news.image1 ? `${BASE_WEB_URL+news?.fileURL+news?.image1}` : noImage}
                     alt="News Image Here"
                      onError={handleImageError}
                   />
@@ -118,7 +119,8 @@ const NewsCard = () => {
                     {news.title}
                   </div>
                   <p className="text-gray-400 twoLinePara font-semibold text-base">
-                    {news.description}
+                    {parse(news?.description || '')}
+
                   </p>
                 </div>
               </div>
