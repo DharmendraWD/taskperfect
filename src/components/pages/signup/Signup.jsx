@@ -66,7 +66,7 @@ import { toast } from 'react-toastify';
        <form  onSubmit={handleSignup} className="mx-auto rounded-2xl border border-white/10 bg-[#0E0F0F] p-6 md:p-10 w-full max-w-lg">
       <h2 className="text-white text-2xl md:text-3xl font-semibold text-center mb-2">Sign Up Your Account</h2>
       <p className="text-white/60 text-sm text-center mb-6">Enter your Personal details to create Account</p>
-      <div className="flex space-x-3 mb-4">
+      {/* <div className="flex space-x-3 mb-4">
         <button className="flex items-center justify-center w-1/2 bg-[#1C1D1D] text-white py-3 rounded-lg text-sm font-medium hover:bg-gray-700 transition duration-200">
           <img src={googleIcon} alt="Google" className="w-5 rounded-full h-5 mr-2" />
           Google
@@ -80,7 +80,7 @@ import { toast } from 'react-toastify';
         <div className="absolute left-0 w-1/2 h-[1px] bg-white/20"></div>
         <span className="text-white/60 text-sm mx-2">Or</span>
         <div className="absolute right-0 w-1/2 h-[1px] bg-white/20"></div>
-      </div>
+      </div> */}
 
 <div className='flex space-x-4 justify-between'>
           <div className="mb-4">
