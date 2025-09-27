@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import img from '../../../assets/img/Rectangle14.png'
 export const BASE_WEB_URL = import.meta.env.VITE_WEB_BASE_URL || 'http://www.taskperfect.somee.com';
 import parse from 'html-react-parser';
+import Loading2 from '../../utilities/loading/Loading2'
 
 
 
@@ -13,6 +14,7 @@ const NewsDetails = () => {
     const dispatch = useDispatch();
 const {id} = useParams();
 const newsDetail = useSelector((state)=>state.allNews.singleNews)
+const loading = useSelector((state)=>state.allNews)
 // const relatedNews = useSelector((state)=>state.allNews)
 
 
@@ -22,10 +24,11 @@ const newsDetail = useSelector((state)=>state.allNews.singleNews)
 useEffect(() => {
 dispatch(getNewsById(id))
 }, [dispatch])
-// console.log(newsDetail)
 
-if(newsDetail?.loading){
-  return <div className='text-white min-h-screen flex justify-center items-center text-2xl'>Loading...</div>
+if(loading.loading){
+  return <div className='text-white min-h-screen flex justify-center items-center text-2xl'>
+  <Loading2 />
+  </div>
 }
 /**
  * Converts a date string in the format 'YYYY-MM-DDTHH:mm:ss' to 'Month-DD-YYYY'.
@@ -109,9 +112,9 @@ const formattedDate = formatDate(newsDetail?.data?.createdDate);
 
             </div>
 
-            <p>
-            {parse(newsDetail?.data?.description)}
-            </p>
+            <div>
+            {parse(newsDetail?.data?.description || '')}
+            </div>
           </div>
         </div>
 

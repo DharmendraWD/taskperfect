@@ -106,7 +106,7 @@ const NewsCard = () => {
                     `${news?.image1}` && (
                                <img
                     className="max-w-[250px] sm:h-[auto] sm:w-[250px] w-[200px] h-[151px] object-contain mx-auto sm:object-cover"
-                    src={news.image1 ? `${BASE_WEB_URL}/UploadedImages/News/${news?.image1}` : noImage}
+                    src={news.image1 ? `${BASE_WEB_URL+news?.fileURL+news?.image1}` : noImage}
                     alt="News Image Here"
                      onError={handleImageError}
                   />
@@ -119,7 +119,7 @@ const NewsCard = () => {
                     {news.title}
                   </div>
                   <p className="text-gray-400 twoLinePara font-semibold text-base">
-                    {parse(news.description)}
+                    {parse(news?.description || '')}
 
                   </p>
                 </div>
