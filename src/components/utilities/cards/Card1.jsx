@@ -3,10 +3,10 @@ import { HomePageBottomCard } from '../../../redux/slices/homeContent/HomePageBo
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
-import ticketimg0 from '../../../assets/img/lowTicket/1.jpeg'
-import ticketimg1 from '../../../assets/img/lowTicket/2.jpeg'
-import ticketimg2 from '../../../assets/img/lowTicket/rech.jpeg'
-import ticketimg3 from '../../../assets/img/lowTicket/4.jpeg'
+import ticketimg0 from '../../../assets/img/lowTicket/11.png'
+import ticketimg1 from '../../../assets/img/lowTicket/22.png'
+import ticketimg2 from '../../../assets/img/lowTicket/rech1.png'
+import ticketimg3 from '../../../assets/img/lowTicket/44.png'
 
 
 
