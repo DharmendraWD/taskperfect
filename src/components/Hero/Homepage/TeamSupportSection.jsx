@@ -65,7 +65,7 @@ if (homepageContent.loading) {
   {/* The "Precise Care" Tag */}
   <div className="flex justify-center items-center p-4">
   <div className="rounded-[57px] text-gray-400 border-b border-b-white/20 px-8 py-3 text-lg font-medium">
-  Precise Care
+  Promoquity Care
   </div>
   </div>
   
@@ -94,18 +94,18 @@ if (homepageContent.loading) {
     
       </div>
       {showPopup && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-          <div className="bg-[#081a3b]  rounded-xl border border-dashed border-white/20 px-6 pb-6 pt-2 rounded-lg shadow-lg w-[90%] max-w-md animate-fade-in">
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50" onClick={() => setShowPopup(false)}>
+          <div className="bg-[#081a3b]  rounded-xl border border-dashed border-white/20 px-6 pb-6 pt-2 rounded-lg shadow-lg w-[90%] lg:max-w-[80%] lg:min-w-[80%] max-w-md animate-fade-in">
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setShowPopup(false)}
-                className="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700"
+                className="px-4 py-2 rounded bg-[grey] text-[#b70000] hover:bg-red-400 hover:text-white"
               >
                X
               </button>
             </div>
             {/* <h2 className="text-lg font-semibold text-gray-800 mb-4">Confirm Logout</h2> */}
-            <p className="text-white mb-6">{teamSupportData?.description}</p>
+            <p className="text-[#b6b6b6] mb-6">{teamSupportData?.description}</p>
 
           </div>
         </div>
