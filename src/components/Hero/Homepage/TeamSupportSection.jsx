@@ -74,7 +74,7 @@ if (homepageContent.loading) {
   
   {/* Description Paragraph */}
   <div className="paraandTopic ">
-    <p className="text-gray-400 text-base sm:text-lg md:text-xl  max-w-2xl twoLinePara">
+    <p className="text-gray-400 text-base sm:text-lg md:text-xl  max-w-4xl twoLinePara">
   {teamSupportData?.description}
   </p><span
       className="text-white cursor-pointer ml-1 flex items-center gap-1"
