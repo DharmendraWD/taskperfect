@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import parse from 'html-react-parser';
 import Loading2 from '../../utilities/loading/Loading2';
+import { extractYouTubeEmbedData } from "../../utilities/tools/ExtractYtEmbedData";
 
 export const VITE_WEB_BASE_DOWNLOAD_URL = import.meta.env.VITE_WEB_BASE_DOWNLOAD_URL;
 
@@ -50,6 +51,11 @@ const BlogPostDetail = () => {
     dispatch(getBlogById(id));
   }, [dispatch, id]);
 
+
+ if(blog){
+  console.log(blog.data.videoURL)
+ }
+
 if (blogStatus?.loading){  
   return  <div className='text-white min-h-screen flex justify-center items-center text-2xl'>
   <Loading2 />
@@ -60,6 +66,19 @@ if (blogStatus?.loading){
 if(blogStatus?.error){
   return <div className='text-red-300 min-h-screen flex justify-center items-center text-2xl'>{blogStatus?.error}</div>
 }
+
+
+
+// yt videoo 
+if(blog?.data?.videoURL){
+var videoURL = blog?.data?.videoURL;
+ var { videoId, playlistId } = extractYouTubeEmbedData(videoURL || "");
+
+  var embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}${
+    playlistId ? `?list=${playlistId}` : ""
+  }`;
+}
+// yt videoo end 
   const HeroSection = () => (
     <div className=" pt-12 pb-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto text-center">
@@ -80,11 +99,22 @@ if(blogStatus?.error){
       <div className="max-w-5xl mx-auto mt-8 relative h-64 sm:h-80 md:h-96 rounded-lg overflow-hidden shadow-xl">
         {/* <img src={blog?.data?.images?.[0] ? blog?.data?.image1 : noImage} alt="Blog Post Hero" className="w-full h-full object-cover" /> */}
 
-        {blog?.data?.images?.[0] && (
-        <img src={blog?.data?.images?.[0] ? VITE_WEB_BASE_DOWNLOAD_URL+blog?.data?.fileURL+blog?.data?.image1 : noImage} alt="Blog Post Hero" className="w-full h-full object-cover" />
-
-)}
-        <div className="absolute inset-0 "></div>
+{
+  blog?.data?.videoURL ? (
+     <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-lg">
+      <iframe
+        src={embedUrl}
+        title="YouTube video player"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+        className="absolute top-0 left-0 w-full h-full"
+      ></iframe>
+    </div>
+  ) : (
+    <img src={blog?.data?.images?.[0] ? BASE_WEB_URL+blog?.data?.fileURL+blog?.data?.image1 : noImage} alt="Blog Post Hero" className="w-full h-full object-cover" />
+  )
+}
       </div>
     </div>
   );
