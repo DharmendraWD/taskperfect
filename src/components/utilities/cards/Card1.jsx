@@ -27,7 +27,7 @@ let cards = cardData?.HomePageBottomCard?.data?.items || [];
 
   return (
     <>
-      {cards.map((card, index) => (
+      {cards.slice(0, 4).map((card, index) => (
         <div key={index} className="bg_transparent relative rounded-[20px] min-h-[320px]  w-[100%] overflow-hidden p-4 md:p-6 lg:p-8 text-white">
           {/* <img src={card?.image || cardImg} alt="Card Image" className=" absolute right-[10%] w-[100px] opacity-40 object-cover mb-4 rounded" /> */}
           {/* <img src={"ticketimg"+index+".jpeg"} alt="" className='background: #6b6969;
