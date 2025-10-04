@@ -73,7 +73,8 @@ const [activeIndex, setActiveIndex] = useState(null);
 // /KPIDetail/GetPagedKPIDetailList?pageIndex=1&pageSize=10
 // get kpi details and description 
 const [kpiAray, setkpiAray] = useState()
-const [kpiText, setkpiText] = useState("")
+const [kpiDesc, setkpidesc] = useState("")
+const [kpidet, setkpidet] = useState("")
 useEffect(() => {
   const fetchData = async () => {
     try {
@@ -111,27 +112,34 @@ const handleClick = (index) => {
     api = `/FinancialKPI/GetPagedFinancialKPIList?pageIndex=1&pageSize=10&companyId=${id}`;
     setbtnClicked(kpiItems[index]) 
     settabIndex(index)
-    setkpiText(kpiAray[1]?.description ? kpiAray[1]?.description : "" + kpiAray[1]?.details ? kpiAray[1]?.details : "")
+    // setkpiText((kpiAray[1]?.description || "") + (kpiAray[1]?.details || ""));
+    setkpidesc(kpiAray[1]?.description || "")
+    setkpidet(kpiAray[1]?.details || "")
+    // console.log(kpiAray[1]?.description + kpiAray[1]?.details)
+
+
   } else if (kpiItems[index] === "Valuation KPI") {
     api = `/ValuationKPI/GetPagedValuationKPIList?pageIndex=1&pageSize=10&companyId=${id}`;
     setbtnClicked(kpiItems[index])
     settabIndex(index)
-    setkpiText(kpiAray[2]?.description ? kpiAray[1]?.description : "" + kpiAray[2]?.details ? kpiAray[1]?.details : "")
+   setkpidesc(kpiAray[2]?.description || "")
+    setkpidet(kpiAray[2]?.details || "")
 
 
   } else if (kpiItems[index] === "Operation KPI") {
     api = `/OperationalKPI/GetPagedOperationalKPIList?pageIndex=1&pageSize=10&companyId=${id}`;
     setbtnClicked(kpiItems[index])
     settabIndex(index)
-      setkpiText(kpiAray[3]?.description ? kpiAray[1]?.description : "" + kpiAray[3]?.details ? kpiAray[1]?.details : "")
-
+   setkpidesc(kpiAray[3]?.description || "")
+    setkpidet(kpiAray[3]?.details || "")
 
 
   } else if (kpiItems[index] === "Market KPI") {
     api = `/MarketKPI/GetPagedMarketKPIList?pageIndex=1&pageSize=10&companyId=${id}`;
     setbtnClicked(kpiItems[index])
     settabIndex(index)
-    setkpiText(kpiAray[4]?.description ? kpiAray[1]?.description : "" + kpiAray[4]?.details ? kpiAray[1]?.details : "")
+      setkpidesc(kpiAray[4]?.description || "")
+    setkpidet(kpiAray[4]?.details || "")
 
 
 
@@ -645,10 +653,18 @@ if(singlePromoshareData?.loading){
       {/* kpis text detail desc */}
       <div className=" p-8 rounded-xl leading-relaxed text-gray-300">
         <div>
-          {kpiText && (
+          {kpiDesc && (
             <>
               <hr className="border-gray-600 my-4  w-full h-2"></hr>
-              {parse(kpiText)}
+              {parse(kpiDesc)}
+            </>
+          )}
+        </div>
+<br />
+        <div>
+          {kpidet && (
+            <>
+              {parse(kpidet)}
             </>
           )}
         </div>
