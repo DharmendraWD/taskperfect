@@ -37,6 +37,7 @@ import { useSelector } from 'react-redux';
 import { Route, Routes, BrowserRouter, Link } from 'react-router-dom';
 import './index.css'
 import Legal from './components/footer/legal/Legal';
+import ProcessFlow from './components/utilities/cards/ProcessFlow';
 
 function App() {
 UpperTitle();
@@ -72,12 +73,12 @@ const handBg = "linear-gradient(2deg, #2c3139 17.55%, rgb(129 0 0 / 0%) 88.6%)";
         <TeamSupportSection></TeamSupportSection>
         <FAQ></FAQ>
         <BlogPosts></BlogPosts>
-      <div className='flex pb-32 items-center w-full items-center justify-center mt-[40px]'>
-    <Button label="View More" link="/blogs" />
-  </div>
-        <div className='flex items-center flex-col w-full items-center justify-center'>
+<div className='lg:mt-[90px] lg:mb-[50px] mt-[40px] mb-[20px]'>
+  <ProcessFlow></ProcessFlow>
+</div>
+        <div className='flex items-center flex-col w-full items-center mt-[150px] mb-[50px] justify-center'>
     <HeadingL label="Your gateway to growth" />
-                 <Button2 label="Get Started Right Now"  link="/"></Button2>
+                 <Button2 label="Get Started Right Now"  link="/login"></Button2>
 </div>
       <AboveFooter my0={"100px"} handBg={handBg}></AboveFooter>
         </>

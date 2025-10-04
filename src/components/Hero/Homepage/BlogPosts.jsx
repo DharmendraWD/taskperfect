@@ -43,8 +43,8 @@ const BlogPosts = () => {
 
         {first3BlogsData?.data?.items?.[0] && (
        <Link to={"/blog/"+first3BlogsData?.data?.items?.[0].id} state={first3BlogsData?.blogs?.data?.items?.[0]} className=''>
-        <div className='flex  flex-col md:flex-row bg-transparent rounded-lg overflow-hidden'>
-         <div className="relative allCards group overflow-hidden  md:col-span-1 lg:col-span-1">
+        <div className='flex  flex-col md:flex-row bg-transparent rounded-lg overflow-hidden m-auto'>
+         <div className="relative allCards group overflow-hidden  md:col-span-1 lg:col-span-1 m-auto">
            <img
             src={ VITE_WEB_BASE_DOWNLOAD_URL+first3BlogsData?.data?.items?.[0]?.fileURL+first3BlogsData?.data?.items?.[0]?.image1 || noImg}
             alt={"img"}
@@ -70,10 +70,10 @@ const BlogPosts = () => {
         {/* Small Cards */}
         <div className="grid grid-cols-1 gap-8">
           {first3BlogsData?.data?.items.slice(1, 3).map((blog, index) => (
-            <div key={index} className="flex allCards flex-col md:flex-row  bg-transparent rounded-lg overflow-hidden">
-              <Link to={"/blog/"+blog.id} state={blog} className=''>
-               <div className='flex flex-col md:flex-row items-center gap-4 bg-transparent rounded-lg overflow-hidden'>
-                <div className="w-full md:w-1/2 flex-shrink-0 relative">
+            <div key={index} className="flex allCards flex-col h-[100%] md:flex-row  bg-transparent rounded-lg overflow-hidden m-auto">
+              <Link to={"/blog/"+blog.id} state={blog} className='h-[100%]'>
+               <div className='flex flex-col md:flex-row h-[100%] items-center gap-4 bg-transparent rounded-lg overflow-hidden'>
+                <div className="w-full h-[100%]  md:w-1/2 flex-shrink-0 relative">
                 <img
                   src={VITE_WEB_BASE_DOWNLOAD_URL+blog?.fileURL+blog?.image1 || noImg}
                   alt={"img"}

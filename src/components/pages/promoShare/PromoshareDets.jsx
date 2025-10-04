@@ -17,7 +17,11 @@ import assets from '../../../assets/img/assets.png'
 import profit from '../../../assets/img/profit.png'
 import warn from '../../../assets/img/warn.png'
 import Loading2 from '../../utilities/loading/Loading2';
+import axios from 'axios';
+import parse from 'html-react-parser';
 
+
+export const BASE_API_URL = import.meta.env.VITE_API_BASE_URL;
 
 
 function Promoshare() {
@@ -66,11 +70,30 @@ const [activeIndex, setActiveIndex] = useState(null);
    const [news, setnews] = useState([]);
 
 
-//    useEffect(() => {
-//   if (singlePromoSHareDets?.description) {
-//     setDesc(singlePromoSHareDets.description);
-//   }
-// }, [singlePromoSHareDets?.description, btnClicked]);
+// /KPIDetail/GetPagedKPIDetailList?pageIndex=1&pageSize=10
+// get kpi details and description 
+const [kpiAray, setkpiAray] = useState()
+const [kpiText, setkpiText] = useState("")
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const res = await axios.get(`${BASE_API_URL}/KPIDetail/GetPagedKPIDetailList?pageIndex=1&pageSize=10`);
+      const data = res.data?.data?.items;
+      setkpiAray(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  fetchData();
+}, []);
+
+
+// get kpi details and description end
+
+
+
+
 // setting default first paragraph 
 useEffect(() => {
   if (singlePromoSHareDets?.remarks1) {
@@ -86,23 +109,30 @@ const handleClick = (index) => {
 
   if (kpiItems[index] === "Financial KPI") {
     api = `/FinancialKPI/GetPagedFinancialKPIList?pageIndex=1&pageSize=10&companyId=${id}`;
-    setbtnClicked(kpiItems[index])
-    
+    setbtnClicked(kpiItems[index]) 
     settabIndex(index)
+    setkpiText(kpiAray[1]?.description ? kpiAray[1]?.description : "" + kpiAray[1]?.details ? kpiAray[1]?.details : "")
   } else if (kpiItems[index] === "Valuation KPI") {
     api = `/ValuationKPI/GetPagedValuationKPIList?pageIndex=1&pageSize=10&companyId=${id}`;
     setbtnClicked(kpiItems[index])
     settabIndex(index)
+    setkpiText(kpiAray[2]?.description ? kpiAray[1]?.description : "" + kpiAray[2]?.details ? kpiAray[1]?.details : "")
+
 
   } else if (kpiItems[index] === "Operation KPI") {
     api = `/OperationalKPI/GetPagedOperationalKPIList?pageIndex=1&pageSize=10&companyId=${id}`;
     setbtnClicked(kpiItems[index])
     settabIndex(index)
+      setkpiText(kpiAray[3]?.description ? kpiAray[1]?.description : "" + kpiAray[3]?.details ? kpiAray[1]?.details : "")
+
+
 
   } else if (kpiItems[index] === "Market KPI") {
     api = `/MarketKPI/GetPagedMarketKPIList?pageIndex=1&pageSize=10&companyId=${id}`;
     setbtnClicked(kpiItems[index])
     settabIndex(index)
+    setkpiText(kpiAray[4]?.description ? kpiAray[1]?.description : "" + kpiAray[4]?.details ? kpiAray[1]?.details : "")
+
 
 
   } else if (kpiItems[index] === "News") {
@@ -209,13 +239,13 @@ if(singlePromoshareData?.loading){
           <p className="text-gray-400 text-sm">Price Per Share</p>
           <p className="text-lg truncate-two-words">{singlePromoSHareDets?.remarks1} <span className="text-gray-400 text-sm">| Face Value |</span></p>
         </div>
-        <div>
+        {/* <div>
           <p className="text-gray-400 text-sm">Available on</p>
           <div className="flex space-x-2 mt-1">
             <img src={googleAdImg} alt="Google" className="h-10 w-10 rounded-md" />
             <img src={Barclays} alt="Bing" className="h-10 w-10 rounded-md" />
           </div>
-        </div>
+        </div> */}
       </div>
       
       {/* Navigation Tabs */}
@@ -609,6 +639,19 @@ if(singlePromoshareData?.loading){
         <p>
           {desc&& desc}
         </p>
+       
+      </div>
+
+      {/* kpis text detail desc */}
+      <div className=" p-8 rounded-xl leading-relaxed text-gray-300">
+        <div>
+          {kpiText && (
+            <>
+              <hr className="border-gray-600 my-4  w-full h-2"></hr>
+              {parse(kpiText)}
+            </>
+          )}
+        </div>
        
       </div>
     </div>

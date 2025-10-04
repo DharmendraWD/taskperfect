@@ -95,17 +95,17 @@ if (homepageContent.loading) {
       </div>
       {showPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50" onClick={() => setShowPopup(false)}>
-          <div className="bg-[#081a3b]  rounded-xl border border-dashed border-white/20 px-6 pb-6 pt-2 rounded-lg shadow-lg w-[90%] lg:max-w-[80%] lg:min-w-[80%] max-w-md animate-fade-in">
+          <div className="bg-[#081a3b]  min-h-[300px] m-auto rounded-xl border border-dashed border-white/20 px-6 pb-6 pt-2 rounded-lg shadow-lg w-[90%] lg:max-w-[80%] lg:min-w-[80%] max-w-md animate-fade-in">
             <div className="flex justify-end gap-3">
-              <button
+              {/* <button
                 onClick={() => setShowPopup(false)}
                 className="px-4 py-2 rounded bg-[grey] text-[#b70000] hover:bg-red-400 hover:text-white"
               >
                X
-              </button>
+              </button> */}
             </div>
             {/* <h2 className="text-lg font-semibold text-gray-800 mb-4">Confirm Logout</h2> */}
-            <p className="text-[#b6b6b6] mb-6">{teamSupportData?.description}</p>
+            <p className="text-[#b6b6b6] m-auto mb-6">{teamSupportData?.description}</p>
 
           </div>
         </div>
