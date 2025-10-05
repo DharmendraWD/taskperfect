@@ -52,9 +52,6 @@ const BlogPostDetail = () => {
   }, [dispatch, id]);
 
 
- if(blog){
-  console.log(blog.data.videoURL)
- }
 
 if (blogStatus?.loading){  
   return  <div className='text-white min-h-screen flex justify-center items-center text-2xl'>

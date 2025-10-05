@@ -38,48 +38,6 @@ function DownloadCard() {
 const [loadingIndex, setLoadingIndex] = useState(null);
 const [progressMap, setProgressMap] = useState({});
 
-//  const handleDownload = async (itemId, limit, skip) => {
-//     setIsLoading(true);
-//     try {
-//       // 1. Get the list of downloadable files
-//       const { data } = await axios.get(
-//         `http://3.27.120.54:81/api/DownloadFiles/GetPagedDownloadList?pageIndex=${skip}&pageSize=${limit}`
-//       );
-
-//       const item = data?.data?.items[itemId];
-//       if (!item) {
-//         alert("No files found.");
-//         return;
-//       }
-
-//       // 2. Construct full file URL
-//       const fileUrl =
-//         "http://3.27.120.54:81" +
-//         item.fileURL +
-//         item.docName;
-
-//         console.log("RiFileUserLine", fileUrl)
-//       // 3. Download the file as a blob
-//       const fileResponse = await axios.get(fileUrl, {
-//         responseType: "blob",
-//       });
-
-//       // 4. Trigger file download
-//       const blobUrl = window.URL.createObjectURL(new Blob([fileResponse.data]));
-//       const link = document.createElement("a");
-//       link.href = blobUrl;
-//       link.setAttribute("download", item?.docName);
-//       document.body.appendChild(link);
-//       link.click();
-//       link.remove();
-//       window.URL.revokeObjectURL(blobUrl);
-//     } catch (error) {
-//       console.error("Download failed:", error);
-//       alert("FIle not available");
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   };
 
 const handleDownload = async (itemIndex, limit, skip) => {
   setLoadingIndex(itemIndex);
