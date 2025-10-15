@@ -18,7 +18,6 @@ useEffect(() => {
     try {
       const res = await axios.get(`${BASE_API_URL}/CompanySlideShowImg/GetPagedSlideShowItemList?pageIndex=1&pageSize=10`);
       const data = res.data?.data?.items;
-      console.log(data)
       setimages(data);
     } catch (error) {
       console.error(error);
@@ -52,19 +51,25 @@ useEffect(() => {
       setFade(true);
     }, 300);
   };
-
-  return (
+console.log(images.length)
+return (
+  images.length >= 1 && (
     <div className={styles.sliderContainer}>
       <div
         className={`${styles.sliderImage} ${fade ? styles.fadeIn : styles.fadeOut}`}
       >
-        <img src={BASE_WEB_URL+images[currentIndex]?.imageUrl} alt={`Slide ${currentIndex}`} />
-
+        <img
+          src={BASE_WEB_URL + images[currentIndex]?.imageUrl}
+          alt={`Slide ${currentIndex}`}
+        />
       </div>
       <button className={styles.prevButton} onClick={handlePrev}>⟨</button>
       <button className={styles.nextButton} onClick={handleNext}>⟩</button>
     </div>
-  );
+  )
+);
+
+
 };
 
 export default ImageSlider;
