@@ -19,6 +19,7 @@ import warn from '../../../assets/img/warn.png'
 import Loading2 from '../../utilities/loading/Loading2';
 import axios from 'axios';
 import parse from 'html-react-parser';
+import Slider from "./Slider"
 
 
 export const BASE_API_URL = import.meta.env.VITE_API_BASE_URL;
@@ -56,6 +57,8 @@ const [activeIndex, setActiveIndex] = useState(null);
     "Market KPI",
     "News"
   ];
+
+
 
 
   const tabData = useSelector((state) => state.promoshareTabs?.data);
@@ -280,6 +283,8 @@ if(singlePromoshareData?.loading){
         </button>
       ))}
     </div>
+
+    <Slider></Slider>
       
       {/* Facts & Figures Section */}
       <div className="mb-8">
