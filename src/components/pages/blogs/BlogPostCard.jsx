@@ -46,6 +46,8 @@ import { FaArrowRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import parse from 'html-react-parser';
 import Loading2 from '../../utilities/loading/Loading2';
+export const VITE_WEB_BASE_DOWNLOAD_URL = import.meta.env.VITE_WEB_BASE_DOWNLOAD_URL;
+
 
 const BlogPostCard = ({ blog, noImage }) => {
   // Optional: Clean up blogDesc from unwanted empty tags
@@ -55,7 +57,7 @@ const BlogPostCard = ({ blog, noImage }) => {
     <div className="rounded-lg allCards overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.02]">
       <div className="relative h-48 sm:h-56">
         <img
-          src={BASE_WEB_URL+blog?.fileURL+blog?.image1 || noImage}
+          src={VITE_WEB_BASE_DOWNLOAD_URL+blog?.fileURL+blog?.image1 || noImage}
           alt={blog.blogTitle}
           className="w-full h-full object-cover"
         />

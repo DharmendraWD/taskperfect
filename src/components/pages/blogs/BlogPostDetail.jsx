@@ -12,6 +12,7 @@ import parse from 'html-react-parser';
 import Loading2 from '../../utilities/loading/Loading2';
 import { extractYouTubeEmbedData } from "../../utilities/tools/ExtractYtEmbedData";
 
+export const VITE_WEB_BASE_DOWNLOAD_URL = import.meta.env.VITE_WEB_BASE_DOWNLOAD_URL;
 export const BASE_WEB_URL = import.meta.env.VITE_WEB_BASE_URL;
 
 
